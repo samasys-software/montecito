@@ -13,7 +13,8 @@ angular.module('Authentication')
             AuthenticationService.Login($scope.username, $scope.password, function(data) {
                 if(!data.error) {
                     AuthenticationService.SetCredentials(data.firstName, data.lastName, data.token);
-                    $location.path('/');
+                    $rootScope.token = data.token;
+                    $location.path('/api/tasks/user');
                 } else {
                     $scope.error = response.message;
                     $scope.dataLoading = false;

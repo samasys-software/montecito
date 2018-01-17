@@ -43,6 +43,27 @@ angular.module('Authentication')
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic ';
         };
+        service.getItemCriticality = function(token,callback){
+            console.log(token);
+            $http({
+                url:"/montecito/api/tasks/user",
+                method:"GET"
+            }).success(function(data, status,headers,config){
+                callback(data);
+            }).error(function(data, status, headers, config){
+                console.log(data);
+            });
+        };
+        service.getConsuptionInfo = function(token,callback){
+          $http({
+                url:"/montecito/api/items/consumption/today/category",
+                method:"GET"
+            }).success(function(data, status,headers,config){
+                callback(data);
+            }).error(function(data, status, headers, config){
+                console.log(data);
+            });  
+        };
  
         return service;
     }])

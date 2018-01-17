@@ -2,7 +2,7 @@
 
 // declare modules
 angular.module('Authentication', []);
-angular.module('Home', []);
+angular.module('Home', ["ng-fusioncharts", "ngStomp"]);
 angular.module('Registration', []);
 
 angular.module('BasicHttpAuthExample', [
@@ -21,7 +21,7 @@ angular.module('BasicHttpAuthExample', [
             hideMenus: true
         })
  
-        .when('/', {
+        .when('/api/tasks/user', {
             controller: 'HomeController',
             templateUrl: 'modules/home/views/home.html'
         })

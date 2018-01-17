@@ -2,6 +2,12 @@
 <html ng-app="BasicHttpAuthExample">
 
   <head>
+      <style> @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+          .chartContainer {height:400px;}
+    }
+          .chartContainer {height:250px;}
+      </style>
     <meta charset="utf-8" />
       <meta name = "viewport" content = "width = device-width"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
@@ -10,13 +16,12 @@
 
   <body>
   
-    <div class="jumbotron">
-      <div class="container">
-        <div class="col-xs-12">
+    
+      
           <div ng-view></div>
-        </div>
-      </div>
-    </div>
+      
+      
+    
 
 
 
@@ -27,11 +32,16 @@
     <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
     <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
       <script src="//code.angularjs.org/1.2.20/angular-sanitize.min.js"></script>
+      <script type="text/javascript" src="fusioncharts/angular-fusioncharts.min.js"></script>
+      <script type="text/javascript" src="fusioncharts/fusioncharts.js"></script>
+      <script type="text/javascript" src="fusioncharts/fusioncharts.charts.js"></script>
+      <script src="fusioncharts/ng-stomp.standalone.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="modules/authentication/services.js"></script>
     <script src="modules/authentication/controllers.js"></script>
     <script src="modules/home/controllers.js"></script>
       <script src="modules/registration/controllers.js"></script>
+      <script src="modules/forgetPassword/controllers.js"></script>
       
   </body>
 
