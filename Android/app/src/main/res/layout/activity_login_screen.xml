@@ -19,6 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/loginImage"
+
             android:layout_weight="1"/>
         <EditText
             android:layout_width="0dp"
@@ -37,7 +38,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/passwordImage"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+
+            />
+
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
