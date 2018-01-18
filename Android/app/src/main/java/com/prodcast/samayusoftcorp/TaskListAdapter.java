@@ -60,8 +60,8 @@ public class TaskListAdapter extends BaseAdapter {
 
     public class Holder
     {
-        ImageView iv1;
-        TextView tv1,tv2,tv3;
+        //ImageView iv1;
+        TextView tv1,tv2,tv3,tv4;
 
         int position;
 
@@ -77,8 +77,10 @@ public class TaskListAdapter extends BaseAdapter {
             holder.tv1 = (TextView) convertView.findViewById(R.id.itemName);
             holder.tv2 = (TextView) convertView.findViewById(R.id.location);
 
-            holder.iv1 = (ImageView) convertView.findViewById(R.id.statusImage);
+           // holder.iv1 = (ImageView) convertView.findViewById(R.id.statusImage);
             holder.tv3 = (TextView) convertView.findViewById(R.id.availability);
+
+            holder.tv4 = (TextView) convertView.findViewById(R.id.statusImage);
             convertView.setTag(holder);
         }
         else{
@@ -89,12 +91,14 @@ public class TaskListAdapter extends BaseAdapter {
         String itemName = availabilityDTO.getItem();
         String location = availabilityDTO.getLocation();
         String available = availabilityDTO.getAvailable();
+        String status= availabilityDTO.getStatus();
 
         holder.tv1.setText(itemName);
 
         holder.tv2.setText(location);
         holder.tv3.setText(available);
-        // holder.tv4.setText("Other Tax : "+String.valueOf(product.getOtherTax()));
+        holder.tv4.setText(status);
+
 
 
 

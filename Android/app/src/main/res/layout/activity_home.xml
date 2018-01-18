@@ -1,43 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="5dp">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_home"/>
 
-<LinearLayout
-    android:layout_weight="1"
-    android:layout_width="match_parent"
-    android:layout_height="0dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="My Tasks"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
 
-   <ListView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/list">
-
-   </ListView>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="0dp">
 
 
-   <LinearLayout
-       android:orientation="vertical"
-       android:layout_weight="1"
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       >
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Today's Consumption Patterns"
-          android:textStyle="bold"
-          android:gravity="center"/>
-   <com.github.mikephil.charting.charts.HorizontalBarChart
-       android:id="@+id/chart"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:scaleType="fitXY" />
-   </LinearLayout>
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:divider="@android:color/black"
+            android:dividerHeight="5dp"
+            android:padding="0dp">
+
+        </ListView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Today's Consumption Patterns"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+    </LinearLayout>
 
 </LinearLayout>
