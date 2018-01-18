@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,87 +8,143 @@
     android:gravity="center_horizontal"
     android:background="@drawable/ic_login_background"
     >
+    <RelativeLayout
+        android:id="@+id/rlimagemontecito"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="150dp"
-        android:layout_gravity="center_vertical">
+
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/loginImage"
+            app:srcCompat="@drawable/logo"
+            android:id="@+id/montecitoLogo"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-            android:layout_weight="1"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlnamemontecito"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/montecitoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="montecito"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+
+            android:textAlignment="center"
+            android:textSize="40dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlmobile"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:layout_centerVertical="true"
+
+        android:layout_marginTop="30dp"
+
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp">
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/username" />
+
         <EditText
+
+            style="@style/editText"
+            android:layout_marginLeft="50dp"
+            android:background="@null"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/loginID"
             android:hint="Enter Email ID"
-            android:layout_weight="4"/>
-    </LinearLayout>
+            android:layout_weight="4"
 
-    <LinearLayout
+            android:textAllCaps="false"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlpin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/passwordImage"
-            android:layout_weight="1"
+        android:layout_height="40dp"
 
-            />
+
+        android:layout_marginTop="20dp"
+
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp">
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/password" />
 
         <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+
+            style="@style/editText"
+            android:layout_marginLeft="50dp"
+            android:background="@null"
+
             android:id="@+id/password"
             android:hint="Enter Password"
 
-            android:layout_weight="4"/>
+            android:layout_weight="4"
 
-    </LinearLayout>
+            android:textAllCaps="false"/>
+
+    </RelativeLayout>
+
+
+
+
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loginButton"
+        android:layout_marginTop="20dp"
         android:text="Login"
+        android:background="#21547c"
         android:layout_gravity="center"/>
 
 
     <TextView
+        android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/forgotPassword"
-        android:text="Forget Password ?"/>
+        android:layout_marginTop="20dp"
+        android:text="Forget Password ?"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:textColor="#0061FF"
+        android:textStyle="italic" />
 
-        <TextView
 
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_gravity="center_horizontal"
-            android:gravity="end"
-            android:text="First time user please click" />
-        <TextView
-            android:id="@+id/newUser"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
-            android:gravity="start"
-            android:text="here"/>
-
-    </LinearLayout>
 
 </LinearLayout>
