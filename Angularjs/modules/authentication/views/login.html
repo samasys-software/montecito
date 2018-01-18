@@ -1,10 +1,10 @@
-
 <div ng-show="error" class="alert alert-danger">{{error}}</div>
 <form name="form" ng-submit="login()" role="form" method="post">
-    <div class="jumbotron" >
+<div class="container">
 <h1 style="text-align: center"><b>Product Name</b></h1>
-</div>
-    <div class="well container wrapper">
+
+    <div class = "row">
+        <div class="col-4 col-sm-6 col-xs-12 col-lg-offset-3">
     <div class="form-group">
         <label for="username">Username</label>
         <i class="fa fa-key"></i>
@@ -23,5 +23,7 @@
     </div>
         <a href="#/">Forget Password!</a>
         <p>First time User, Please click <a href ="#/registration">here</a></p>
+    </div>
+    </div>
     </div>
 </form>
