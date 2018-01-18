@@ -3,27 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:id="@+id/list_layout">
+    android:id="@+id/list_layout"
+    android:layout_marginBottom="10dp">
 
 
     <LinearLayout
-        android:layout_weight="3"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/itemName"
-        android:text="Item Name"/>
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
+            android:id="@+id/itemName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:padding="3dp"
+            android:text="Item Name"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/location"
-            android:text="Location"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="2dp"
+            android:text="Location" />
     </LinearLayout>
 
         <LinearLayout
@@ -32,20 +39,24 @@
             android:orientation="vertical"
 
             android:layout_weight="1">
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="end"
-                android:id="@+id/statusImage"
-                />
+
             <TextView
-                android:layout_weight="1"
+                android:id="@+id/statusImage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:id="@+id/availability"
+                android:layout_weight="1"
                 android:gravity="end"
-                android:text="Availablity"/>
+                android:padding="2dp"
+                android:text="status" />
+
+            <TextView
+                android:id="@+id/availability"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="2dp"
+                android:text="Availablity" />
         </LinearLayout>
 
 

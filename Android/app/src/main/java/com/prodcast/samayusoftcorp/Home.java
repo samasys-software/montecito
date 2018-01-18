@@ -87,37 +87,7 @@ public class Home extends AppCompatActivity {
                     BarChart barChart = findViewById(R.id.chart);
 
                     final List<ConsumptionInfo> consumptionInfo = response.body();
-                    List<BarEntry> data = new ArrayList<>();
-                    for(int i =0; i<consumptionInfo.size(); i++){
-                        data.add( new BarEntry(i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
-                                           }
-
-                    BarDataSet dataSet = new BarDataSet(data,"Label");
-
-                    final ArrayList<String> xAxisLabel = new ArrayList<>();
-                    for( int j =0; j<consumptionInfo.size(); j++){
-                    xAxisLabel.add(consumptionInfo.get(j).getItem());
-                    }
-                    XAxis xAxis=barChart.getXAxis();
-                    xAxis.setValueFormatter(new IAxisValueFormatter() {
-                        @Override
-                        public String getFormattedValue(float value, AxisBase axis) {
-                            if(xAxisLabel.size()> 0){
-                            for(int i=0;i<xAxisLabel.size();i++){
-                                return xAxisLabel.get(i);
-                            }}
-
-                                return "label";
-
-                        }
-                    });
-
-                    dataSet.setColor(Color.BLUE);
-                    dataSet.setValueTextColor(Color.BLACK);
-
-                    BarData barData = new BarData(dataSet);
-                    barChart.setData( barData );
-                    barChart.invalidate();
+                    updateChart( barChart , consumptionInfo );
                 }
                 else
                 {
@@ -135,7 +105,29 @@ public class Home extends AppCompatActivity {
 
     }
 
+    private void updateChart(BarChart barChart, List<ConsumptionInfo> consumptionInfo){
+        List<BarEntry> data = new ArrayList<>();
+        for(int i =0; i<consumptionInfo.size(); i++){
+            data.add( new BarEntry(i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
+        }
 
+        BarDataSet dataSet = new BarDataSet(data,"Usage");
+       // barChart.setDescription("");
+        barChart.getAxisLeft().setDrawLabels(false);
+        barChart.getAxisRight().setDrawLabels(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.getXAxis().setDrawLabels(false);
+
+
+        //dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setColors(new int[] {Color.RED,Color.GREEN, Color.BLUE,Color.YELLOW});
+
+        BarData barData = new BarData(dataSet);
+        barChart.setData( barData );
+        barChart.invalidate();
+
+    }
     private void connectWebSocket() {
         URI uri;
         try {
@@ -175,38 +167,7 @@ public class Home extends AppCompatActivity {
                             }
 
                             final List<ConsumptionInfo> consumptionInfo = list;
-                            List<BarEntry> data = new ArrayList<>();
-                            for (int i = 0; i < consumptionInfo.size(); i++) {
-                                data.add(new BarEntry(i, (float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
-                            }
-
-                            BarDataSet dataSet = new BarDataSet(data, "Label");
-
-                            final ArrayList<String> xAxisLabel = new ArrayList<>();
-                            for (int j = 0; j < consumptionInfo.size(); j++) {
-                                xAxisLabel.add(consumptionInfo.get(j).getItem());
-                            }
-                            XAxis xAxis = barChart.getXAxis();
-                            xAxis.setValueFormatter(new IAxisValueFormatter() {
-                                @Override
-                                public String getFormattedValue(float value, AxisBase axis) {
-                                    if (xAxisLabel.size() > 0) {
-                                        for (int i = 0; i < xAxisLabel.size(); i++) {
-                                            return xAxisLabel.get(i);
-                                        }
-                                    }
-
-                                    return "label";
-
-                                }
-                            });
-
-                            dataSet.setColor(Color.BLUE);
-                            dataSet.setValueTextColor(Color.BLACK);
-
-                            BarData barData = new BarData(dataSet);
-                            barChart.setData(barData);
-                            barChart.invalidate();
+                            updateChart( barChart , consumptionInfo );
                         }
                         catch(Exception er){
                             er.printStackTrace();

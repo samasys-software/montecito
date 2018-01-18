@@ -4,8 +4,8 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "prodcastd.prodcast.samayu.com.prodcastd"
-        minSdkVersion 26
+        applicationId "com.samayu.montecito"
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"

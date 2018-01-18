@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.prodcast.samayusoftcorp.Home"></activity>
+        <activity android:name="com.prodcast.samayusoftcorp.Home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name="com.prodcast.samayusoftcorp.Register"></activity>
 
 
