@@ -45,7 +45,6 @@ public class LoginScreen extends AppCompatActivity {
         password= (EditText)findViewById(R.id.password);
         loginButton = (Button) findViewById(R.id.loginButton);
         forgetPassword = (TextView)findViewById(R.id.forgotPassword);
-        newUser = (TextView)findViewById(R.id.newUser);
 
 
 
