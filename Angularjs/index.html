@@ -10,6 +10,13 @@
           body  {
     background-image: url("img/abstract-light-blue-wallpaper-2.jpg");
 }
+          .affix {
+        
+      top: 0;
+      width: 100%;
+    position: fixed;
+  }
+
         
       </style>
     <meta charset="utf-8" />
@@ -21,7 +28,27 @@
   <body>
   
     
-          
+          <nav class="navbar " data-spy="affix" style="position: fixed; width: 100%; top: 0;" ng-show="showNav == true">
+              <div class="container">
+                   <div class="row">
+                    <ul class="nav navbar-nav" style="width: 100%">
+                        <li class="dropdown" >
+          <a href="#" class="dropdown-toggle col-xs-2 col-2 col-md-2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-bars" style="align-content: center"></span></a>
+          <!--<ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            >
+          </ul>-->
+                       <li><a class=" col-xs-2 col-2 col-md-2" href="#/"><span class="fa fa-binoculars"></span></a></li>
+                       <li><a class="col-xs-2 col-2 col-md-2" href="#/newTicket"><span class="fa fa-bar-chart"></span></a></li>
+                       <li><a class="col-xs-2 col-2 col-md-2" href="#/report"><span class="glyphicon glyphicon-user"></span></a></li>
+                       <li><a class="col-xs-2 col-2 col-md-2" href="#/login"><span class="glyphicon glyphicon-off"></span></a></li>
+                        <li><a class="col-xs-2 col-2 col-md-2" href="#/login"><span class="glyphicon glyphicon-bell"></span></a></li>
+                    </ul>
+                  </div>
+                </div>
+             </nav>
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
           <div ng-view style="padding: 10px"></div>
          
       

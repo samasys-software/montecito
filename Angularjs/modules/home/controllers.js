@@ -5,7 +5,7 @@ angular.module('Home',["ng-fusioncharts", "ngStomp"])
 .controller('HomeController',
     ['$stomp','$scope', '$rootScope', '$location','AuthenticationService',
     function ($stomp, $scope, $rootScope, $location, AuthenticationService) {
-      
+      $rootScope.showNav = true;
       AuthenticationService.getItemCriticality($rootScope.token, function(data){
           if(!data.error){
               $scope.myItems = data;
