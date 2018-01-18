@@ -1,0 +1,16 @@
+@media screen and (max-width: 767px) 
+{
+	.row.content {height: auto;} 
+	.chartContainer {height:400px;}
+}
+	.chartContainer {height:250px;}
+body  
+{
+	background-image: url("img/abstract-light-blue-wallpaper-2.jpg");
+}
+.affix 	
+{
+top: 0;
+width: 100%;
+position: fixed;
+}
