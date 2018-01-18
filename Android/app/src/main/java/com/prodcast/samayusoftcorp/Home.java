@@ -3,6 +3,8 @@ package com.prodcast.samayusoftcorp;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.JsonReader;
 import android.util.Log;
@@ -51,13 +53,20 @@ import java.net.URISyntaxException;
 
 public class Home extends AppCompatActivity {
     ListView list;
+    private TabLayout tabLayout;
+    private ViewPager mViewPager;
     private WebSocketClient mWebSocketClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        connectWebSocket();
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
         String token = SessionInfo.instance().getToken();
 
@@ -65,11 +74,11 @@ public class Home extends AppCompatActivity {
         itemAvailablityDTOCall.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
             @Override
             public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ListView listView = findViewById(R.id.list);
 
-                    List<ItemAvailabilityDTO>  itemAvailabilityDTOList = response.body();
-                    listView.setAdapter(new TaskListAdapter(Home.this,itemAvailabilityDTOList));
+                    List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
+                    listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
                 }
             }
 
@@ -79,116 +88,6 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        final Call <List<ConsumptionInfo>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfo(token);
-        consumptionInfoCall.enqueue(new Callback<List<ConsumptionInfo>>() {
-            @Override
-            public void onResponse(Call<List<ConsumptionInfo>> call, Response<List<ConsumptionInfo>> response) {
-                if(response.isSuccessful()){
-                    BarChart barChart = findViewById(R.id.chart);
-
-                    final List<ConsumptionInfo> consumptionInfo = response.body();
-                    updateChart( barChart , consumptionInfo );
-                }
-                else
-                {
-                    Toast.makeText(Home.this, "Error occured!!!!", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<ConsumptionInfo>> call, Throwable t) {
-
-            }
-        });
-
 
     }
-
-    private void updateChart(BarChart barChart, List<ConsumptionInfo> consumptionInfo){
-        List<BarEntry> data = new ArrayList<>();
-        for(int i =0; i<consumptionInfo.size(); i++){
-            data.add( new BarEntry(i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
-        }
-
-        BarDataSet dataSet = new BarDataSet(data,"Usage");
-       // barChart.setDescription("");
-        barChart.getAxisLeft().setDrawLabels(false);
-        barChart.getAxisRight().setDrawLabels(false);
-        barChart.getLegend().setEnabled(false);
-        barChart.getXAxis().setDrawLabels(false);
-
-
-        //dataSet.setColor(Color.BLUE);
-        dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setColors(new int[] {Color.RED,Color.GREEN, Color.BLUE,Color.YELLOW});
-
-        BarData barData = new BarData(dataSet);
-        barChart.setData( barData );
-        barChart.invalidate();
-
-    }
-    private void connectWebSocket() {
-        URI uri;
-        try {
-            uri = new URI("ws://ec2-52-91-5-22.compute-1.amazonaws.com:8080/montecito/event");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return;
-        }
-
-
-
-        mWebSocketClient = new WebSocketClient(uri) {
-            @Override
-            public void onOpen(ServerHandshake serverHandshake) {
-                Log.i("Websocket", "Opened");
-
-            }
-
-            @Override
-            public void onMessage(String s) {
-                final String message = s;
-                Log.i("Websocket" , "Received "+s);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            BarChart barChart = findViewById(R.id.chart);
-                            JSONArray array = new JSONArray(message);
-                            List<ConsumptionInfo> list = new ArrayList<ConsumptionInfo>();
-                            for(int i=0;i<array.length();i++){
-                                JSONObject obj = (JSONObject)array.get(i);
-
-                                ConsumptionInfo info = new ConsumptionInfo();
-                                info.setItem(obj.getString("item"));
-                                info.setUsage(obj.getString("usage"));
-                                list.add( info );
-                            }
-
-                            final List<ConsumptionInfo> consumptionInfo = list;
-                            updateChart( barChart , consumptionInfo );
-                        }
-                        catch(Exception er){
-                            er.printStackTrace();
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onClose(int i, String s, boolean b) {
-                Log.i("Websocket", "Closed " + s);
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.i("Websocket", "Error " + e.getMessage());
-            }
-        };
-        mWebSocketClient.connect();
-
-    }
-
-
 }
