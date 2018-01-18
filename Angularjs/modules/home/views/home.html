@@ -1,0 +1,35 @@
+<div ng-controller="HomeController">
+    <h1 style="text-align: center;" ><b>My Tasks </b></h1>
+
+<div class="container chartContainer">
+    <div  fusioncharts
+       width="100%"
+       type="column2d"
+       dataSource="{{myDataSource}}" >
+    </div>     
+
+</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    
+<div class="container" >
+  <div class="row"  ng-repeat="myItem in myItems">
+    <div class = "col-xs-12">
+        <div class="row">
+      <div class="col-xs-10">{{myItem.item}}</div>
+      <div class="col-xs-2">{{myItem.status}}</div>  
+      </div>
+        <div class="row">
+        <div class="col-xs-10">Location:{{myItem.location}}</div>
+      
+        <div class="col-xs-2">{{myItem.available}}</div>
+        </div>
+    </div>
+    
+     </div>
+</div>
+</div>
+
+    
