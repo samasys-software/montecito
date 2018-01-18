@@ -6,6 +6,19 @@ angular.module('Home',["ng-fusioncharts", "ngStomp"])
     ['$stomp','$scope', '$rootScope', '$location','AuthenticationService',
     function ($stomp, $scope, $rootScope, $location, AuthenticationService) {
       $rootScope.showNav = true;
+	  
+	this.tab = 1;
+	
+	this.setTab = function(tabId)
+	{
+		this.tab = tabId;
+	};
+	
+    this.isSet = function(tabId)  
+	{
+		return this.tab === tabId;
+	};
+	  
       AuthenticationService.getItemCriticality($rootScope.token, function(data){
           if(!data.error){
               $scope.myItems = data;
@@ -70,7 +83,6 @@ angular.module('Home',["ng-fusioncharts", "ngStomp"])
     alert("Error "+evt.data);
     };
       
-         
-        
+    
         
     }]);
