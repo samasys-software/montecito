@@ -57,7 +57,7 @@
 
         android:layout_centerVertical="true"
 
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
 
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp">
@@ -68,13 +68,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/username" />
+            android:background="@drawable/ic_username" />
 
         <EditText
 
             style="@style/editText"
             android:layout_marginLeft="50dp"
-            android:background="@null"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/loginID"
@@ -102,13 +101,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/password" />
+            android:background="@drawable/ic_password" />
 
         <EditText
 
             style="@style/editText"
             android:layout_marginLeft="50dp"
-            android:background="@null"
+
 
             android:id="@+id/password"
             android:hint="Enter Password"
@@ -130,7 +129,7 @@
         android:id="@+id/loginButton"
         android:layout_marginTop="20dp"
         android:text="Login"
-        android:background="#21547c"
+        android:background="@color/buttonColor"
         android:layout_gravity="center"/>
 
 
@@ -142,7 +141,7 @@
         android:layout_marginTop="20dp"
         android:text="Forget Password ?"
 
-        android:textColor="#0061FF"
+        android:textColor="@color/linkUrlColor"
         android:textStyle="italic" />
 
 

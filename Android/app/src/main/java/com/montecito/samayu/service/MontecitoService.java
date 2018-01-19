@@ -20,12 +20,20 @@ import retrofit2.http.POST;
 public interface MontecitoService {
 @POST("montecito/auth/local")
     @FormUrlEncoded
-    public Call<LoginDTO> authenticate(@Field("userId") String userId, @Field("password")String password);
+    public Call<LoginDTO> authenticate(@Field("userId") String userId, @Field("ic_password")String password);
 
     @GET("montecito/api/items/consumption/today/category")
-    public Call<List<ConsumptionInfo>> getConsumptionInfo(@Header("Authorization") String token);
+    public Call<List<ConsumptionInfo>> getConsumptionInfoCategory(@Header("Authorization") String token);
 
     @GET("montecito/api/tasks/user")
     public Call<List<ItemAvailabilityDTO>> getItemAvailablityDTO(@Header("Authorization") String token);
+
+
+    @GET("montecito/api/items/consumption/today/items")
+    public Call<List<ConsumptionInfo>> getConsumptionInfoItems(@Header("Authorization") String token);
+
+
+    @GET("montecito/api/items/consumption/today/floor")
+    public Call<List<ConsumptionInfo>> getConsumptionInfoFloor(@Header("Authorization") String token);
 
 }

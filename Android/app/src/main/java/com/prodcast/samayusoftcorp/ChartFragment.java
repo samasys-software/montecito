@@ -67,32 +67,79 @@ public class ChartFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        barChart = view.findViewById(R.id.chart);
         connectWebSocket();
-        String token = SessionInfo.instance().getToken();
-        barChart =view.findViewById(R.id.chart);
-        final Call<List<ConsumptionInfo>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfo(token);
-        consumptionInfoCall.enqueue(new Callback<List<ConsumptionInfo>>() {
-            @Override
-            public void onResponse(Call<List<ConsumptionInfo>> call, Response<List<ConsumptionInfo>> response) {
-                if (response.isSuccessful()) {
-                    BarChart barChart = view.findViewById(R.id.chart);
+        String token = SessionInfo.getInstance().getUserLogin().getToken();
+        if(position==0) {
 
-                    final List<ConsumptionInfo> consumptionInfo = response.body();
-                    updateChart( barChart , consumptionInfo );
+
+            final Call<List<ConsumptionInfo>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoItems(token);
+            consumptionInfoCall.enqueue(new Callback<List<ConsumptionInfo>>() {
+                @Override
+                public void onResponse(Call<List<ConsumptionInfo>> call, Response<List<ConsumptionInfo>> response) {
+                    if (response.isSuccessful()) {
+                        BarChart barChart = view.findViewById(R.id.chart);
+
+                        final List<ConsumptionInfo> consumptionInfo = response.body();
+                        updateChart(barChart, consumptionInfo);
+                    } else {
+                        Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
-                else
-                {
-                    Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+
+                @Override
+                public void onFailure(Call<List<ConsumptionInfo>> call, Throwable t) {
+
+                }
+            });
+        }
+        else if(position==1)
+        {
+            final Call<List<ConsumptionInfo>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoCategory(token);
+            consumptionInfoCall.enqueue(new Callback<List<ConsumptionInfo>>() {
+                @Override
+                public void onResponse(Call<List<ConsumptionInfo>> call, Response<List<ConsumptionInfo>> response) {
+                    if (response.isSuccessful()) {
+                        BarChart barChart = view.findViewById(R.id.chart);
+
+                        final List<ConsumptionInfo> consumptionInfo = response.body();
+                        updateChart(barChart, consumptionInfo);
+                    } else {
+                        Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
-            }
+                @Override
+                public void onFailure(Call<List<ConsumptionInfo>> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<List<ConsumptionInfo>> call, Throwable t) {
+                }
+            });
+        }
+        else
+        {
+            final Call<List<ConsumptionInfo>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoFloor(token);
+            consumptionInfoCall.enqueue(new Callback<List<ConsumptionInfo>>() {
+                @Override
+                public void onResponse(Call<List<ConsumptionInfo>> call, Response<List<ConsumptionInfo>> response) {
+                    if (response.isSuccessful()) {
+                        BarChart barChart = view.findViewById(R.id.chart);
 
-            }
-        });
+                        final List<ConsumptionInfo> consumptionInfo = response.body();
+                        updateChart(barChart, consumptionInfo);
+                    } else {
+                        Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+                    }
 
+                }
+
+                @Override
+                public void onFailure(Call<List<ConsumptionInfo>> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     private void updateChart(BarChart barChart, List<ConsumptionInfo> consumptionInfo){
@@ -159,6 +206,7 @@ public class ChartFragment extends Fragment {
 
                             final List<ConsumptionInfo> consumptionInfo = list;
                             updateChart(barChart , consumptionInfo );
+
                         }
                         catch(Exception er){
                             er.printStackTrace();

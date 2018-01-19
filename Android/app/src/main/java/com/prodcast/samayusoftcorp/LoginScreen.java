@@ -16,11 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.businessobjects.SessionInfo;
+import com.businessobjects.domain.UserLogin;
 import com.dto.LoginDTO;
 import com.montecito.samayu.service.MontecitoClient;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import org.w3c.dom.Text;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +40,7 @@ public class LoginScreen extends AppCompatActivity {
     Button loginButton;
     Context context;
     View focusView = null;
+    public static final String FILE_NAME = "MontecitoLogin.txt";
 
 
     @Override
@@ -46,6 +53,12 @@ public class LoginScreen extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.loginButton);
         forgetPassword = (TextView)findViewById(R.id.forgotPassword);
 
+        UserLogin userLogin = loginRetrive();
+        if (userLogin != null) {
+            SessionInfo.getInstance().setUserLogin(userLogin);
+            Intent intent = new Intent(LoginScreen.this, Home.class);
+            startActivity(intent);
+        }
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -62,13 +75,7 @@ public class LoginScreen extends AppCompatActivity {
 
             }
         });
-        newUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //registerEmployee();
 
-            }
-        });
 
 
     }
@@ -89,9 +96,13 @@ public class LoginScreen extends AppCompatActivity {
            public void onResponse(retrofit2.Call<LoginDTO> call, Response<LoginDTO> response) {
                if( response.isSuccessful() ) {
                    LoginDTO loginDTO = response.body();
-                   SessionInfo.instance().setToken( loginDTO.getToken());
-                   SessionInfo.instance().setFirstName(loginDTO.getFirstName());
-                   SessionInfo.instance().setLastName(loginDTO.getLastName());
+                   UserLogin userLogin=new UserLogin();
+                   userLogin.setFirstName(loginDTO.getFirstName());
+                   userLogin.setLastName(loginDTO.getLastName());
+                   userLogin.setToken(loginDTO.getToken());
+
+                   SessionInfo.getInstance().setUserLogin( userLogin);
+                  loginToFile(userLogin);
                    Intent intent = new Intent(LoginScreen.this, Home.class);
                    startActivity(intent);
 
@@ -109,10 +120,7 @@ public class LoginScreen extends AppCompatActivity {
        });
     }
 
-    public void registerEmployee(){
-        Intent intent=new Intent(LoginScreen.this,Register.class);
-       // startActivity(intent);
-    }
+
 
 
 
@@ -144,6 +152,35 @@ public class LoginScreen extends AppCompatActivity {
 
         return cancel;
     }
+
+    public void loginToFile(UserLogin customersLogin) {
+        File file = new File(getFilesDir(), FILE_NAME);
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(FILE_NAME, LoginScreen.this.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+            oos.writeObject(customersLogin);
+            outputStream.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public UserLogin loginRetrive() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(openFileInput(FILE_NAME));
+            UserLogin r = (UserLogin) ois.readObject();
+            return r;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
 

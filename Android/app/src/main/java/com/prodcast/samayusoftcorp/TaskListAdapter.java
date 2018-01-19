@@ -13,8 +13,7 @@ import android.widget.TextView;
 import com.dto.ItemAvailabilityDTO;
 import com.prodcast.samayu.samayusoftcorp.R;
 
-import java.text.NumberFormat;
-        import java.util.List;
+import java.util.List;
 
 public class TaskListAdapter extends BaseAdapter {
 
@@ -61,7 +60,8 @@ public class TaskListAdapter extends BaseAdapter {
     public class Holder
     {
         //ImageView iv1;
-        TextView tv1,tv2,tv3,tv4;
+        TextView tv1,tv2,tv3;
+        ImageView tv4;
 
         int position;
 
@@ -80,7 +80,7 @@ public class TaskListAdapter extends BaseAdapter {
            // holder.iv1 = (ImageView) convertView.findViewById(R.id.statusImage);
             holder.tv3 = (TextView) convertView.findViewById(R.id.availability);
 
-            holder.tv4 = (TextView) convertView.findViewById(R.id.statusImage);
+            holder.tv4 = (ImageView) convertView.findViewById(R.id.statusImage);
             convertView.setTag(holder);
         }
         else{
@@ -97,10 +97,20 @@ public class TaskListAdapter extends BaseAdapter {
 
         holder.tv2.setText(location);
         holder.tv3.setText(available);
-        holder.tv4.setText(status);
+        //holder.tv4.setText(status);
 
 
-
+        if(status.equals("critical"))
+        {
+            holder.tv4.setImageResource(R.drawable.ic_critical);
+        }
+        else if(status.equals("low"))
+        {
+            holder.tv4.setImageResource(R.drawable.ic_low);
+        }
+        else{
+            holder.tv4.setImageResource(R.drawable.ic_normal);
+        }
 
         return convertView;
     }
