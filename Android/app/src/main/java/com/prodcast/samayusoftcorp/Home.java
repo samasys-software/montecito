@@ -31,6 +31,8 @@ import com.prodcast.samayu.samayusoftcorp.R;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -78,6 +80,7 @@ public class Home extends AppCompatActivity {
                     ListView listView = findViewById(R.id.list);
 
                     List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
+                  //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
                     listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
                 }
             }
@@ -91,67 +94,85 @@ public class Home extends AppCompatActivity {
 
     }
 
-//    private void connectWebSocket() {
-//        URI uri;
-//        try {
-//            uri = new URI("ws://ec2-52-91-5-22.compute-1.amazonaws.com:8080/montecito/event");
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//            return;
-//        }
-//
-//
-//
-//        mWebSocketClient = new WebSocketClient(uri) {
-//            @Override
-//            public void onOpen(ServerHandshake serverHandshake) {
-//                Log.i("Websocket", "Opened");
-//
-//            }
-//
-//            @Override
-//            public void onMessage(String s) {
-//                final String message = s;
-//                Log.i("Websocket" , "Received "+s);
-//                getParent().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ListView listView = findViewById(R.id.list);
-//
-//
-//
-//                           // JSONArray array = new JSONArray(message);
-//                            List<ItemAvailabilityDTO> itemAvailabilityDTOList = new ArrayList<ItemAvailabilityDTO>();
-//
-//                            ItemAvailabilityDTO info = new ItemAvailabilityDTO();
-//                                info.setItem("item");
-//                                info.setAvailable("usage");
-//                                info.setLocation("65%");
-//                                info.setStatus("critical");
-//                                itemAvailabilityDTOList.add(info);
-//
-//
-//
-//                            listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
-//
-//                        System.out.println("message==="+message);
-//                    }
-//
-//                });
-//            }
-//
-//
-//            @Override
-//            public void onClose(int i, String s, boolean b) {
-//                Log.i("Websocket", "Closed " + s);
-//            }
-//
-//            @Override
-//            public void onError(Exception e) {
-//                Log.i("Websocket", "Error " + e.getMessage());
-//            }
-//        };
-//        mWebSocketClient.connect();
-//
-//    }
+  /*  private void connectWebSocket() {
+        URI uri;
+        try {
+            uri = new URI("ws://ec2-52-91-5-22.compute-1.amazonaws.com:8080/montecito/event");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return;
+        }
+
+
+
+        mWebSocketClient = new WebSocketClient(uri) {
+            @Override
+            public void onOpen(ServerHandshake serverHandshake) {
+                Log.i("Websocket", "Opened");
+
+            }
+
+            @Override
+            public void onMessage(String s) {
+                final String message = s;
+                Log.i("Websocket" , "Received "+s);
+                getParent().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ListView listView = findViewById(R.id.list);
+
+
+
+                           // JSONArray array = new JSONArray(message);
+                            List<ItemAvailabilityDTO> itemAvailabilityDTOList = new ArrayList<ItemAvailabilityDTO>();
+
+                            ItemAvailabilityDTO info = new ItemAvailabilityDTO();
+                                info.setItem("item");
+                                info.setAvailable("usage");
+                                info.setLocation("65%");
+                                info.setStatus("critical");
+                                itemAvailabilityDTOList.add(info);
+
+
+
+                            listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+
+                        System.out.println("message==="+message);
+                    }
+
+                });
+            }
+
+
+            @Override
+            public void onClose(int i, String s, boolean b) {
+                Log.i("Websocket", "Closed " + s);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.i("Websocket", "Error " + e.getMessage());
+            }
+        };
+        mWebSocketClient.connect();
+
+    }*/
+
+
+  /*  class StatusComp implements Comparator<ItemAvailabilityDTO> {
+
+        @Override
+        public int compare(ItemAvailabilityDTO task1, ItemAvailabilityDTO task2) {
+            if(task1.getStatus()>task2.getStatus()){
+                return 1;
+            }
+            else if(task1.getStatus()<task2.getStatus()) {
+                return -1;
+            }
+            else{
+                return 0;
+            }
+        }
+    }*/
+
 }
