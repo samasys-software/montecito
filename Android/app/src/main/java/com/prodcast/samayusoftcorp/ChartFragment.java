@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.businessobjects.SessionInfo;
 import com.dto.ConsumptionInfo;
+import com.dto.ItemAvailabilityDTO;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -193,19 +194,44 @@ public class ChartFragment extends Fragment {
                     public void run() {
                         try {
 
-                            JSONArray array = new JSONArray(message);
-                            List<ConsumptionInfo> list = new ArrayList<ConsumptionInfo>();
-                            for(int i=0;i<array.length();i++){
-                                JSONObject obj = (JSONObject)array.get(i);
+                            JSONObject jsonObject= new JSONObject(message);
 
-                                ConsumptionInfo info = new ConsumptionInfo();
-                                info.setItem(obj.getString("item"));
-                                info.setUsage(obj.getString("usage"));
-                                list.add( info );
+                            String type = jsonObject.getString("type");
+                            JSONArray array= jsonObject.getJSONArray("payload");
+                            if(type.equals("availability")){
+                                List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
+                                for(int i =0; i<array.length(); i++){
+                                    JSONObject obj = (JSONObject)array.get(i);
+                                    ItemAvailabilityDTO item = new ItemAvailabilityDTO();
+                                    item.setAvailable(obj.getString("available"));
+                                    item.set_id(obj.getString("_id"));
+                                    item.setItem(obj.getString("item"));
+                                    item.setLocation(obj.getString("location"));
+                                    item.setStatus(obj.getString("status"));
+                                    itemAvailabilityDTOList.add(item);
+
+                                }
+                                Home activity= (Home)getActivity();
+                                activity.getListView().setAdapter(new TaskListAdapter(activity, itemAvailabilityDTOList));
+                                //System.out.print(activity);
+
+                            }
+                            else {
+                                List<ConsumptionInfo> list = new ArrayList<ConsumptionInfo>();
+                                for(int i=0;i<array.length();i++){
+                                    JSONObject obj = (JSONObject)array.get(i);
+
+                                    ConsumptionInfo info = new ConsumptionInfo();
+                                    info.setItem(obj.getString("item"));
+                                    info.setUsage(obj.getString("usage"));
+                                    list.add( info );
+                                }
+
+                                final List<ConsumptionInfo> consumptionInfo = list;
+                                updateChart(barChart , consumptionInfo );
+
                             }
 
-                            final List<ConsumptionInfo> consumptionInfo = list;
-                            updateChart(barChart , consumptionInfo );
 
                         }
                         catch(Exception er){

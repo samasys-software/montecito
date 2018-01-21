@@ -1,13 +1,19 @@
 package com.prodcast.samayusoftcorp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.Toolbar;
 import android.util.JsonReader;
 import android.util.Log;
+import android.view.Menu;
+
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +34,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.montecito.samayu.service.MontecitoClient;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -54,15 +61,30 @@ import java.net.URISyntaxException;
  */
 
 public class Home extends AppCompatActivity {
-    ListView list;
+    public ListView getListView() {
+        return listView;
+    }
+
+    public void setListView(ListView listView) {
+        this.listView = listView;
+    }
+    ListView listView;
     private TabLayout tabLayout;
     private ViewPager mViewPager;
     private WebSocketClient mWebSocketClient;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        listView = findViewById(R.id.list);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -77,7 +99,8 @@ public class Home extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
                 if (response.isSuccessful()) {
-                    ListView listView = findViewById(R.id.list);
+
+
 
                     List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
                   //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
@@ -94,69 +117,30 @@ public class Home extends AppCompatActivity {
 
     }
 
-  /*  private void connectWebSocket() {
-        URI uri;
-        try {
-            uri = new URI("ws://ec2-52-91-5-22.compute-1.amazonaws.com:8080/montecito/event");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return;
-        }
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
+        return true;
+    }
 
 
 
-        mWebSocketClient = new WebSocketClient(uri) {
-            @Override
-            public void onOpen(ServerHandshake serverHandshake) {
-                Log.i("Websocket", "Opened");
 
-            }
-
-            @Override
-            public void onMessage(String s) {
-                final String message = s;
-                Log.i("Websocket" , "Received "+s);
-                getParent().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ListView listView = findViewById(R.id.list);
+    public void logout(MenuItem item){
+        Intent intent = new Intent(Home.this, LoginScreen.class);
+        startActivity(intent);
+    }
 
 
 
-                           // JSONArray array = new JSONArray(message);
-                            List<ItemAvailabilityDTO> itemAvailabilityDTOList = new ArrayList<ItemAvailabilityDTO>();
+   /* public void logout(){
+        SessionInfo.destroy();
+        File dir = getFilesDir();
 
-                            ItemAvailabilityDTO info = new ItemAvailabilityDTO();
-                                info.setItem("item");
-                                info.setAvailable("usage");
-                                info.setLocation("65%");
-                                info.setStatus("critical");
-                                itemAvailabilityDTOList.add(info);
-
-
-
-                            listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
-
-                        System.out.println("message==="+message);
-                    }
-
-                });
-            }
-
-
-            @Override
-            public void onClose(int i, String s, boolean b) {
-                Log.i("Websocket", "Closed " + s);
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.i("Websocket", "Error " + e.getMessage());
-            }
-        };
-        mWebSocketClient.connect();
-
+       finish();
     }*/
+
+
 
 
   /*  class StatusComp implements Comparator<ItemAvailabilityDTO> {

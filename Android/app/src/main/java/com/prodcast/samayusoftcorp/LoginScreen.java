@@ -173,7 +173,7 @@ public class LoginScreen extends AppCompatActivity {
         try {
             ObjectInputStream ois = new ObjectInputStream(openFileInput(FILE_NAME));
             UserLogin r = (UserLogin) ois.readObject();
-            return r;
+            return null;
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -1,65 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    app:menu="@menu/menu"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@android:color/black">
-    <LinearLayout
+
+    >
+    <android.support.v7.widget.ActionMenuView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:id="@+id/actionMenuView">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:padding="1.5dp"
-            android:background="@drawable/ic_nav" />
+    </android.support.v7.widget.ActionMenuView>
 
-        <ImageView
-
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:background="@drawable/ic_home"
-            android:padding="1.5dp" />
-
-        <ImageView
-            android:layout_weight="0.3"
-            android:layout_width="0dp"
-            android:padding="1.5dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:id="@+id/chart_nav"
-            android:background="@drawable/ic_report"
-            />
-        <ImageView
-            android:layout_weight="0.3"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:padding="1.5dp"
-            android:layout_gravity="center"
-            android:id="@+id/account_nav"
-            android:background="@drawable/ic_acc"/>
-
-        <ImageView
-            android:id="@+id/logout_nav"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:padding="1.5dp"
-            android:layout_weight="0.3"
-            android:background="@drawable/ic_logout" />
-        <ImageView
-            android:layout_weight="0.3"
-            android:layout_width="0dp"
-            android:layout_gravity="center"
-            android:padding="1.5dp"
-            android:layout_height="30dp"
-            android:id="@+id/remainder"
-            android:background="@drawable/ic_rem"/>
-    </LinearLayout>
 
 </android.support.v7.widget.Toolbar>
 
