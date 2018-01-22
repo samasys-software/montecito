@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.dto.ItemAvailabilityDTO;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TaskListAdapter extends BaseAdapter {
@@ -27,6 +28,7 @@ public class TaskListAdapter extends BaseAdapter {
 
         // TODO Auto-generated constructor stub
         itemAvailabilityDTOLists=itemAvailabilityDTOList;
+        Collections.sort(itemAvailabilityDTOLists);
 
                 //   System.out.println(products.size());
 

@@ -1,10 +1,12 @@
 package com.dto;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Preethiv on 1/15/2018.
  */
 
-public class ItemAvailabilityDTO {
+public class ItemAvailabilityDTO implements  Comparable{
 
     public String get_id() {
         return _id;
@@ -52,4 +54,10 @@ public class ItemAvailabilityDTO {
     private String status;
     private String available;
 
+    @Override
+    public int compareTo(@NonNull Object o) {
+        ItemAvailabilityDTO item = (ItemAvailabilityDTO) o;
+
+        return  Integer.compare( Integer.parseInt(available.substring(0,available.length()-1)),Integer.parseInt(item.available.substring(0,item.available.length()-1)));
+    }
 }
