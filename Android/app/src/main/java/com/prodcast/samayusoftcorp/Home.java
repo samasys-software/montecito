@@ -127,6 +127,8 @@ public class Home extends AppCompatActivity {
 
 
     public void logout(MenuItem item){
+        //TODO: Add code to remove the login authentication code file and call SessionInfo.destroy
+
         Intent intent = new Intent(Home.this, LoginScreen.class);
         startActivity(intent);
     }
