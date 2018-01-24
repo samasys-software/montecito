@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/logo"
             android:id="@+id/montecitoLogo"
+
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -64,8 +65,9 @@
 
         <ImageButton
             android:id="@+id/imageButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.5"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/ic_username" />
@@ -97,8 +99,8 @@
 
         <ImageButton
             android:id="@+id/imageButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/ic_password" />
@@ -127,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loginButton"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="Login"
         android:background="@color/buttonColor"
         android:layout_gravity="center"/>

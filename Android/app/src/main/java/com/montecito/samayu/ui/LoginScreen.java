@@ -39,6 +39,12 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserLogin userLogin = loginRetrive();
+        if (userLogin != null) {
+            SessionInfo.getInstance().setUserLogin(userLogin);
+            Intent intent = new Intent(LoginScreen.this, Home.class);
+            startActivity(intent);
+        }
         setContentView(R.layout.activity_login_screen);
         context = this;
         loginID= (EditText)findViewById(R.id.loginID);
@@ -46,12 +52,7 @@ public class LoginScreen extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.loginButton);
         forgetPassword = (TextView)findViewById(R.id.forgotPassword);
 
-        UserLogin userLogin = loginRetrive();
-        if (userLogin != null) {
-            SessionInfo.getInstance().setUserLogin(userLogin);
-            Intent intent = new Intent(LoginScreen.this, Home.class);
-            startActivity(intent);
-        }
+
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {

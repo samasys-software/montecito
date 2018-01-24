@@ -65,10 +65,10 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabBackground="@drawable/tab_color_selector"
-            app:tabIndicatorColor="@color/tab_background_unselected"
-            app:tabIndicatorHeight="2dp"
-            app:tabSelectedTextColor="@color/tab_background_unselected"
+            app:tabIndicatorColor="#0061FF"
+            android:background="@drawable/tab_border_bottom"
+            app:tabTextColor="#000000"
+            app:tabSelectedTextColor="#0061FF"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget" />
         <android.support.v4.view.ViewPager
             android:id="@+id/container"
