@@ -1,66 +1,40 @@
-package com.prodcast.samayusoftcorp;
+package com.montecito.samayu.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.Menu;
-
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.businessobjects.SessionInfo;
-import com.dto.ConsumptionInfo;
-import com.dto.ItemAvailabilityDTO;
-import com.github.mikephil.charting.charts.BarChart;
-
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.service.MontecitoClient;
+import com.montecito.samayu.service.SessionInfo;
+import com.montecito.samayu.service.SubscriptionListner;
+import com.montecito.samayu.service.SubscriptionManager;
 import com.prodcast.samayu.samayusoftcorp.R;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
+import org.java_websocket.client.WebSocketClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.ServerHandshake;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-
 
 /**
  * Created by Preethiv on 1/13/2018.
  */
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements SubscriptionListner {
     public ListView getListView() {
         return listView;
     }
@@ -92,6 +66,9 @@ public class Home extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+
+
+
         String token = SessionInfo.getInstance().getUserLogin().getToken();
 
         final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
@@ -115,7 +92,9 @@ public class Home extends AppCompatActivity {
         });
 
 
+        SubscriptionManager.getInstance().subscribe("availability",this);
     }
+
 
    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,8 +106,40 @@ public class Home extends AppCompatActivity {
 
 
     public void logout(MenuItem item){
+        //TODO: Add code to remove the login authentication code file and call SessionInfo.destroy
+
         Intent intent = new Intent(Home.this, LoginScreen.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onMessage(final JSONArray jsonArray) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
+                    for(int i =0; i<jsonArray.length(); i++) {
+                        JSONObject obj = (JSONObject) jsonArray.get(i);
+                        ItemAvailabilityDTO item = new ItemAvailabilityDTO();
+                        item.setAvailable(obj.getString("available"));
+                        item.set_id(obj.getString("_id"));
+                        item.setItem(obj.getString("item"));
+                        item.setLocation(obj.getString("location"));
+                        item.setStatus(obj.getString("status"));
+                        itemAvailabilityDTOList.add(item);
+                    }
+                    listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+
+
+
     }
 
 

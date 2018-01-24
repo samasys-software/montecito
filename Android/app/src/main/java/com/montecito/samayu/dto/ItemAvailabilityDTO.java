@@ -1,4 +1,4 @@
-package com.dto;
+package com.montecito.samayu.dto;
 
 import android.support.annotation.NonNull;
 
