@@ -1,4 +1,4 @@
-package com.dto;
+package com.montecito.samayu.dto;
 
 /**
  * Created by Preethiv on 1/13/2018.

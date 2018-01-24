@@ -1,4 +1,4 @@
-package com.prodcast.samayusoftcorp;
+package com.montecito.samayu.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,14 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.businessobjects.SessionInfo;
-import com.dto.ConsumptionInfo;
-import com.dto.ItemAvailabilityDTO;
+import com.montecito.samayu.service.SessionInfo;
+import com.montecito.samayu.dto.ConsumptionInfo;
+import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.montecito.samayu.service.MontecitoClient;
+import com.montecito.samayu.service.SubscriptionListner;
+import com.montecito.samayu.service.SubscriptionManager;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import org.java_websocket.client.WebSocketClient;
@@ -38,11 +40,13 @@ import retrofit2.Response;
  * Created by fgs on 1/18/2018.
  */
 
-public class ChartFragment extends Fragment {
+public class ChartFragment extends Fragment implements SubscriptionListner {
+    private WebSocketClient mWebSocketClient;
+
 
     int position;
     BarChart barChart;
-    private WebSocketClient mWebSocketClient;
+
 
     // newInstance constructor for creating fragment with arguments
     public static Fragment getInstance(int position) {
@@ -57,6 +61,7 @@ public class ChartFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         position=getArguments().getInt("pos");
+
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -69,7 +74,7 @@ public class ChartFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         barChart = view.findViewById(R.id.chart);
-        connectWebSocket();
+        SubscriptionManager.getInstance().subscribe("consumption",this);
         String token = SessionInfo.getInstance().getUserLogin().getToken();
         if(position==0) {
 
@@ -94,6 +99,7 @@ public class ChartFragment extends Fragment {
 
                 }
             });
+
         }
         else if(position==1)
         {
@@ -140,10 +146,13 @@ public class ChartFragment extends Fragment {
 
                 }
             });
+
         }
+
     }
 
-    private void updateChart(BarChart barChart, List<ConsumptionInfo> consumptionInfo){
+
+    public void updateChart(BarChart barChart, List<ConsumptionInfo> consumptionInfo){
         List<BarEntry> data = new ArrayList<>();
         for(int i =0; i<consumptionInfo.size(); i++){
             data.add( new BarEntry(i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
@@ -167,94 +176,24 @@ public class ChartFragment extends Fragment {
 
     }
 
-    private void connectWebSocket() {
-        URI uri;
-        try {
-            uri = new URI("ws://ec2-52-91-5-22.compute-1.amazonaws.com:8080/montecito/event");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return;
+
+    @Override
+    public void onMessage(JSONArray jsonArray) {
+        try{
+            List<ConsumptionInfo> list = new ArrayList<ConsumptionInfo>();
+            for(int i=0;i<jsonArray.length();i++) {
+                JSONObject obj = (JSONObject) jsonArray.get(i);
+                ConsumptionInfo info = new ConsumptionInfo();
+                info.setItem(obj.getString("item"));
+                info.setUsage(obj.getString("usage"));
+                list.add(info);
+            }
+            final List<ConsumptionInfo> consumptionInfo = list;
+            updateChart(barChart , consumptionInfo );
+
+        }catch (Exception er){
+            er.printStackTrace();
         }
 
-
-
-        mWebSocketClient = new WebSocketClient(uri) {
-            @Override
-            public void onOpen(ServerHandshake serverHandshake) {
-                Log.i("Websocket", "Opened");
-
-            }
-
-            @Override
-            public void onMessage(String s) {
-                final String message = s;
-                Log.i("Websocket" , "Received "+s);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-
-                            JSONObject jsonObject= new JSONObject(message);
-
-                            String type = jsonObject.getString("type");
-                            JSONArray array= jsonObject.getJSONArray("payload");
-                            if(type.equals("availability")){
-                                List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
-                                for(int i =0; i<array.length(); i++){
-                                    JSONObject obj = (JSONObject)array.get(i);
-                                    ItemAvailabilityDTO item = new ItemAvailabilityDTO();
-                                    item.setAvailable(obj.getString("available"));
-                                    item.set_id(obj.getString("_id"));
-                                    item.setItem(obj.getString("item"));
-                                    item.setLocation(obj.getString("location"));
-                                    item.setStatus(obj.getString("status"));
-                                    itemAvailabilityDTOList.add(item);
-
-                                }
-                                Home activity= (Home)getActivity();
-                                activity.getListView().setAdapter(new TaskListAdapter(activity, itemAvailabilityDTOList));
-                                //System.out.print(activity);
-
-                            }
-                            else {
-                                List<ConsumptionInfo> list = new ArrayList<ConsumptionInfo>();
-                                for(int i=0;i<array.length();i++){
-                                    JSONObject obj = (JSONObject)array.get(i);
-
-                                    ConsumptionInfo info = new ConsumptionInfo();
-                                    info.setItem(obj.getString("item"));
-                                    info.setUsage(obj.getString("usage"));
-                                    list.add( info );
-                                }
-
-                                final List<ConsumptionInfo> consumptionInfo = list;
-                                updateChart(barChart , consumptionInfo );
-
-                            }
-
-
-                        }
-                        catch(Exception er){
-                            er.printStackTrace();
-                        }
-                    }
-                });
-            }
-
-
-            @Override
-            public void onClose(int i, String s, boolean b) {
-                Log.i("Websocket", "Closed " + s);
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.i("Websocket", "Error " + e.getMessage());
-            }
-        };
-        mWebSocketClient.connect();
-
     }
-
-
 }

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.prodcast.samayusoftcorp.LoginScreen"
+            android:name="com.montecito.samayu.ui.LoginScreen"
             android:label="@string/app_name"
             >
             <intent-filter>
@@ -22,9 +22,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.prodcast.samayusoftcorp.Home"
+            android:name="com.montecito.samayu.ui.Home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.prodcast.samayusoftcorp.Register" />
+
     </application>
 
 </manifest>

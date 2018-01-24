@@ -1,27 +1,20 @@
-package com.prodcast.samayusoftcorp;
+package com.montecito.samayu.ui;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.util.SortedList;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.businessobjects.SessionInfo;
-import com.businessobjects.domain.UserLogin;
-import com.dto.LoginDTO;
+import com.montecito.samayu.domain.UserLogin;
+import com.montecito.samayu.dto.LoginDTO;
 import com.montecito.samayu.service.MontecitoClient;
+import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -93,7 +86,7 @@ public class LoginScreen extends AppCompatActivity {
         Call<LoginDTO> loginDTOCall = new MontecitoClient().getClient().authenticate(email, pass );
        loginDTOCall.enqueue(new Callback<LoginDTO>() {
            @Override
-           public void onResponse(retrofit2.Call<LoginDTO> call, Response<LoginDTO> response) {
+           public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
                if( response.isSuccessful() ) {
                    LoginDTO loginDTO = response.body();
                    UserLogin userLogin=new UserLogin();

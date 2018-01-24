@@ -1,16 +1,14 @@
-package com.prodcast.samayusoftcorp;
+package com.montecito.samayu.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.BaseAdapter;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-import com.dto.ItemAvailabilityDTO;
+import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import java.util.Collections;

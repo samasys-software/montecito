@@ -1,12 +1,10 @@
-package com.businessobjects.domain;
-
-import java.io.Serializable;
+package com.montecito.samayu.dto;
 
 /**
- * Created by God on 1/19/2018.
+ * Created by Preethiv on 1/13/2018.
  */
 
-public class UserLogin implements Serializable{
+public class LoginDTO extends MontecitoDTO {
     private String token;
     private String firstName;
     private String lastName;

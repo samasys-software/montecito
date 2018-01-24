@@ -1,6 +1,4 @@
-package com.dto;
-
-import android.widget.ListView;
+package com.montecito.samayu.dto;
 
 /**
  * Created by Preethiv on 1/15/2018.

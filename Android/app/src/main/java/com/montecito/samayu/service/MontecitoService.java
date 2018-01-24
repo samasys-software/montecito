@@ -1,8 +1,8 @@
 package com.montecito.samayu.service;
 
-import com.dto.ConsumptionInfo;
-import com.dto.ItemAvailabilityDTO;
-import com.dto.LoginDTO;
+import com.montecito.samayu.dto.ConsumptionInfo;
+import com.montecito.samayu.dto.ItemAvailabilityDTO;
+import com.montecito.samayu.dto.LoginDTO;
 
 import java.util.List;
 
