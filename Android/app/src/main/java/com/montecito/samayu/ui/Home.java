@@ -9,6 +9,8 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
@@ -22,6 +24,7 @@ import org.java_websocket.client.WebSocketClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +59,7 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
         setContentView(R.layout.activity_home);
         listView = findViewById(R.id.list);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+       getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -93,10 +94,17 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
 
 
         SubscriptionManager.getInstance().subscribe("availability",this);
+        for(int i=0; i < tabLayout.getTabCount(); i++) {
+            View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
+            p.setMargins(0, 0, 10, 0);
+            tab.requestLayout();
+        }
     }
 
 
-   @Override
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
         return true;
@@ -106,11 +114,17 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
 
 
     public void logout(MenuItem item){
-        //TODO: Add code to remove the login authentication code file and call SessionInfo.destroy
+        File dir =getFilesDir();
+        File file = new File(dir, "MontecitoLogin.txt");
 
-        Intent intent = new Intent(Home.this, LoginScreen.class);
+        boolean deleted = file.delete();
+        SessionInfo.getInstance().destroy();
+
+        Intent intent = new Intent(this, LoginScreen.class);
         startActivity(intent);
     }
+
+
 
     @Override
     public void onMessage(final JSONArray jsonArray) {

@@ -168,7 +168,7 @@ public class ChartFragment extends Fragment implements SubscriptionListner {
 
         //dataSet.setColor(Color.BLUE);
         dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setColors(new int[] {Color.RED,Color.GREEN, Color.BLUE,Color.YELLOW});
+        dataSet.setColors(new int[] {Color.GREEN,Color.YELLOW, Color.DKGRAY,Color.RED});
 
         BarData barData = new BarData(dataSet);
         barChart.setData( barData );
