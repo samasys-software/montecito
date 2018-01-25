@@ -2,6 +2,7 @@ package com.montecito.samayu.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.UiThread;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.montecito.samayu.service.SubscriptionListner;
 import com.montecito.samayu.service.SubscriptionManager;
+import com.montecito.samayu.service.UISubscriptionListener;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import org.java_websocket.client.WebSocketClient;
@@ -34,7 +36,7 @@ import retrofit2.Response;
  * Created by Preethiv on 1/13/2018.
  */
 
-public class Home extends AppCompatActivity implements SubscriptionListner {
+public class Home extends AppCompatActivity  {
     public ListView getListView() {
         return listView;
     }
@@ -46,6 +48,7 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
     private TabLayout tabLayout;
     private ViewPager mViewPager;
     private WebSocketClient mWebSocketClient;
+
 
 
 
@@ -65,6 +68,7 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
         mViewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
 
 
 
@@ -92,7 +96,32 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
         });
 
 
-        SubscriptionManager.getInstance().subscribe("availability",this);
+        SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
+
+
+            @Override
+            public void doOnUI(JSONArray jsonArray) {
+                try {
+
+                    List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
+                    for(int i =0; i<jsonArray.length(); i++) {
+                        JSONObject obj = (JSONObject) jsonArray.get(i);
+                        ItemAvailabilityDTO item = new ItemAvailabilityDTO();
+                        item.setAvailable(obj.getString("available"));
+                        item.set_id(obj.getString("_id"));
+                        item.setItem(obj.getString("item"));
+                        item.setLocation(obj.getString("location"));
+                        item.setStatus(obj.getString("status"));
+                        itemAvailabilityDTOList.add(item);
+                    }
+                    listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+
+
+        });
     }
 
 
@@ -112,35 +141,9 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
         startActivity(intent);
     }
 
-    @Override
-    public void onMessage(final JSONArray jsonArray) {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
-                    for(int i =0; i<jsonArray.length(); i++) {
-                        JSONObject obj = (JSONObject) jsonArray.get(i);
-                        ItemAvailabilityDTO item = new ItemAvailabilityDTO();
-                        item.setAvailable(obj.getString("available"));
-                        item.set_id(obj.getString("_id"));
-                        item.setItem(obj.getString("item"));
-                        item.setLocation(obj.getString("location"));
-                        item.setStatus(obj.getString("status"));
-                        itemAvailabilityDTOList.add(item);
-                    }
-                    listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-
-            }
-        });
 
 
 
-    }
 
 
 

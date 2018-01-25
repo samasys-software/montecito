@@ -3,6 +3,7 @@ package com.montecito.samayu.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SubscriptionListner;
 import com.montecito.samayu.service.SubscriptionManager;
+import com.montecito.samayu.service.UISubscriptionListener;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import org.java_websocket.client.WebSocketClient;
@@ -40,7 +42,7 @@ import retrofit2.Response;
  * Created by fgs on 1/18/2018.
  */
 
-public class ChartFragment extends Fragment implements SubscriptionListner {
+public class ChartFragment extends Fragment {
     private WebSocketClient mWebSocketClient;
 
 
@@ -74,7 +76,27 @@ public class ChartFragment extends Fragment implements SubscriptionListner {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         barChart = view.findViewById(R.id.chart);
-        SubscriptionManager.getInstance().subscribe("consumption",this);
+        SubscriptionManager.getInstance().subscribe("consumption", new UISubscriptionListener(getActivity()) {
+            @Override
+            public void doOnUI(JSONArray jsonArray) {
+                try{
+                    List<ConsumptionInfo> list = new ArrayList<ConsumptionInfo>();
+                    for(int i=0;i<jsonArray.length();i++) {
+                        JSONObject obj = (JSONObject) jsonArray.get(i);
+                        ConsumptionInfo info = new ConsumptionInfo();
+                        info.setItem(obj.getString("item"));
+                        info.setUsage(obj.getString("usage"));
+                        list.add(info);
+                    }
+                    final List<ConsumptionInfo> consumptionInfo = list;
+                    updateChart(barChart , consumptionInfo );
+
+                }catch (Exception er){
+                    er.printStackTrace();
+                }
+
+            }
+        });
         String token = SessionInfo.getInstance().getUserLogin().getToken();
         if(position==0) {
 
@@ -177,23 +199,5 @@ public class ChartFragment extends Fragment implements SubscriptionListner {
     }
 
 
-    @Override
-    public void onMessage(JSONArray jsonArray) {
-        try{
-            List<ConsumptionInfo> list = new ArrayList<ConsumptionInfo>();
-            for(int i=0;i<jsonArray.length();i++) {
-                JSONObject obj = (JSONObject) jsonArray.get(i);
-                ConsumptionInfo info = new ConsumptionInfo();
-                info.setItem(obj.getString("item"));
-                info.setUsage(obj.getString("usage"));
-                list.add(info);
-            }
-            final List<ConsumptionInfo> consumptionInfo = list;
-            updateChart(barChart , consumptionInfo );
 
-        }catch (Exception er){
-            er.printStackTrace();
-        }
-
-    }
 }
