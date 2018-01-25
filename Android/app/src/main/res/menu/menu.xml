@@ -34,7 +34,7 @@
         android:icon="@drawable/ic_logout"
         app:showAsAction="always"
         android:title="home"
-        android:onClick="logout"
+
 
 
         />

@@ -37,7 +37,7 @@ import retrofit2.Response;
  * Created by Preethiv on 1/13/2018.
  */
 
-public class Home extends AppCompatActivity implements SubscriptionListner {
+public class Home extends MontecitoBaseActivity implements SubscriptionListner {
     public ListView getListView() {
         return listView;
     }
@@ -58,8 +58,8 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         listView = findViewById(R.id.list);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-       getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+//       getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -103,27 +103,27 @@ public class Home extends AppCompatActivity implements SubscriptionListner {
     }
 
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
-        return true;
-    }
-
-
-
-
-    public void logout(MenuItem item){
-        File dir =getFilesDir();
-        File file = new File(dir, "MontecitoLogin.txt");
-
-        boolean deleted = file.delete();
-        SessionInfo.getInstance().destroy();
-
-        Intent intent = new Intent(this, LoginScreen.class);
-        startActivity(intent);
-    }
-
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
+//        return true;
+//    }
+//
+//
+//
+//
+//    public void logout(MenuItem item){
+//        File dir =getFilesDir();
+//        File file = new File(dir, "MontecitoLogin.txt");
+//
+//        boolean deleted = file.delete();
+//        SessionInfo.getInstance().destroy();
+//
+//        Intent intent = new Intent(this, LoginScreen.class);
+//        startActivity(intent);
+//    }
+//
 
 
     @Override

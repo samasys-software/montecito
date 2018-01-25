@@ -149,6 +149,7 @@ public class LoginScreen extends AppCompatActivity {
 
     public void loginToFile(UserLogin customersLogin) {
         File file = new File(getFilesDir(), FILE_NAME);
+        file.delete();
 
         FileOutputStream outputStream;
 
@@ -167,7 +168,7 @@ public class LoginScreen extends AppCompatActivity {
         try {
             ObjectInputStream ois = new ObjectInputStream(openFileInput(FILE_NAME));
             UserLogin r = (UserLogin) ois.readObject();
-            return null;
+            return r;
         }
         catch (Exception e) {
             e.printStackTrace();

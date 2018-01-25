@@ -7,9 +7,9 @@
     android:background="@android:color/black"
     android:orientation="vertical"
     android:padding="5dp">
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_home"/>
+    <!--<include-->
+        <!--android:id="@+id/toolbar"-->
+        <!--layout="@layout/toolbar_home"/>-->
 
     <TextView
         android:layout_width="match_parent"
