@@ -39,6 +39,12 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserLogin userLogin = loginRetrive();
+        if (userLogin != null) {
+            SessionInfo.getInstance().setUserLogin(userLogin);
+            Intent intent = new Intent(LoginScreen.this, Home.class);
+            startActivity(intent);
+        }
         setContentView(R.layout.activity_login_screen);
         context = this;
         loginID= (EditText)findViewById(R.id.loginID);
@@ -46,12 +52,7 @@ public class LoginScreen extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.loginButton);
         forgetPassword = (TextView)findViewById(R.id.forgotPassword);
 
-        UserLogin userLogin = loginRetrive();
-        if (userLogin != null) {
-            SessionInfo.getInstance().setUserLogin(userLogin);
-            Intent intent = new Intent(LoginScreen.this, Home.class);
-            startActivity(intent);
-        }
+
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +149,7 @@ public class LoginScreen extends AppCompatActivity {
 
     public void loginToFile(UserLogin customersLogin) {
         File file = new File(getFilesDir(), FILE_NAME);
+        file.delete();
 
         FileOutputStream outputStream;
 
@@ -166,7 +168,7 @@ public class LoginScreen extends AppCompatActivity {
         try {
             ObjectInputStream ois = new ObjectInputStream(openFileInput(FILE_NAME));
             UserLogin r = (UserLogin) ois.readObject();
-            return null;
+            return r;
         }
         catch (Exception e) {
             e.printStackTrace();

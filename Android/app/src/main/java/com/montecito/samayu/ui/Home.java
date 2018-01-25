@@ -10,6 +10,8 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
@@ -24,6 +26,7 @@ import org.java_websocket.client.WebSocketClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +39,7 @@ import retrofit2.Response;
  * Created by Preethiv on 1/13/2018.
  */
 
-public class Home extends AppCompatActivity  {
+public class Home extends MontecitoBaseActivity implements SubscriptionListner {
     public ListView getListView() {
         return listView;
     }
@@ -58,10 +61,8 @@ public class Home extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         listView = findViewById(R.id.list);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+//        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+//       getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -95,35 +96,47 @@ public class Home extends AppCompatActivity  {
             }
         });
 
-
+      for(int i=0; i < tabLayout.getTabCount(); i++) {
+            View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
+            p.setMargins(0, 0, 10, 0);
+            tab.requestLayout();
+        }
+      
         SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
 
 
-            @Override
-            public void doOnUI(JSONArray jsonArray) {
-                try {
 
-                    List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
-                    for(int i =0; i<jsonArray.length(); i++) {
-                        JSONObject obj = (JSONObject) jsonArray.get(i);
-                        ItemAvailabilityDTO item = new ItemAvailabilityDTO();
-                        item.setAvailable(obj.getString("available"));
-                        item.set_id(obj.getString("_id"));
-                        item.setItem(obj.getString("item"));
-                        item.setLocation(obj.getString("location"));
-                        item.setStatus(obj.getString("status"));
-                        itemAvailabilityDTOList.add(item);
-                    }
-                    listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-
+              @Override
+    public void onMessage(final JSONArray jsonArray) {
+        this.runOnUiThread(new Runnable() {
+          doOnUI(jsonArray);
 
         });
     }
+        });
+    }
 
+    @Override
+    public void doOnUI(JSONArray jsonArray) {
+        try {
+
+            List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
+            for(int i =0; i<jsonArray.length(); i++) {
+                JSONObject obj = (JSONObject) jsonArray.get(i);
+                ItemAvailabilityDTO item = new ItemAvailabilityDTO();
+                item.setAvailable(obj.getString("available"));
+                item.set_id(obj.getString("_id"));
+                item.setItem(obj.getString("item"));
+                item.setLocation(obj.getString("location"));
+                item.setStatus(obj.getString("status"));
+                itemAvailabilityDTOList.add(item);
+            }
+            listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 
    @Override
     public boolean onCreateOptionsMenu(Menu menu) {

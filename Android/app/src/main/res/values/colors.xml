@@ -5,7 +5,7 @@
     <color name="colorAccent">#ff4081</color>
     <color name="buttonColor">#21547c</color>
     <color name="linkUrlColor">#0061FF</color>
-    <color name="tab_background_unselected">#33b5e5</color>
+    <color name="tab_background_unselected">#FFE29FAE</color>
     <color name="tab_background_selected">#ffffff </color>
 
 
