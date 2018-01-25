@@ -66,10 +66,6 @@ public class SubscriptionManager implements Runnable {
                             if(map.containsKey(type))
                             map.get(type).onMessage(array);
 
-
-
-
-
                         }
                         catch(Exception er){
                             er.printStackTrace();
