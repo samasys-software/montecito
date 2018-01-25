@@ -56,7 +56,9 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+
         ActionMenuView actionMenuView = (ActionMenuView)linearLayout.findViewById(R.id.actionMenuView);
+        getMenuInflater().inflate(R.menu.menu,actionMenuView.getMenu());
         actionMenuView.setOnMenuItemClickListener(this);
 
 
@@ -70,12 +72,14 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         final Intent intent;
         final Bundle b;
         if (id == R.id.nav_bar) {
+
             intent =new Intent(this, Home.class);
             startActivity(intent);
         } else if (id == R.id.nav_chart) {
             intent =new Intent(this, Home.class);
             startActivity(intent);
         } else if (id == R.id.nav_user) {
+
             intent =new Intent(this, Home.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
