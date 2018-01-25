@@ -39,7 +39,7 @@ import retrofit2.Response;
  * Created by Preethiv on 1/13/2018.
  */
 
-public class Home extends MontecitoBaseActivity implements SubscriptionListner {
+public class Home extends MontecitoBaseActivity  {
     public ListView getListView() {
         return listView;
     }
@@ -71,9 +71,6 @@ public class Home extends MontecitoBaseActivity implements SubscriptionListner {
         tabLayout.setupWithViewPager(mViewPager);
 
 
-
-
-
         String token = SessionInfo.getInstance().getUserLogin().getToken();
 
         final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
@@ -83,9 +80,8 @@ public class Home extends MontecitoBaseActivity implements SubscriptionListner {
                 if (response.isSuccessful()) {
 
 
-
                     List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
-                  //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
+                    //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
                     listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
                 }
             }
@@ -96,29 +92,26 @@ public class Home extends MontecitoBaseActivity implements SubscriptionListner {
             }
         });
 
-      for(int i=0; i < tabLayout.getTabCount(); i++) {
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
             p.setMargins(0, 0, 10, 0);
             tab.requestLayout();
         }
-      
+
         SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
 
 
+            @Override
+            public void doOnUI(final JSONArray jsonArray) {
+                updateTasks(jsonArray);
 
-              @Override
-    public void onMessage(final JSONArray jsonArray) {
-        this.runOnUiThread(new Runnable() {
-          doOnUI(jsonArray);
-
-        });
-    }
+            }
         });
     }
 
-    @Override
-    public void doOnUI(JSONArray jsonArray) {
+
+    public void updateTasks(JSONArray jsonArray) {
         try {
 
             List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
