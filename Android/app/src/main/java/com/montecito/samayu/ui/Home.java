@@ -2,6 +2,7 @@ package com.montecito.samayu.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.UiThread;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.montecito.samayu.service.SubscriptionListner;
 import com.montecito.samayu.service.SubscriptionManager;
+import com.montecito.samayu.service.UISubscriptionListener;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import org.java_websocket.client.WebSocketClient;
@@ -53,6 +55,7 @@ public class Home extends MontecitoBaseActivity implements SubscriptionListner {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,7 @@ public class Home extends MontecitoBaseActivity implements SubscriptionListner {
         mViewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
 
 
 
@@ -92,69 +96,67 @@ public class Home extends MontecitoBaseActivity implements SubscriptionListner {
             }
         });
 
-
-        SubscriptionManager.getInstance().subscribe("availability",this);
-        for(int i=0; i < tabLayout.getTabCount(); i++) {
+      for(int i=0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
             p.setMargins(0, 0, 10, 0);
             tab.requestLayout();
         }
-    }
+      
+        SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
 
 
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
-//        return true;
-//    }
-//
-//
-//
-//
-//    public void logout(MenuItem item){
-//        File dir =getFilesDir();
-//        File file = new File(dir, "MontecitoLogin.txt");
-//
-//        boolean deleted = file.delete();
-//        SessionInfo.getInstance().destroy();
-//
-//        Intent intent = new Intent(this, LoginScreen.class);
-//        startActivity(intent);
-//    }
-//
 
-
-    @Override
+              @Override
     public void onMessage(final JSONArray jsonArray) {
         this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
+          doOnUI(jsonArray);
 
-                    List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
-                    for(int i =0; i<jsonArray.length(); i++) {
-                        JSONObject obj = (JSONObject) jsonArray.get(i);
-                        ItemAvailabilityDTO item = new ItemAvailabilityDTO();
-                        item.setAvailable(obj.getString("available"));
-                        item.set_id(obj.getString("_id"));
-                        item.setItem(obj.getString("item"));
-                        item.setLocation(obj.getString("location"));
-                        item.setStatus(obj.getString("status"));
-                        itemAvailabilityDTOList.add(item);
-                    }
-                    listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-
-            }
         });
-
-
-
     }
+        });
+    }
+
+    @Override
+    public void doOnUI(JSONArray jsonArray) {
+        try {
+
+            List<ItemAvailabilityDTO> itemAvailabilityDTOList= new ArrayList<>();
+            for(int i =0; i<jsonArray.length(); i++) {
+                JSONObject obj = (JSONObject) jsonArray.get(i);
+                ItemAvailabilityDTO item = new ItemAvailabilityDTO();
+                item.setAvailable(obj.getString("available"));
+                item.set_id(obj.getString("_id"));
+                item.setItem(obj.getString("item"));
+                item.setLocation(obj.getString("location"));
+                item.setStatus(obj.getString("status"));
+                itemAvailabilityDTOList.add(item);
+            }
+            listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
+        return true;
+    }
+
+
+
+
+    public void logout(MenuItem item){
+        //TODO: Add code to remove the login authentication code file and call SessionInfo.destroy
+
+        Intent intent = new Intent(Home.this, LoginScreen.class);
+        startActivity(intent);
+    }
+
+
+
+
 
 
 
