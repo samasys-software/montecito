@@ -64,6 +64,7 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
 
 
 
+
     }
 
 
@@ -111,6 +112,8 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         }
         return true;
     }
+
+
 
     public ProgressDialog getProgressDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
