@@ -1,5 +1,7 @@
 package com.montecito.samayu.ui;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
@@ -40,6 +42,7 @@ import retrofit2.Response;
  */
 
 public class Home extends MontecitoBaseActivity  {
+
     public ListView getListView() {
         return listView;
     }
@@ -51,8 +54,8 @@ public class Home extends MontecitoBaseActivity  {
     private TabLayout tabLayout;
     private ViewPager mViewPager;
     private WebSocketClient mWebSocketClient;
-
-
+    ProgressDialog mProgressDialog;
+    Context context;
 
 
 
@@ -60,6 +63,7 @@ public class Home extends MontecitoBaseActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        context=this;
         listView = findViewById(R.id.list);
 //        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 //       getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -70,7 +74,8 @@ public class Home extends MontecitoBaseActivity  {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
+        mProgressDialog=getProgressDialog(context);
+        mProgressDialog.show();
         String token = SessionInfo.getInstance().getUserLogin().getToken();
 
         final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
@@ -83,12 +88,13 @@ public class Home extends MontecitoBaseActivity  {
                     List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
                     //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
                     listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+                    mProgressDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<List<ItemAvailabilityDTO>> call, Throwable t) {
-
+                mProgressDialog.dismiss();
             }
         });
 

@@ -2,10 +2,7 @@ package com.montecito.samayu.service;
 
 import android.util.Log;
 
-import com.montecito.samayu.dto.ConsumptionInfo;
-import com.montecito.samayu.dto.ItemAvailabilityDTO;
-import com.montecito.samayu.ui.Home;
-import com.montecito.samayu.ui.TaskListAdapter;
+
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;

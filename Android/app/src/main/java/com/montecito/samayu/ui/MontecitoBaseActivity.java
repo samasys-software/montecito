@@ -1,6 +1,7 @@
 package com.montecito.samayu.ui;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -72,12 +73,24 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         final Intent intent;
         final Bundle b;
         if (id == R.id.nav_bar) {
+            item.setVisible(false);
+            intent =new Intent(this, Home.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_home) {
 
+            intent = new Intent(this, Home.class);
+            startActivity(intent);
+
+        }
+        else if (id == R.id.nav_find) {
+
+            intent = new Intent(this, Home.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_chart) {
             intent =new Intent(this, Home.class);
             startActivity(intent);
-        } else if (id == R.id.nav_chart) {
-            intent =new Intent(this, Home.class);
-            startActivity(intent);
+            item.setVisible(false);
         } else if (id == R.id.nav_user) {
 
             intent =new Intent(this, Home.class);
@@ -97,5 +110,13 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
             startActivity(intent);
         }
         return true;
+    }
+
+    public ProgressDialog getProgressDialog(Context context) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("One Moment Please");
+        //p.show();
+        return progressDialog;
     }
 }
