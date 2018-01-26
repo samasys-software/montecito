@@ -3,6 +3,7 @@ package com.montecito.samayu.service;
 import android.app.Activity;
 import android.os.Looper;
 import android.support.annotation.UiThread;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 
@@ -30,12 +31,6 @@ public abstract class UISubscriptionListener implements SubscriptionListner {
 
 
        });
-
-
-
-
-
-
     }
 
 

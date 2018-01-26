@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface SubscriptionListner {
     public void onMessage(JSONArray jsonArray);
+    public void onDisconnect();
+    public void onConnect();
 }

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.service.MontecitoClient;
@@ -100,7 +101,16 @@ public class Home extends MontecitoBaseActivity  {
         }
 
         SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
+            @Override
+            public void onDisconnect() {
+                Toast.makeText(Home.this, "You have gone offline",Toast.LENGTH_LONG).show();
+            }
 
+            @Override
+            public void onConnect() {
+                Toast.makeText(Home.this,"Connected",Toast.LENGTH_LONG).show();
+
+            }
 
             @Override
             public void doOnUI(final JSONArray jsonArray) {

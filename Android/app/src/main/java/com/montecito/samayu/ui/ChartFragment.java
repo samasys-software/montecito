@@ -78,6 +78,16 @@ public class ChartFragment extends Fragment {
         barChart = view.findViewById(R.id.chart);
         SubscriptionManager.getInstance().subscribe("consumption", new UISubscriptionListener(getActivity()) {
             @Override
+            public void onDisconnect() {
+
+            }
+
+            @Override
+            public void onConnect() {
+
+            }
+
+            @Override
             public void doOnUI(JSONArray jsonArray) {
                 try{
                     List<ConsumptionInfo> list = new ArrayList<ConsumptionInfo>();
