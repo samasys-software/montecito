@@ -5,22 +5,26 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by God on 1/25/2018.
  */
 @Entity(tableName = "consumption_details")
 public class Consumption {
-    @PrimaryKey(autoGenerate = true)
+
+    @PrimaryKey(autoGenerate = false)
+    @SerializedName("_id")
     @NonNull
-    private long _id;
+    private String id;
 
-
-    public long get_id() {
-        return _id;
+    @NonNull
+    public String getId() {
+        return id;
     }
 
-    public void set_id(long _id) {
-        this._id = _id;
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public String getItem() {

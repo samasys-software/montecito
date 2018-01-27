@@ -74,7 +74,6 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         final Intent intent;
         final Bundle b;
         if (id == R.id.nav_bar) {
-            item.setVisible(false);
             intent =new Intent(this, Home.class);
             startActivity(intent);
         }
@@ -91,7 +90,7 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         }else if (id == R.id.nav_chart) {
             intent =new Intent(this, Home.class);
             startActivity(intent);
-            item.setVisible(false);
+
         } else if (id == R.id.nav_user) {
 
             intent =new Intent(this, Home.class);

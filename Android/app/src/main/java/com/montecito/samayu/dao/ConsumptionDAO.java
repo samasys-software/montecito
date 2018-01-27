@@ -3,6 +3,7 @@ package com.montecito.samayu.dao;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.montecito.samayu.domain.Consumption;
@@ -19,9 +20,9 @@ public interface ConsumptionDAO {
     @Query("SELECT * FROM consumption_details")
     List<Consumption> getAll();
 
-    @Insert
+    @Insert()
     void insertAll(List<Consumption> consumptions);
 
-    @Delete
-    void delete(Consumption consumption);
+    @Query("DELETE FROM consumption_details")
+    void deleteAll();
 }

@@ -11,7 +11,7 @@ import com.montecito.samayu.dto.ItemAvailabilityDTO;
  * Created by God on 1/26/2018.
  */
 
-@Entity(tableName = "item_availablity_details")
+//@Entity(tableName = "item_availablity_details")
 public class ItemAvailablity implements Comparable
 {
     public long get_id() {
@@ -54,20 +54,20 @@ public class ItemAvailablity implements Comparable
         this.available = available;
     }
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
+    //@PrimaryKey(autoGenerate = true)
+    //@NonNull
     private long _id;
 
-    @ColumnInfo(name = "item")
+    //@ColumnInfo(name = "item")
     private String item;
 
-    @ColumnInfo(name = "location")
+    //@ColumnInfo(name = "location")
     private String location;
 
-    @ColumnInfo(name = "status")
+  //  @ColumnInfo(name = "status")
     private String status;
 
-    @ColumnInfo(name = "available")
+   // @ColumnInfo(name = "available")
     private String available;
 
     @Override

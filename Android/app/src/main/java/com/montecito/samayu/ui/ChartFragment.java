@@ -1,5 +1,6 @@
 package com.montecito.samayu.ui;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.montecito.samayu.db.AppDatabase;
@@ -42,6 +44,7 @@ public class ChartFragment extends Fragment {
     private WebSocketClient mWebSocketClient;
     private AppDatabase db;
     Context context;
+    ProgressDialog mProgressDialog;
 
 
     int position;
@@ -63,6 +66,9 @@ public class ChartFragment extends Fragment {
         context=getActivity().getApplicationContext();
         position=getArguments().getInt("pos");
         db=AppDatabase.getAppDatabase(context);
+        mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("One Moment Please");
 
     }
 
@@ -76,6 +82,8 @@ public class ChartFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         barChart = view.findViewById(R.id.chart);
+        //mProgressDialoggetProgressDialog(context);
+//        mProgressDialog.show();
         SubscriptionManager.getInstance().subscribe("consumption", new UISubscriptionListener(getActivity()) {
             @Override
             public void doOnUI(JSONArray jsonArray) {
@@ -84,36 +92,44 @@ public class ChartFragment extends Fragment {
                     for(int i=0;i<jsonArray.length();i++) {
                         JSONObject obj = (JSONObject) jsonArray.get(i);
                         Consumption info = new Consumption();
+                        info.setId(obj.getString("_id"));
                         info.setItem(obj.getString("item"));
                         info.setUsage(obj.getString("usage"));
                         list.add(info);
                     }
                     final List<Consumption> consumptionInfo = list;
-                    addConsumption( db,consumptionInfo );
+                    Runnable runnable = new Runnable(){
+                        public void run(){
+                            addConsumption( db,consumptionInfo );
 
-                    List<Consumption> consumptions=getAllConsumption(db);
-                    updateChart(barChart, consumptions);
-
-                    //updateChart(barChart , consumptionInfo );
+                        }
+                    };
+                    Thread t = new Thread(runnable);t.start();
+                    updateChart(barChart, consumptionInfo);
 
                 }catch (Exception er){
                     er.printStackTrace();
+                    //mProgressDialog.dismiss();
                 }
 
             }
         });
-        String token = SessionInfo.getInstance().getUserLogin().getToken();
-        if(position==0) {
 
+        String token = SessionInfo.getInstance().getUserLogin().getToken();
+
+
+        if(position==0) {
 
             final Call<List<Consumption>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoItems(token);
             consumptionInfoCall.enqueue(new Callback<List<Consumption>>() {
                 @Override
                 public void onResponse(Call<List<Consumption>> call, Response<List<Consumption>> response) {
+
                     if (response.isSuccessful()) {
                         BarChart barChart = view.findViewById(R.id.chart);
 
                         final List<Consumption> consumptionInfo = response.body();
+                        addConsumption( db,consumptionInfo );
                         updateChart(barChart, consumptionInfo);
                     } else {
                         Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
@@ -127,17 +143,22 @@ public class ChartFragment extends Fragment {
                 }
             });
 
+
         }
         else if(position==1)
         {
+
             final Call<List<Consumption>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoCategory(token);
             consumptionInfoCall.enqueue(new Callback<List<Consumption>>() {
                 @Override
                 public void onResponse(Call<List<Consumption>> call, Response<List<Consumption>> response) {
+
                     if (response.isSuccessful()) {
                         BarChart barChart = view.findViewById(R.id.chart);
 
                         final List<Consumption> consumptionInfo = response.body();
+                        addConsumption( db,consumptionInfo );
+
                         updateChart(barChart, consumptionInfo);
                     } else {
                         Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
@@ -153,15 +174,17 @@ public class ChartFragment extends Fragment {
         }
         else
         {
+
             final Call<List<Consumption>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoFloor(token);
             consumptionInfoCall.enqueue(new Callback<List<Consumption>>() {
                 @Override
                 public void onResponse(Call<List<Consumption>> call, Response<List<Consumption>> response) {
+
                     if (response.isSuccessful()) {
                         BarChart barChart = view.findViewById(R.id.chart);
 
                         final List<Consumption> consumptionInfo = response.body();
-
+                        addConsumption( db,consumptionInfo );
                         updateChart(barChart, consumptionInfo);
                     } else {
                         Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
@@ -205,7 +228,8 @@ public class ChartFragment extends Fragment {
     }
 
     private static void addConsumption(final AppDatabase db,List<Consumption> consumptionDetails) {
-        db.consumptionDAO().insertAll(consumptionDetails);
+       db.consumptionDAO().deleteAll();
+       db.consumptionDAO().insertAll(consumptionDetails);
 
     }
     private static List<Consumption> getAllConsumption(final AppDatabase db)
