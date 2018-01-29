@@ -1,6 +1,6 @@
 package com.montecito.samayu.service;
 
-import com.montecito.samayu.dto.ConsumptionInfo;
+import com.montecito.samayu.domain.Consumption;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.LoginDTO;
 
@@ -23,17 +23,17 @@ public interface MontecitoService {
     public Call<LoginDTO> authenticate(@Field("userId") String userId, @Field("ic_password")String password);
 
     @GET("montecito/api/items/consumption/today/category")
-    public Call<List<ConsumptionInfo>> getConsumptionInfoCategory(@Header("Authorization") String token);
+    public Call<List<Consumption>> getConsumptionInfoCategory(@Header("Authorization") String token);
 
     @GET("montecito/api/tasks/user")
     public Call<List<ItemAvailabilityDTO>> getItemAvailablityDTO(@Header("Authorization") String token);
 
 
     @GET("montecito/api/items/consumption/today/items")
-    public Call<List<ConsumptionInfo>> getConsumptionInfoItems(@Header("Authorization") String token);
+    public Call<List<Consumption>> getConsumptionInfoItems(@Header("Authorization") String token);
 
 
     @GET("montecito/api/items/consumption/today/floor")
-    public Call<List<ConsumptionInfo>> getConsumptionInfoFloor(@Header("Authorization") String token);
+    public Call<List<Consumption>> getConsumptionInfoFloor(@Header("Authorization") String token);
 
 }

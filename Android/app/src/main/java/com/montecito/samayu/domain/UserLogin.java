@@ -1,5 +1,9 @@
 package com.montecito.samayu.domain;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 
 /**
@@ -34,4 +38,6 @@ public class UserLogin implements Serializable{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+
 }
