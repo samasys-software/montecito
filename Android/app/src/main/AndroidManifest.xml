@@ -13,8 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.montecito.samayu.ui.LoginScreen"
-            android:label="@string/app_name"
-            >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +23,14 @@
         <activity
             android:name="com.montecito.samayu.ui.Home"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name="com.montecito.samayu.ui.ItemBinDetails"
+            android:label="@string/title_activity_item_bin_details"
+            android:theme="@style/AppTheme"></activity>
+
         <activity android:name="com.montecito.samayu.ui.BinMonitor"></activity>
+
 
     </application>
 
