@@ -77,7 +77,7 @@ public class BinMonitor extends MontecitoBaseActivity {
        listViewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               
+
                 currentViewMode=1;
                 setBinData();
                 listViewImage.setVisibility(View.GONE);
