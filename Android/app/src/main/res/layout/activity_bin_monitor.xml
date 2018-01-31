@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+  >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/mainLayout"
+        android:orientation="vertical">
+    <!-- Text Box Start -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="0dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:id="@+id/locationTextHint"
+                android:gravity="top"
+                android:textColor="#000000"
+
+                />
+
+            <Spinner
+                android:id="@+id/location"
+                android:layout_width="160dp"
+                android:layout_marginTop="4dp"
+                android:layout_height="28dp"
+                android:paddingBottom="2dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:background="@drawable/border_spinner"
+                android:layout_below="@id/locationTextHint"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="0dp" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Floor"
+                android:id="@+id/floorTextHint"
+                android:gravity="top"
+                android:textColor="#000000"
+                />
+
+            <Spinner
+                android:id="@+id/floor"
+                android:layout_width="160dp"
+                android:layout_marginTop="4dp"
+                android:layout_height="28dp"
+                android:paddingBottom="2dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:background="@drawable/border_spinner"
+                android:layout_below="@id/floorTextHint"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="0dp" >
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/cardviewImage"
+                   android:gravity="top"
+                   android:visibility="gone"
+                  android:layout_marginTop="10dp"
+                   android:background="@drawable/binitem_cardview_image1"
+               />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listViewImage"
+                    android:gravity="top"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/binitem_listview_image1"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="0dp" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sort by:"
+                    android:id="@+id/sortTextHint"
+                    android:gravity="top"
+                    android:textColor="#000000"
+                    />
+
+                <Spinner
+                    android:id="@+id/sortby"
+                    android:layout_width="160dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_height="28dp"
+                    android:paddingBottom="2dp"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    android:background="@drawable/border_spinner"
+                    android:layout_below="@id/sortTextHint"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_below="@id/mainLayout"
+        android:orientation="vertical">
+    <ViewStub
+        android:id="@+id/stub_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout="@layout/bin_item_list_view"/>
+    <ViewStub
+        android:id="@+id/stub_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout="@layout/bin_items_cardview"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

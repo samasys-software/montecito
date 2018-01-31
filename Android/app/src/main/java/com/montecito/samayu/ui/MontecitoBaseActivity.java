@@ -88,12 +88,12 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
             intent = new Intent(this, Home.class);
             startActivity(intent);
         }else if (id == R.id.nav_chart) {
-            intent =new Intent(this, Home.class);
+            intent =new Intent(this, BinMonitor.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_user) {
 
-            intent =new Intent(this, Home.class);
+            intent =new Intent(this, BinMonitor.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             File dir =getFilesDir();

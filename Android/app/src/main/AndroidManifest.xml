@@ -24,6 +24,7 @@
         <activity
             android:name="com.montecito.samayu.ui.Home"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.montecito.samayu.ui.BinMonitor"></activity>
 
     </application>
 
