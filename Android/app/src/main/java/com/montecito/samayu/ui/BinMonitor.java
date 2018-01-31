@@ -27,7 +27,6 @@ import retrofit2.Response;
 public class BinMonitor extends MontecitoBaseActivity {
 
     private GridLayoutManager gridLayoutManager;
-
     RecyclerView recyclerView;
     ListView listView;
     ImageView cardViewImage,listViewImage;
@@ -35,7 +34,7 @@ public class BinMonitor extends MontecitoBaseActivity {
     ProgressDialog mProgressDialog;
     Context context;
 
-    private int currentViewMode;
+    private int currentViewMode=0;
     final int VIEW_MODE_LISTVIEW=1;
     final int VIEW_MODE_CARDVIEW=0;
 
@@ -59,41 +58,34 @@ public class BinMonitor extends MontecitoBaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
         mProgressDialog=getProgressDialog(context);
-
-
-
         //get currentmode view in shared preference
         SharedPreferences sharedPreferences=getSharedPreferences("ViewMode",MODE_PRIVATE);
-        currentViewMode=sharedPreferences.getInt("currentViewMode",VIEW_MODE_LISTVIEW);
-        setBinData();
-        cardViewImage.setOnClickListener(new View.OnClickListener() {
+        currentViewMode=sharedPreferences.getInt("currentViewMode",VIEW_MODE_CARDVIEW);//default viewmode
+         setBinData();
+
+       cardViewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mProgressDialog.show();
-                currentViewMode=1;
 
-               setBinData();
+               currentViewMode=0;
+                setBinData();
                 cardViewImage.setVisibility(View.GONE);
                 listViewImage.setVisibility(View.VISIBLE);
             }
         });
 
-
        listViewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mProgressDialog.show();
-                currentViewMode=0;
+               
+                currentViewMode=1;
                 setBinData();
                 listViewImage.setVisibility(View.GONE);
                 cardViewImage.setVisibility(View.VISIBLE);
             }
         });
     }
-
     public void setBinData() {
-
-
         String token = SessionInfo.getInstance().getUserLogin().getToken();
         final Call<List<ItemAvailabilityDTO>> itemAvailability = new MontecitoClient().getClient().getItemAvailablityDTO(token);
         itemAvailability.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
@@ -102,14 +94,14 @@ public class BinMonitor extends MontecitoBaseActivity {
                 if(response.isSuccessful()){
                     List<ItemAvailabilityDTO> binItem = response.body();
                                 if (VIEW_MODE_CARDVIEW == currentViewMode) {
-                                    stubListView.setVisibility(View.VISIBLE);
-                                    stubCardview.setVisibility(View.GONE);
+                                    stubCardview.setVisibility(View.VISIBLE);
+                                    stubListView.setVisibility(View.GONE);
                                     recyclerView.setAdapter(new BinMonitorecyclerViewAdapter(BinMonitor.this, binItem));
                                     mProgressDialog.dismiss();
 
                                 } else {
-                                    stubCardview.setVisibility(View.VISIBLE);
-                                    stubListView.setVisibility(View.GONE);
+                                    stubListView.setVisibility(View.VISIBLE);
+                                    stubCardview.setVisibility(View.GONE);
                                     listView.setAdapter(new BinMonitorListViewAdapter(BinMonitor.this, binItem));
                                     mProgressDialog.dismiss();
                                 }
