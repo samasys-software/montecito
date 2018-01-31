@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.montecito.samayu.domain.ItemAvailablity;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
@@ -85,7 +86,7 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         }
         else if (id == R.id.nav_find) {
 
-            intent = new Intent(this, Home.class);
+            intent = new Intent(this, ItemBinDetails.class);
             startActivity(intent);
         }else if (id == R.id.nav_chart) {
             intent =new Intent(this, Home.class);
