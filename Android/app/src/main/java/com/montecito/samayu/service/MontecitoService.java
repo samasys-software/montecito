@@ -2,6 +2,7 @@ package com.montecito.samayu.service;
 
 import com.montecito.samayu.domain.Consumption;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
+import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.LoginDTO;
 
 import java.util.List;
@@ -35,5 +36,8 @@ public interface MontecitoService {
 
     @GET("montecito/api/items/consumption/today/floor")
     public Call<List<Consumption>> getConsumptionInfoFloor(@Header("Authorization") String token);
+
+    @GET("montecito/api/itembins")
+    public Call<List<ItemBinDTO>> getItemBinDTO();
 
 }

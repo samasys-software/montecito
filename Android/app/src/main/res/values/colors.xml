@@ -7,7 +7,7 @@
     <color name="ItemOddColor">#A3C567</color>
     <color name="ItemEvenColor">#D4DEB8</color>
     <color name="AlertTitleColor">#AE5C25</color>
-    <color name="AlertOddColor"> #AE5C25</color>
+    <color name="AlertOddColor"> #F5A456</color>
     <color name="AlertEvenColor">#FDD1AE</color>
     <color name="text_color">#484b4d</color>
     <color name="colorPrimary">#3f51b5</color>
