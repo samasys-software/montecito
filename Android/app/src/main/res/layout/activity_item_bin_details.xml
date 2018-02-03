@@ -7,6 +7,7 @@
     android:background="@android:color/white"
     tools:context="com.montecito.samayu.ui.ItemBinDetails">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +65,7 @@
            android:background="@android:color/white"
             android:padding="0sp"
             app:ael_duration="400"
-            app:ael_expanded="false"
+            app:ael_expanded="true"
             app:ael_interpolator="bounce"
             app:ael_orientation="vertical">
 
@@ -192,6 +193,8 @@
 
 
 
+
     </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>

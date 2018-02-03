@@ -2,6 +2,7 @@ package com.montecito.samayu.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
@@ -10,10 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
+import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
@@ -54,6 +57,26 @@ public class BinMonitor extends MontecitoBaseActivity {
 
         listView=(ListView)findViewById(R.id.listview);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+
+        final Call<List<ItemBinDTO>> itemBinAvailability = new MontecitoClient().getClient().getItemBinDTO();
+        itemBinAvailability.enqueue(new Callback<List<ItemBinDTO>>() {
+            @Override
+            public void onResponse(Call<List<ItemBinDTO>> call, Response<List<ItemBinDTO>> response) {
+                if (response.isSuccessful()) {
+                    List<ItemBinDTO> binItem = response.body();
+                    SessionInfo.getInstance().setItemBinDetails(binItem);
+                    setBinData();
+                }
+            }
+
+                @Override
+                public void onFailure(Call<List<ItemBinDTO>> call, Throwable t) {
+                    mProgressDialog.dismiss();
+
+                }
+            });
+
         assert recyclerView != null;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -61,7 +84,7 @@ public class BinMonitor extends MontecitoBaseActivity {
         //get currentmode view in shared preference
         SharedPreferences sharedPreferences=getSharedPreferences("ViewMode",MODE_PRIVATE);
         currentViewMode=sharedPreferences.getInt("currentViewMode",VIEW_MODE_CARDVIEW);//default viewmode
-         setBinData();
+
 
        cardViewImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,37 +107,30 @@ public class BinMonitor extends MontecitoBaseActivity {
                 cardViewImage.setVisibility(View.VISIBLE);
             }
         });
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               Intent intent = new Intent(BinMonitor.this, ItemBinDetails.class);
+               startActivity(intent);
+
+           }
+       });
     }
+
     public void setBinData() {
-        String token = SessionInfo.getInstance().getUserLogin().getToken();
-        final Call<List<ItemAvailabilityDTO>> itemAvailability = new MontecitoClient().getClient().getItemAvailablityDTO(token);
-        itemAvailability.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
-            @Override
-            public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
-                if(response.isSuccessful()){
-                    List<ItemAvailabilityDTO> binItem = response.body();
-                                if (VIEW_MODE_CARDVIEW == currentViewMode) {
-                                    stubCardview.setVisibility(View.VISIBLE);
-                                    stubListView.setVisibility(View.GONE);
-                                    recyclerView.setAdapter(new BinMonitorecyclerViewAdapter(BinMonitor.this, binItem));
-                                    mProgressDialog.dismiss();
-
-                                } else {
-                                    stubListView.setVisibility(View.VISIBLE);
-                                    stubCardview.setVisibility(View.GONE);
-                                    listView.setAdapter(new BinMonitorListViewAdapter(BinMonitor.this, binItem));
-                                    mProgressDialog.dismiss();
-                                }
-                  }
-               }
-
-
-            @Override
-            public void onFailure(Call<List<ItemAvailabilityDTO>> call, Throwable t) {
-                mProgressDialog.dismiss();
-
-            }
-        });
+        List<ItemBinDTO> binItem=SessionInfo.getInstance().getItemBinDetails();
+        if (VIEW_MODE_CARDVIEW == currentViewMode) {
+            stubCardview.setVisibility(View.VISIBLE);
+            stubListView.setVisibility(View.GONE);
+            recyclerView.setAdapter(new BinMonitorecyclerViewAdapter(BinMonitor.this, binItem));
+            mProgressDialog.dismiss();
+        }
+        else {
+            stubListView.setVisibility(View.VISIBLE);
+            stubCardview.setVisibility(View.GONE);
+            listView.setAdapter(new BinMonitorListViewAdapter(BinMonitor.this, binItem));
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override
@@ -122,5 +138,6 @@ public class BinMonitor extends MontecitoBaseActivity {
         getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
         return true;
     }
+
 
 }

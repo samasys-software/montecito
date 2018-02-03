@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
+import com.montecito.samayu.dto.ItemBinDTO;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import java.util.List;
@@ -20,9 +21,9 @@ import java.util.List;
 
 public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonitorecyclerViewAdapter.ViewHolder> {
 
-    private List<ItemAvailabilityDTO> binItem;
+    private List<ItemBinDTO> binItem;
     private Context context;
-    public BinMonitorecyclerViewAdapter(Context context, List<ItemAvailabilityDTO> binItem) {
+    public BinMonitorecyclerViewAdapter(Context context, List<ItemBinDTO> binItem) {
         this.binItem=binItem;
         this.context=context;
     }
@@ -39,24 +40,11 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
     @Override
     public void onBindViewHolder(BinMonitorecyclerViewAdapter.ViewHolder holder, int position) {
 
-        holder.itemCount.setText(binItem.get(position).getLocation());
-        holder.tv1.setText(binItem.get(position).getAvailable());
-        holder.tv2.setText(binItem.get(position).getItem());
-        ItemAvailabilityDTO availableBinItem=binItem.get(position);
-        String status= availableBinItem.getStatus();
-        if(status.equals("critical"))
-        {
-            holder.tv1.setTextColor(Color.RED);
-        }
-        else if(status.equals("low"))
-        {
+        holder.itemCount.setText("bin");
+        holder.tv1.setText("bin");
+        holder.tv2.setText("bin");
+     //   ItemAvailabilityDTO availableBinItem=binItem.get(position);
 
-            holder.tv1.setTextColor(Color.parseColor("#ffff8800"));
-        }
-        else{
-
-            holder.tv1.setTextColor(Color.parseColor("#006400"));
-        }
 
     }
 
