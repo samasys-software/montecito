@@ -10,6 +10,7 @@ public class BinDTO {
     private String capacity;
     private String brand;
 
+
     public String get_id() {
         return _id;
     }

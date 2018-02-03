@@ -18,7 +18,8 @@
 
             <TextView
                 android:text="Bin Name : "
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
@@ -28,8 +29,8 @@
 
             <TextView
                 android:id="@+id/binName"
-                android:layout_width="wrap_content"
-                android:text="Bin # 01"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
@@ -48,7 +49,8 @@
 
             <TextView
                 android:id="@+id/binLocation"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="wrap_content"
                 android:text="Wing 'A'- 3rd Floor"
                 android:textColor="@color/name"
@@ -136,7 +138,7 @@
 
             <TextView
                 android:id="@+id/cBinIdentity"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:text="cBin #101"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"

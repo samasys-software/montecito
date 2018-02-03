@@ -215,16 +215,40 @@ public class ChartFragment extends Fragment {
         barChart.getAxisRight().setDrawLabels(false);
         barChart.getLegend().setEnabled(false);
         barChart.getXAxis().setDrawLabels(false);
+        barChart.setDrawGridBackground(false);
+        barChart.setFitBars(true);
 
 
         //dataSet.setColor(Color.BLUE);
+
         dataSet.setValueTextColor(Color.WHITE);
-        dataSet.setColors(new int[] {Color.parseColor("#836ABB"),Color.parseColor("#AF90EC"), Color.parseColor("#F8C102"),Color.parseColor("#FC1D72")});
+
+        dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
+
+
+
 
         BarData barData = new BarData(dataSet);
         barChart.setData( barData );
         barChart.invalidate();
 
+    }
+
+    public static int[] getColorsForChart(int size, int end, int start){
+        int[] gradient = new int[size];
+        for(int i=0;i<size;i++){
+            float ratio = ((float)i)/size;
+
+            int red = (int)(Color.red(end)*ratio+Color.red(start)*(1-ratio));
+            int green =(int) (Color.green(end)*ratio+Color.green(start)*(1-ratio));
+            int blue =(int) (Color.blue(end)*ratio+Color.blue(start)*(1-ratio));
+
+
+            gradient[i]=Color.rgb( red, green , blue );
+
+        }
+
+        return gradient;
     }
 
     private static void addConsumption(final AppDatabase db,List<Consumption> consumptionDetails) {
