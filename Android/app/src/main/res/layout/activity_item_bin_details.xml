@@ -51,7 +51,7 @@
                 android:layout_weight="0.2"
                 android:layout_gravity="right"
                 android:background="@null"
-                android:src="@drawable/downarrow"
+                android:src="@drawable/uparrow"
                 android:id="@+id/binButton"/>
 
 

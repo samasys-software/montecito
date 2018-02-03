@@ -19,34 +19,32 @@
             <TextView
 
                 android:text="Bin Name : "
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
+
                 android:textStyle="bold"
                 android:gravity="center"
                 />
 
             <TextView
                 android:id="@+id/binName"
-                android:layout_width="wrap_content"
-                android:text="Bin # 01"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
 
                 android:gravity="center" />
 
 
             <TextView
 
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Location : "
                 android:textColor="@android:color/black"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
+
                 android:textStyle="bold"
                 android:gravity="center"
 
@@ -55,11 +53,11 @@
 
             <TextView
                 android:id="@+id/binLocation"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="wrap_content"
                 android:text="Wing 'A'- 3rd Floor"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
+
                 android:gravity="center"
 
                 />
@@ -157,7 +155,7 @@
 
             <TextView
                 android:id="@+id/cBinIdentity"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:text="cBin #101"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
