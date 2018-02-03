@@ -55,7 +55,7 @@
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/alertEnable"
-                android:checked="false"
+                android:checked="true"
 
 
                 android:layout_width="50sp"
@@ -121,7 +121,7 @@
                 />
 
             <android.support.v7.widget.SwitchCompat
-                android:checked="false"
+                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
