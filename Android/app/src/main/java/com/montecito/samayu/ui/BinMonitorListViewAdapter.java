@@ -63,12 +63,6 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
             holder.itemCount.setText(binItem.get(position).getCrateBin().getName());
             holder.tv1.setText(binItem.get(position).getCrateBin().getCapacity()+"%");
             holder.tv2.setText(binItem.get(position).getCurrDevice().getName());
-            if(position %2 == 1)
-                // Set a background color for ListView regular row/item
-                convertView.setBackgroundColor(Color.parseColor("#9AFEFE"));
-            else
-                // Set the background color for alternate row/item
-                convertView.setBackgroundColor(Color.parseColor("#E2E2E2"));
 
 
             /*ItemBinDTO availableBinItem=binItem.get(position);
