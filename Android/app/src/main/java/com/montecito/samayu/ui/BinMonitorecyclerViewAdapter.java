@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
@@ -40,21 +41,12 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
     }
 
     @Override
-    public void onBindViewHolder(BinMonitorecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final BinMonitorecyclerViewAdapter.ViewHolder holder, int position) {
 
         holder.itemCount.setText(binItem.get(position).getCrateBin().getName());
         holder.tv1.setText(binItem.get(position).getCrateBin().getCapacity()+"%");
         holder.tv2.setText(binItem.get(position).getCurrDevice().getName());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, ItemBinDetails.class);
-                context.startActivity(intent);
-
-            }
-        });
+        holder.position=position;
 
       /*  ItemBinDTO availableBinItem=binItem.get(position);
         String status= availableBinItem.getStatus();
@@ -81,21 +73,30 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
         return binItem.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView itemCount,tv1,tv2;
         public ImageView itemImage;
-        public final View mView;
+        int position;
         public ViewHolder(View itemView) {
             super(itemView);
-            mView=itemView;
+            itemView.setOnClickListener(this);
             itemCount=(TextView)itemView.findViewById(R.id.itemCount);
             itemImage=(ImageView)itemView.findViewById(R.id.itemImage);
             tv1=(TextView)itemView.findViewById(R.id.capacity);
             tv2=(TextView)itemView.findViewById(R.id.itemName);
+
         }
 
 
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(view.getContext(), "position = " + getPosition(), Toast.LENGTH_SHORT).show();
+            SessionInfo.getInstance().setCurrentItem(SessionInfo.getInstance().getItemBinDetails().get(position));
+            Intent intent = new Intent(context, ItemBinDetails.class);
+            context.startActivity(intent);
+
         }
+    }
     }
 
 
