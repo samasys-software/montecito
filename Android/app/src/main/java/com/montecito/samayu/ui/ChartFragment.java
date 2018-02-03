@@ -218,8 +218,8 @@ public class ChartFragment extends Fragment {
 
 
         //dataSet.setColor(Color.BLUE);
-        dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setColors(new int[] {Color.GREEN,Color.YELLOW, Color.DKGRAY,Color.RED,Color.GREEN,Color.GREEN,Color.GREEN,Color.GREEN});
+        dataSet.setValueTextColor(Color.WHITE);
+        dataSet.setColors(new int[] {Color.parseColor("#836ABB"),Color.parseColor("#AF90EC"), Color.parseColor("#F8C102"),Color.parseColor("#FC1D72")});
 
         BarData barData = new BarData(dataSet);
         barChart.setData( barData );

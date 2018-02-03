@@ -1,59 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     tools:context="com.montecito.samayu.ui.ItemBinDetails">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/binDetailsLayout"
-        >
+        android:id="@+id/binDetailsLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/BinDetailsTitleLayout"
-            android:background="@android:color/white"
             android:paddingRight="10sp"
             android:layout_weight="1.5"
-
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="22%"
+                style="@style/header"
                 android:layout_weight="0.2"
-                android:textSize="25dp"
-                android:textColor="#FF4000"
+                android:textColor="@color/title"
                 android:id="@+id/BinItem"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5sp"
+                style="@style/header"
                 android:id="@+id/BinDetailsId"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="25sp"
-                android:textColor="@color/binTitleColor"
+                android:layout_weight="1.5"
+                android:textColor="@color/Heading"
                 android:text="Bin Details" />
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:layout_gravity="right"
+                style="@style/header"
+                android:layout_weight="0"
                 android:background="@null"
                 android:src="@drawable/downarrow"
                 android:id="@+id/binButton"/>
-
 
         </LinearLayout>
 
@@ -62,7 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/BinDetailsTitleLayout"
-           android:background="@android:color/white"
             android:padding="0sp"
             app:ael_duration="400"
             app:ael_expanded="true"
@@ -80,46 +63,37 @@
             android:layout_height="wrap_content"
             android:id="@+id/ItemDetailsTitleLayout"
             android:layout_below="@id/BinDetailsLayout"
-            android:background="@android:color/white"
             android:paddingRight="10sp"
             android:layout_weight="1.5"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                style="@style/header"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_item"
+                android:src="@drawable/item"
                 android:id="@+id/ItemImage"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/header"
                 android:id="@+id/BinDetailsId1"
-                android:gravity="center"
-                android:textSize="25sp"
-                android:layout_weight="1"
-                android:textColor="@color/ItemTitleColor"
+                android:layout_weight="1.5"
+                android:textColor="@color/Heading"
                 android:text="Item Details"/>
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/header"
                 android:background="@null"
-                android:layout_weight="0.2"
+                android:layout_weight="0"
                 android:src="@drawable/downarrow"
                 android:id="@+id/itemButton"/>
 
         </LinearLayout>
-
 
         <com.github.aakira.expandablelayout.ExpandableRelativeLayout
             android:id="@+id/ItemDetailsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ItemDetailsTitleLayout"
-            android:background="@android:color/white"
             android:padding="0sp"
             app:ael_duration="400"
             app:ael_expanded="false"
@@ -132,42 +106,33 @@
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/AlertSettingsTitleLayout"
             android:layout_below="@id/ItemDetailsLayout"
-            android:background="@android:color/white"
             android:paddingRight="10sp"
             android:layout_weight="1.5"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:src="@drawable/ic_item_alert"
+                style="@style/header"
+                android:src="@drawable/alert"
                 android:layout_weight="0.2"
-
                 android:id="@+id/AlertImage"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/header"
                 android:id="@+id/AlertId"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="25sp"
-                android:textColor="@color/AlertTitleColor"
+                android:layout_weight="1.5"
+                android:textColor="@color/Heading"
                 android:text="Alert Settings"/>
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/header"
                 android:background="@null"
                 android:src="@drawable/downarrow"
-                android:layout_weight="0.2"
+                android:layout_weight="0"
                 android:id="@+id/alertButton"/>
 
         </LinearLayout>
@@ -177,7 +142,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/AlertSettingsTitleLayout"
-            android:background="@android:color/white"
             android:padding="0sp"
             app:ael_duration="400"
             app:ael_expanded="false"
@@ -190,11 +154,6 @@
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-
-
-
-
     </RelativeLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

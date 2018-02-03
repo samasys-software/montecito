@@ -1,132 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    >
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="170sp"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="0dp"
+        android:background="#10000000">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:orientation="horizontal"
-            android:background="@color/ItemOddColor"
-            android:id="@+id/itemLayout1"
-            >
+            android:id="@+id/itemLayout1">
 
             <TextView
-
                 android:text="Item Name : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                />
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="wrap_content"
                 android:text="Slotted Head Machine Screws - DIN 84A"
+                android:textColor="@color/name"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-
                 android:gravity="center" />
 
-
-
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:orientation="horizontal"
             android:id="@+id/itemLayout2"
-            android:background="@color/ItemEvenColor"
-            android:layout_below="@id/itemLayout1"
-            >
-
+            android:layout_below="@id/itemLayout1">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dimension"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5dp"
-
                 android:textStyle="bold"
-                android:gravity="center"
+                android:gravity="center"/>
 
-                />
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(in mm) : "
                 android:textSize="8dp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textStyle="bold"
-                android:gravity="center"
-
-                />
-
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/itemDimension"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="25 * 28 * 14"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                android:gravity="center"
-
-                />
+                android:gravity="center"/>
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="Volume"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
-
                 android:textStyle="bold"
-                android:gravity="center"
+                android:gravity="center"/>
 
-                />
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="in crate 35 : "
                 android:textSize="8dp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textStyle="bold"
-                android:gravity="center"
-
-                />
-
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/itemVolume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/name"
                 android:text="25kg"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:gravity="center"
+                android:gravity="center"/>
 
-                />
         </LinearLayout>
 
         <LinearLayout
@@ -134,53 +113,46 @@
             android:layout_height="40sp"
             android:orientation="horizontal"
             android:id="@+id/ItemLayout3"
-            android:background="@color/ItemOddColor"
-            android:layout_below="@id/itemLayout2"
-            >
-
+            android:layout_below="@id/itemLayout2">
 
             <TextView
-
                 android:text="Material : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                />
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/material"
                 android:layout_width="wrap_content"
                 android:text="Steel"
                 android:layout_height="wrap_content"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-
                 android:gravity="center" />
 
             <TextView
-
                 android:text="Units : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                />
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/units"
                 android:layout_width="wrap_content"
                 android:text="Grams / Kilograms"
+                android:textColor="@color/name"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-
                 android:gravity="center" />
 
         </LinearLayout>
@@ -190,21 +162,17 @@
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:id="@+id/ItemLayout4"
-            android:background="@color/ItemEvenColor"
-            android:layout_below="@id/ItemLayout3"
-            >
+            android:layout_below="@id/ItemLayout3">
 
             <TextView
-
                 android:text="Surface : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                />
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/surface"
@@ -213,33 +181,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-
+                android:textColor="@color/name"
                 android:gravity="center" />
-            <TextView
 
+            <TextView
                 android:text="Availablity : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                />
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/availability"
                 android:layout_width="wrap_content"
                 android:text="Yes"
+                android:textColor="@color/name"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-
                 android:gravity="center" />
 
-
         </LinearLayout>
-
 
     </RelativeLayout>
 

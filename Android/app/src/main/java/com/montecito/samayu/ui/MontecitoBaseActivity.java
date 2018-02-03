@@ -74,10 +74,10 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         int id = item.getItemId();
         final Intent intent;
         final Bundle b;
-        if (id == R.id.nav_bar) {
+      /*  if (id == R.id.nav_bar) {
 
         }
-        else if (id == R.id.nav_home) {
+        else*/ if (id == R.id.nav_home) {
 
             intent = new Intent(this, Home.class);
             startActivity(intent);

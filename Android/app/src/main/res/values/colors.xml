@@ -12,10 +12,44 @@
     <color name="text_color">#484b4d</color>
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#a48d70</color>
+    <color name="buttonColor">#21547c</color>
+    <color name="buttonStyle">#FFF</color>
+    <color name="linkUrlColor">#0061FF</color>
+    <color name="name">#ffffff </color>
+    <color name="highlight">#84d957</color>
+    <color name="CompanyName">#8fd580</color>
+    <color name="Heading">#fff</color>
+    <color name="title">#ffffff</color>
+    <color name="TabSelected">#ffffff
+    </color>
+    <color name="TabUnSelect">#808080</color>
+</resources>
+
+<!--
+<resources>
+    <color name="binTitleColor">#34495D</color>
+    <color name="binOddColor">#86C9D9</color>
+    <color name="binEvenColor">#cafffd</color>
+    <color name="ItemTitleColor">#68751D</color>
+    <color name="ItemOddColor">#A3C567</color>
+    <color name="ItemEvenColor">#D4DEB8</color>
+    <color name="AlertTitleColor">#AE5C25</color>
+    <color name="AlertOddColor"> #F5A456</color>
+    <color name="AlertEvenColor">#FDD1AE</color>
+    <color name="text_color">#484b4d</color>
+    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
     <color name="buttonColor">#21547c</color>
+    <color name="buttonStyle">#FFF</color>
     <color name="linkUrlColor">#0061FF</color>
-    <color name="tab_background_unselected">#FFE29FAE</color>
-    <color name="tab_background_selected">#ffffff </color>
-
+    <color name="name">#ffffff </color>
+    <color name="highlight">#84d957</color>
+    <color name="CompanyName">#8fd580</color>
+    <color name="Heading">#fff</color>
+    <color name="title">#8fd580</color>
+    <color name="TabSelected">#8cff65</color>
+    <color name="TabUnSelect">#808080</color>
 </resources>
+-->
