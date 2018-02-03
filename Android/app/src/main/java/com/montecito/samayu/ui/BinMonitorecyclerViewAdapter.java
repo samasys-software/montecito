@@ -90,7 +90,7 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position = " + getPosition(), Toast.LENGTH_SHORT).show();
+
             SessionInfo.getInstance().setCurrentItem(SessionInfo.getInstance().getItemBinDetails().get(position));
             Intent intent = new Intent(context, ItemBinDetails.class);
             context.startActivity(intent);

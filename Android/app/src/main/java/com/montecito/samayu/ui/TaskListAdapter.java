@@ -102,14 +102,14 @@ public class TaskListAdapter extends BaseAdapter {
 
         if(status.equals("critical"))
         {
-            holder.tv4.setImageResource(R.drawable.ic_critical);
+            holder.tv4.setImageResource(R.drawable.ic_icon_critical);
         }
         else if(status.equals("low"))
         {
-            holder.tv4.setImageResource(R.drawable.ic_low);
+            holder.tv4.setImageResource(R.drawable.ic_icon_low);
         }
         else{
-            holder.tv4.setImageResource(R.drawable.ic_normal);
+            holder.tv4.setImageResource(R.drawable.ic_icon_normal);
         }
 
         return convertView;
