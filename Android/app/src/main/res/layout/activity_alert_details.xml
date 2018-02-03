@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="120sp"
+        android:layout_marginTop="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:orientation="horizontal"
+            android:background="@color/AlertOddColor"
+            android:id="@+id/AlertLayout1"
+            >
+
+            <TextView
+
+                android:text="Notification Alert % : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/notificationAlert"
+                android:layout_width="wrap_content"
+                android:text=" F "
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:gravity="center" />
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alert Enabled : "
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:textStyle="bold"
+                android:gravity="center"
+
+                />
+
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/alertEnable"
+                android:checked="false"
+
+
+                android:layout_width="50sp"
+                android:layout_height="10sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:gravity="center"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:orientation="horizontal"
+            android:id="@+id/AlertLayout2"
+            android:background="@color/AlertEvenColor"
+            android:layout_below="@id/AlertLayout1"
+            >
+
+            <TextView
+
+                android:text="Calibration Factor : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/calibrationFactor"
+                android:layout_width="wrap_content"
+                android:text="0.432"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+
+                android:gravity="center" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@color/AlertOddColor"
+            android:id="@+id/AlertLayout3"
+            android:layout_below="@id/AlertLayout2"
+            >
+
+            <TextView
+
+                android:text="Item Change Alert Enabled : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                />
+
+            <android.support.v7.widget.SwitchCompat
+                android:checked="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:gravity="center"
+                app:theme="@style/swichCompatDesign"
+                android:id="@+id/itemChangeAlertEnabled"
+                 />
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

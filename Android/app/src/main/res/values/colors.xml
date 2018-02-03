@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="binTitleColor">#34495D</color>
+    <color name="binOddColor">#86C9D9</color>
+    <color name="binEvenColor">#cafffd</color>
+    <color name="ItemTitleColor">#68751D</color>
+    <color name="ItemOddColor">#A3C567</color>
+    <color name="ItemEvenColor">#D4DEB8</color>
+    <color name="AlertTitleColor">#AE5C25</color>
+    <color name="AlertOddColor"> #F5A456</color>
+    <color name="AlertEvenColor">#FDD1AE</color>
+    <color name="text_color">#484b4d</color>
+    <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="buttonColor">#21547c</color>
+    <color name="linkUrlColor">#0061FF</color>
+    <color name="tab_background_unselected">#FFE29FAE</color>
+    <color name="tab_background_selected">#ffffff </color>
+
 </resources>

@@ -1,8 +1,9 @@
 package com.montecito.samayu.service;
 
-import com.dto.ConsumptionInfo;
-import com.dto.ItemAvailabilityDTO;
-import com.dto.LoginDTO;
+import com.montecito.samayu.domain.Consumption;
+import com.montecito.samayu.dto.ItemAvailabilityDTO;
+import com.montecito.samayu.dto.ItemBinDTO;
+import com.montecito.samayu.dto.LoginDTO;
 
 import java.util.List;
 
@@ -20,12 +21,23 @@ import retrofit2.http.POST;
 public interface MontecitoService {
 @POST("montecito/auth/local")
     @FormUrlEncoded
-    public Call<LoginDTO> authenticate(@Field("userId") String userId, @Field("password")String password);
+    public Call<LoginDTO> authenticate(@Field("userId") String userId, @Field("ic_password")String password);
 
     @GET("montecito/api/items/consumption/today/category")
-    public Call<List<ConsumptionInfo>> getConsumptionInfo(@Header("Authorization") String token);
+    public Call<List<Consumption>> getConsumptionInfoCategory(@Header("Authorization") String token);
 
     @GET("montecito/api/tasks/user")
     public Call<List<ItemAvailabilityDTO>> getItemAvailablityDTO(@Header("Authorization") String token);
+
+
+    @GET("montecito/api/items/consumption/today/items")
+    public Call<List<Consumption>> getConsumptionInfoItems(@Header("Authorization") String token);
+
+
+    @GET("montecito/api/items/consumption/today/floor")
+    public Call<List<Consumption>> getConsumptionInfoFloor(@Header("Authorization") String token);
+
+    @GET("montecito/api/itembins")
+    public Call<List<ItemBinDTO>> getItemBinDTO();
 
 }
