@@ -47,4 +47,14 @@ public class SessionInfo {
     public void setItemBinDetails(List<ItemBinDTO> itemBinDetails) {
         this.itemBinDetails = itemBinDetails;
     }
+
+    public ItemBinDTO getCurrentItem() {
+        return currentItem;
+    }
+
+    public void setCurrentItem(ItemBinDTO currentItem) {
+        this.currentItem = currentItem;
+    }
+
+    private ItemBinDTO currentItem;
 }
