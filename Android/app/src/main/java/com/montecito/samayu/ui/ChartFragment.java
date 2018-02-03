@@ -215,6 +215,8 @@ public class ChartFragment extends Fragment {
         barChart.getAxisRight().setDrawLabels(false);
         barChart.getLegend().setEnabled(false);
         barChart.getXAxis().setDrawLabels(false);
+        barChart.setDrawGridBackground(false);
+        barChart.setFitBars(true);
 
 
         //dataSet.setColor(Color.BLUE);
