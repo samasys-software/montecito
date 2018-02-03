@@ -11,12 +11,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+import com.montecito.samayu.dto.ItemBinDTO;
+import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 
 public class ItemBinDetails extends MontecitoBaseActivity {
     ExpandableRelativeLayout expandableLayout1,itemDetailsLayout,alertSettingsLayout;
     ImageButton binButton,itemButton,alertButton;
+    ItemBinDTO binItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         binButton=findViewById(R.id.binButton);
         itemButton=findViewById(R.id.itemButton);
         alertButton=findViewById(R.id.alertButton);
+        binItems= SessionInfo.getInstance().getCurrentItem();
         binButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +49,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
             }
         });
+
 
     }
     public void BinDetails(View view) {
