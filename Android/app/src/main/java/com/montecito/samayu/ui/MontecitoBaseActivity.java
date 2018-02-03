@@ -75,8 +75,7 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         final Intent intent;
         final Bundle b;
         if (id == R.id.nav_bar) {
-            intent =new Intent(this, Home.class);
-            startActivity(intent);
+
         }
         else if (id == R.id.nav_home) {
 
@@ -86,16 +85,14 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         }
         else if (id == R.id.nav_find) {
 
-            intent = new Intent(this, ItemBinDetails.class);
-            startActivity(intent);
-        }else if (id == R.id.nav_chart) {
             intent =new Intent(this, BinMonitor.class);
             startActivity(intent);
+        }else if (id == R.id.nav_chart) {
+
 
         } else if (id == R.id.nav_user) {
 
-            intent =new Intent(this, BinMonitor.class);
-            startActivity(intent);
+
         } else if (id == R.id.nav_logout) {
             File dir =getFilesDir();
             File file = new File(dir, "MontecitoLogin.txt");
@@ -106,9 +103,7 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
             intent = new Intent(this, LoginScreen.class);
             startActivity(intent);
         }else if (id == R.id.nav_remainder) {
-            intent = new Intent(this, Home.class);
 
-            startActivity(intent);
         }
         return true;
     }

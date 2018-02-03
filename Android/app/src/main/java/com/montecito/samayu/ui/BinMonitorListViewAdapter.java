@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
+import com.montecito.samayu.dto.ItemBinDTO;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import java.util.Collections;
@@ -21,11 +22,11 @@ import java.util.List;
  */
 
 public class BinMonitorListViewAdapter extends BaseAdapter {
-    private List<ItemAvailabilityDTO> binItem;
+    private List<ItemBinDTO> binItem;
     private static LayoutInflater inflater;
     private Context context;
 
-    public BinMonitorListViewAdapter(Context context, List<ItemAvailabilityDTO> binItem) {
+    public BinMonitorListViewAdapter(Context context, List<ItemBinDTO> binItem) {
 
         this.binItem=binItem;
         this.context=context;
@@ -57,9 +58,9 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
             holder.itemImage = (ImageView) convertView.findViewById(R.id.itemImage);
             holder.tv1 = (TextView) convertView.findViewById(R.id.itemName);
             holder.tv2 = (TextView) convertView.findViewById(R.id.capacity);
-            holder.itemCount.setText(binItem.get(position).getLocation());
-            holder.tv1.setText(binItem.get(position).getItem());
-            holder.tv2.setText(binItem.get(position).getAvailable());
+            holder.itemCount.setText("uhub");
+            holder.tv1.setText("ghju");
+            holder.tv2.setText("bhbhub");
             if(position %2 == 1)
                 // Set a background color for ListView regular row/item
                 convertView.setBackgroundColor(Color.parseColor("#9AFEFE"));
@@ -69,21 +70,7 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
 
         }
 
-        ItemAvailabilityDTO availabilityDTO = binItem.get(position);
-        String status= availabilityDTO.getStatus();
-        if(status.equals("critical"))
-        {
-                      holder.tv2.setTextColor(Color.RED);
-        }
-        else if(status.equals("low"))
-        {
 
-            holder.tv2.setTextColor(Color.parseColor("#ffff8800"));
-        }
-        else{
-
-           holder.tv2.setTextColor(Color.parseColor("#006400"));
-        }
         return convertView;
     }
 
