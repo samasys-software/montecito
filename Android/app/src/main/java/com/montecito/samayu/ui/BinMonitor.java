@@ -9,6 +9,7 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
@@ -112,11 +113,11 @@ public class BinMonitor extends MontecitoBaseActivity {
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
               SessionInfo.getInstance().setCurrentItem(SessionInfo.getInstance().getItemBinDetails().get(i));
                Intent intent = new Intent(BinMonitor.this, ItemBinDetails.class);
-
                startActivity(intent);
 
            }
        });
+
     }
 
     public void setBinData() {

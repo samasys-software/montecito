@@ -11,7 +11,7 @@
 
         <padding android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="1dp" />
     </shape></item>
-    <item android:right="5dp">
+    <item android:left="5dp">
         <bitmap android:gravity="center_horizontal|right" android:src="@drawable/ic_dropdown_icon">
             <padding android:right="2dp" />
         </bitmap>
