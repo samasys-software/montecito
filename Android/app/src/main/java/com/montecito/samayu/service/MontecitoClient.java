@@ -43,12 +43,14 @@ public class MontecitoClient {
 
             }
         });
+        String baseUrl = "http://13.126.19.130:3000";
+        //String baseUrl = ""http://ec2-52-91-5-22.compute-1.amazonaws.com:8080/montecito"
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
                 .excludeFieldsWithModifiers(Modifier.FINAL,Modifier.STATIC,Modifier.TRANSIENT)
                 .serializeNulls()
                 .create();
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://ec2-52-91-5-22.compute-1.amazonaws.com:8080")
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl( baseUrl )
                 .addConverterFactory( GsonConverterFactory.create(gson));
 
         Retrofit retrofit = builder.client( httpClientBuilder.build()).build();

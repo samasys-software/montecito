@@ -4,7 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.SuperscriptSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +17,7 @@ import android.widget.TextView;
 
 import com.montecito.samayu.domain.UserLogin;
 import com.montecito.samayu.dto.LoginDTO;
+import com.montecito.samayu.dto.LoginInput;
 import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
@@ -29,7 +35,7 @@ public class LoginScreen extends AppCompatActivity {
 
 
     EditText loginID,password;
-    TextView forgetPassword,newUser;
+    TextView forgetPassword,montecitoName,newUser;
     Button loginButton;
     Context context;
     View focusView = null;
@@ -47,10 +53,18 @@ public class LoginScreen extends AppCompatActivity {
         }
         setContentView(R.layout.activity_login_screen);
         context = this;
+
         loginID= (EditText)findViewById(R.id.loginID);
+        montecitoName= (TextView) findViewById(R.id.montecitoName);
         password= (EditText)findViewById(R.id.password);
         loginButton = (Button) findViewById(R.id.loginButton);
         forgetPassword = (TextView)findViewById(R.id.forgotPassword);
+        //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
+        //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        montecitoName.setText(Html.fromHtml("cBin<sup>TM</sup>\t"));
+
+        //montecitoName.setText(cs);
+
 
 
 
@@ -84,7 +98,10 @@ public class LoginScreen extends AppCompatActivity {
 
         }
         loginButton.setEnabled(false);
-        Call<LoginDTO> loginDTOCall = new MontecitoClient().getClient().authenticate(email, pass );
+        LoginInput loginInput = new LoginInput();
+        loginInput.setEmail(email);
+        loginInput.setPassword(pass);
+        Call<LoginDTO> loginDTOCall = new MontecitoClient().getClient().authenticate( loginInput );
        loginDTOCall.enqueue(new Callback<LoginDTO>() {
            @Override
            public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {

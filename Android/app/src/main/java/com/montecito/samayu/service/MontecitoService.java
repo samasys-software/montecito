@@ -4,10 +4,12 @@ import com.montecito.samayu.domain.Consumption;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.LoginDTO;
+import com.montecito.samayu.dto.LoginInput;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -19,14 +21,13 @@ import retrofit2.http.POST;
  */
 
 public interface MontecitoService {
-@POST("montecito/auth/local")
-    @FormUrlEncoded
-    public Call<LoginDTO> authenticate(@Field("userId") String userId, @Field("ic_password")String password);
+    @POST("auth/local")
+    public Call<LoginDTO> authenticate(@Body LoginInput loginInput);
 
     @GET("montecito/api/items/consumption/today/category")
     public Call<List<Consumption>> getConsumptionInfoCategory(@Header("Authorization") String token);
 
-    @GET("montecito/api/tasks/user")
+    @GET("api/replenishtasks/")
     public Call<List<ItemAvailabilityDTO>> getItemAvailablityDTO(@Header("Authorization") String token);
 
 
@@ -37,7 +38,7 @@ public interface MontecitoService {
     @GET("montecito/api/items/consumption/today/floor")
     public Call<List<Consumption>> getConsumptionInfoFloor(@Header("Authorization") String token);
 
-    @GET("montecito/api/itembins")
+    @GET("api/itembins")
     public Call<List<ItemBinDTO>> getItemBinDTO();
 
 }

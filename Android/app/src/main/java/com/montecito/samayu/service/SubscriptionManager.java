@@ -57,11 +57,13 @@ public class SubscriptionManager implements Runnable {
                 Log.i("Websocket" , "Received "+s);
                 try {
 
-                             JSONObject jsonObject= new JSONObject(message);
-                            String type = jsonObject.getString("type");
-                            JSONArray array= jsonObject.getJSONArray("payload");
-                            if(map.containsKey(type))
-                            map.get(type).onMessage(array);
+                    //This line are commented for the purpose of server data testing
+
+//                             JSONObject jsonObject= new JSONObject(message);
+//                            String type = jsonObject.getString("type");
+//                            JSONArray array= jsonObject.getJSONArray("payload");
+//                            if(map.containsKey(type))
+//                            map.get(type).onMessage(array);
 
                         }
                         catch(Exception er){

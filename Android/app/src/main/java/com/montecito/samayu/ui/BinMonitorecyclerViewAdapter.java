@@ -2,20 +2,20 @@ package com.montecito.samayu.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
+import com.montecito.samayu.service.GlobalUsage;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -26,6 +26,7 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
 
     private List<ItemBinDTO> binItem;
     private Context context;
+    NumberFormat numberFormat= GlobalUsage.getNumberFormat();
     public BinMonitorecyclerViewAdapter(Context context, List<ItemBinDTO> binItem) {
         this.binItem=binItem;
         this.context=context;
@@ -43,10 +44,13 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
     @Override
     public void onBindViewHolder(final BinMonitorecyclerViewAdapter.ViewHolder holder, int position) {
 
-        holder.itemCount.setText(binItem.get(position).getCrateBin().getName());
-        holder.tv1.setText(binItem.get(position).getCrateBin().getCapacity()+"%");
-        holder.tv2.setText(binItem.get(position).getCurrDevice().getName());
-        holder.position=position;
+        if(binItem.get(position).getCrateBin()!=null) {
+            holder.itemCount.setText(binItem.get(position).getCrateBin().getBrand()+":"+binItem.get(position).getCrateBin().getName());
+            String capacity=(numberFormat.format(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100))+"%";
+            holder.tv1.setText(capacity);
+            holder.tv2.setText(binItem.get(position).getItem().getName());
+            holder.position = position;
+        }
 
       /*  ItemBinDTO availableBinItem=binItem.get(position);
         String status= availableBinItem.getStatus();

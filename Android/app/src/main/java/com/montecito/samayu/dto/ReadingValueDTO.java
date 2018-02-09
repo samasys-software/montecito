@@ -4,13 +4,13 @@ package com.montecito.samayu.dto;
  * Created by NandhiniGovindasamy on 2/2/18.
  */
 public class ReadingValueDTO {
-    public String getWeight() {
+    private float weight;
+
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
-
-    public String weight;
 }

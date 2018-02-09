@@ -26,15 +26,15 @@
    <LinearLayout
        android:layout_width="0dp"
        android:layout_height="match_parent"
-       android:layout_weight="3"
+       android:layout_weight="2"
        android:orientation="vertical"
        android:padding="5dp">
 
       <ImageView
-          android:layout_height="wrap_content"
-          android:layout_width="wrap_content"
           android:id="@+id/itemImage"
-          android:background="@drawable/ic_bin"/>
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@drawable/ic_bin" />
 
    </LinearLayout>
 
@@ -46,12 +46,12 @@
        android:padding="5dp">
 
       <TextView
+          android:id="@+id/itemName"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:id="@+id/itemName"
-          android:textColor="@color/name"
+          android:layout_toRightOf="@+id/capacity"
           android:text="Slottedscrews-MAT 21A"
-          android:layout_toRightOf="@+id/capacity"/>
+          android:textColor="@color/name" />
 
    </LinearLayout>
 
@@ -60,15 +60,15 @@
        android:layout_height="match_parent"
        android:layout_weight="1.5"
        android:orientation="vertical"
-       android:padding="5dp">
+       >
 
       <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="0dp"
           android:id="@+id/capacity"
-          android:textColor="@color/name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
           android:layout_weight="1.5"
-          android:text="20%"/>
+          android:text="20%"
+          android:textColor="@color/name" />
 
    </LinearLayout>
 

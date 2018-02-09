@@ -13,8 +13,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
@@ -22,6 +25,8 @@ import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,6 +42,8 @@ public class BinMonitor extends MontecitoBaseActivity {
     ViewStub stubCardview,stubListView;
     ProgressDialog mProgressDialog;
     Context context;
+    LinearLayout  locationLayout, floorLayout;
+    Spinner sortBy;
 
     private int currentViewMode=0;
     final int VIEW_MODE_LISTVIEW=1;
@@ -47,6 +54,10 @@ public class BinMonitor extends MontecitoBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bin_monitor);
         context=this;
+        locationLayout=(LinearLayout) findViewById(R.id.locationLayout);
+        floorLayout=(LinearLayout) findViewById(R.id.FloorLayout);
+        locationLayout.setVisibility(View.GONE);
+        floorLayout.setVisibility(View.GONE);
         cardViewImage = (ImageView) findViewById(R.id.cardviewImage);
         listViewImage=(ImageView) findViewById(R.id.listViewImage);
         gridLayoutManager = new GridLayoutManager(BinMonitor.this, 2);
@@ -58,6 +69,14 @@ public class BinMonitor extends MontecitoBaseActivity {
 
         listView=(ListView)findViewById(R.id.listview);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        sortBy=(Spinner)findViewById(R.id.sortby);
+
+        List<String> sortByValues=new ArrayList<>();
+        sortByValues.add("Please Select");
+        sortByValues.add("By Name");
+        sortByValues.add("By Location");
+        ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,sortByValues);
+        sortBy.setAdapter(dataAdapter);
 
 
         final Call<List<ItemBinDTO>> itemBinAvailability = new MontecitoClient().getClient().getItemBinDTO();
@@ -86,7 +105,26 @@ public class BinMonitor extends MontecitoBaseActivity {
         SharedPreferences sharedPreferences=getSharedPreferences("ViewMode",MODE_PRIVATE);
         currentViewMode=sharedPreferences.getInt("currentViewMode",VIEW_MODE_CARDVIEW);//default viewmode
 
+        sortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            List<ItemBinDTO> binItem=SessionInfo.getInstance().getItemBinDetails();
 
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedValue=adapterView.getSelectedItem().toString();
+                if(selectedValue.equalsIgnoreCase("By Name")){
+                    //Collections.sort(binItem);
+                }
+                else{
+                    System.out.println(selectedValue);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
        cardViewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
