@@ -4,7 +4,7 @@ package com.montecito.samayu.dto;
  * Created by NandhiniGovindasamy on 2/2/18.
  */
 
-public class ThresholdDTO {
+public class ThresoldDTO {
 
     private String min;
     private String normal;
@@ -25,13 +25,13 @@ public class ThresholdDTO {
         this.normal = normal;
     }
 
-    public String getMax() {
+    public float getMax() {
         return max;
     }
 
-    public void setMax(String max) {
+    public void setMax(float max) {
         this.max = max;
     }
 
-    private String max;
+    private float max;
 }

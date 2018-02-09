@@ -1,9 +1,11 @@
 package com.montecito.samayu.dto;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by NandhiniGovindasamy on 2/2/18.
  */
-public class BinDTO {
+public class BinDTO implements Comparable{
 
     private String _id;
     private String name;
@@ -41,5 +43,12 @@ public class BinDTO {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        BinDTO item = (BinDTO) o;
+        return name.compareToIgnoreCase(item.getName());
     }
 }

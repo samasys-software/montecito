@@ -16,7 +16,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     // Returns the fragment to display for that page
     @Override
     public Fragment getItem(int position) {
-        return ChartFragment.getInstance(position);
+        return ChartFragment1.getInstance(position);
     }
     // Returns total number of pages
     @Override

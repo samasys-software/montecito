@@ -87,6 +87,7 @@ public class Home extends MontecitoBaseActivity  {
 
                     List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
                     //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
+                    //This line is commented for the purpose of server data testing
                     listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
                     mProgressDialog.dismiss();
                 }
@@ -110,7 +111,7 @@ public class Home extends MontecitoBaseActivity  {
 
             @Override
             public void doOnUI(final JSONArray jsonArray) {
-                updateTasks(jsonArray);
+                //updateTasks(jsonArray);      This line is commented for the purpose of server data testing
 
             }
         });

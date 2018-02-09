@@ -1,10 +1,12 @@
 package com.montecito.samayu.dto;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by NandhiniGovindasamy on 2/2/18.
  */
 
-public class ItemBinDTO {
+public class ItemBinDTO implements Comparable {
 
     private String _id;
     private BinDTO crateBin;
@@ -50,11 +52,12 @@ public class ItemBinDTO {
         this.uom = uom;
     }
 
-    public String getCapacity() {
+
+    public float getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(float capacity) {
         this.capacity = capacity;
     }
 
@@ -68,18 +71,18 @@ public class ItemBinDTO {
 
     private DeviceDTO currDevice;
     private String uom;
-    private String capacity;
+    private float capacity;
 
-    public ThresholdDTO getThreshold() {
-        return threshold;
+    public ThresoldDTO getThresold() {
+        return thresold;
     }
 
-    public void setThreshold(ThresholdDTO threshold) {
-        this.threshold = threshold;
+    public void setThresold(ThresoldDTO thresold) {
+        this.thresold = thresold;
     }
 
     private ReadingDTO lastReading;
-    private ThresholdDTO threshold;
+    private ThresoldDTO thresold;
 
     public String getStatus() {
         return status;
@@ -90,5 +93,13 @@ public class ItemBinDTO {
     }
 
     private String status;
+    @Override
+    public int compareTo(@NonNull Object o) {
+        ItemBinDTO item = (ItemBinDTO) o;
+        return crateBin.getName().compareToIgnoreCase(item.crateBin.getName());
+
+    }
+
+
 
 }

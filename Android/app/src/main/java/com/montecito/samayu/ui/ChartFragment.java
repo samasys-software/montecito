@@ -88,24 +88,25 @@ public class ChartFragment extends Fragment {
             @Override
             public void doOnUI(JSONArray jsonArray) {
                 try{
-                    List<Consumption> list = new ArrayList<Consumption>();
-                    for(int i=0;i<jsonArray.length();i++) {
-                        JSONObject obj = (JSONObject) jsonArray.get(i);
-                        Consumption info = new Consumption();
-                        info.setId(obj.getString("_id"));
-                        info.setItem(obj.getString("item"));
-                        info.setUsage(obj.getString("usage"));
-                        list.add(info);
-                    }
-                    final List<Consumption> consumptionInfo = list;
-                    Runnable runnable = new Runnable(){
-                        public void run(){
-                            addConsumption( db,consumptionInfo );
-
-                        }
-                    };
-                    Thread t = new Thread(runnable);t.start();
-                    updateChart(barChart, consumptionInfo);
+                    //This line are commented for the purpose of server data testing
+//                    List<Consumption> list = new ArrayList<Consumption>();
+//                    for(int i=0;i<jsonArray.length();i++) {
+//                        JSONObject obj = (JSONObject) jsonArray.get(i);
+//                        Consumption info = new Consumption();
+//                        info.setId(obj.getString("_id"));
+//                        info.setItem(obj.getString("item"));
+//                        info.setUsage(obj.getString("usage"));
+//                        list.add(info);
+//                    }
+//                    final List<Consumption> consumptionInfo = list;
+//                    Runnable runnable = new Runnable(){
+//                        public void run(){
+//                            addConsumption( db,consumptionInfo );
+//
+//                        }
+//                    };
+//                    Thread t = new Thread(runnable);t.start();
+//                    updateChart(barChart, consumptionInfo);
 
                 }catch (Exception er){
                     er.printStackTrace();

@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
+import com.montecito.samayu.service.GlobalUsage;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.text.NumberFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
     private List<ItemBinDTO> binItem;
     private static LayoutInflater inflater;
     private Context context;
+    NumberFormat numberFormat= GlobalUsage.getNumberFormat();
 
     public BinMonitorListViewAdapter(Context context, List<ItemBinDTO> binItem) {
 
@@ -59,10 +62,13 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
 
             holder.tv1 = (TextView) convertView.findViewById(R.id.capacity);
             holder.tv2 = (TextView) convertView.findViewById(R.id.itemName);
+            if(binItem.get(position).getCrateBin()!=null) {
+                holder.itemCount.setText(binItem.get(position).getCrateBin().getBrand()+":"+binItem.get(position).getCrateBin().getName());
+                String capacity=(numberFormat.format(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100))+"%";
+                holder.tv1.setText(capacity);
+                holder.tv2.setText(binItem.get(position).getItem().getName());
 
-            holder.itemCount.setText(binItem.get(position).getCrateBin().getName());
-            holder.tv1.setText(binItem.get(position).getCrateBin().getCapacity()+"%");
-            holder.tv2.setText(binItem.get(position).getCurrDevice().getName());
+            }
 
 
             /*ItemBinDTO availableBinItem=binItem.get(position);

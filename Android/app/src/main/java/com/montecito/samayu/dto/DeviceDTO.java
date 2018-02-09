@@ -1,9 +1,11 @@
 package com.montecito.samayu.dto;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by NandhiniGovindasamy on 2/2/18.
  */
-public class DeviceDTO {
+public class DeviceDTO implements Comparable{
     private String _id;
     private String slno;
     private String name;
@@ -41,4 +43,11 @@ public class DeviceDTO {
     }
 
     private String location;
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        DeviceDTO item = (DeviceDTO) o;
+        return location.compareToIgnoreCase(item.getLocation());
+
+    }
 }

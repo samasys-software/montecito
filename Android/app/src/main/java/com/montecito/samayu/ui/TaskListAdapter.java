@@ -26,7 +26,8 @@ public class TaskListAdapter extends BaseAdapter {
 
         // TODO Auto-generated constructor stub
         itemAvailabilityDTOLists=itemAvailabilityDTOList;
-        Collections.sort(itemAvailabilityDTOLists);
+        //This line is commented for the purpose of server data testing
+        //Collections.sort(itemAvailabilityDTOLists);
 
                 //   System.out.println(products.size());
 
@@ -96,20 +97,21 @@ public class TaskListAdapter extends BaseAdapter {
         holder.tv1.setText(itemName);
 
         holder.tv2.setText(location);
-        holder.tv3.setText(available);
+        holder.tv3.setText(available+"%");
         //holder.tv4.setText(status);
 
 
-        if(status.equals("critical"))
+
+        if(status.equalsIgnoreCase("low"))
         {
-            holder.tv4.setImageResource(R.drawable.ic_icon_critical);
+            holder.tv4.setImageResource(R.drawable.ic_low);
         }
-        else if(status.equals("low"))
+        else if(status.equalsIgnoreCase("normal")){
+            holder.tv4.setImageResource(R.drawable.ic_normal);
+        }
+       else
         {
-            holder.tv4.setImageResource(R.drawable.ic_icon_low);
-        }
-        else{
-            holder.tv4.setImageResource(R.drawable.ic_icon_normal);
+            holder.tv4.setImageResource(R.drawable.ic_critical);
         }
 
         return convertView;
