@@ -5,35 +5,165 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.montecito.samayu.ui.UserProfile">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <RelativeLayout
         android:id="@+id/UserProfileDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:padding="0sp"
-        android:orientation="vertical"
+        android:gravity="center_horizontal"
        >
-        <include
-            android:id="@+id/bin"
-            layout="@layout/activity_bin_details"/>
+       <ImageView
+           android:id="@+id/userImage"
+           android:layout_width="100dp"
+           android:layout_height="100dp"
+           app:srcCompat="@drawable/icon_user"
+           />
 
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/name"
+            android:layout_below="@+id/userImage"
+            android:text="Ramji Rengarajan"/>
 
-    </LinearLayout>
+        </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        >
 
     <LinearLayout
         android:id="@+id/UserDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:layout_marginLeft="10dp"
         android:layout_below="@+id/UserProfileDetails"
         android:padding="0sp"
         android:orientation="vertical"
        >
-        <include
-            android:id="@+id/bin"
-            layout="@layout/activity_bin_details"/>
+        <TextView
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstNameHint"
+            android:text="First Name"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/name"
+           />
+        <TextView
+
+            android:id="@+id/lastNameHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last Name"
+            android:textColor="@color/name"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/firstNameHint"/>
+        <TextView
+            android:id="@+id/dopHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date Of Birth"
+            android:textColor="@color/name"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/lastNameHint"/>
+        <TextView
+            android:id="@+id/designationHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Designation"
+            android:textColor="@color/name"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/dopHint"/>
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textColor="@color/name"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textColor="@color/name"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textColor="@color/name"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textColor="@color/name"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ramji"
+                android:textColor="@color/name"
+                android:layout_weight="5"
+                android:layout_marginTop="10dp"
+                android:id="@+id/userFirstName"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rengarajan"
+                android:layout_weight="5"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/name"
+                android:id="@+id/userLastName"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="01-JAN-1989"
+                android:layout_weight="5"
+                android:textColor="@color/name"
+                android:layout_marginTop="10dp"
+                android:id="@+id/userDateOfBirth"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Director"
+                android:layout_weight="5"
+                android:textColor="@color/name"
+                android:layout_marginTop="10dp"
+                android:id="@+id/userDesignation"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -74,10 +204,10 @@
         app:ael_orientation="vertical">
 
         <include
-            android:id="@+id/bin"
-            layout="@layout/activity_bin_details"/>
+            android:id="@+id/changePassword"
+            layout="@layout/change_password"/>
 
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
