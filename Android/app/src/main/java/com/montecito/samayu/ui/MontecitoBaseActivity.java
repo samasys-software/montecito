@@ -91,6 +91,8 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
 
 
         } else if (id == R.id.nav_user) {
+            intent=new Intent(this,UserProfile.class);
+            startActivity(intent);
 
 
         } else if (id == R.id.nav_logout) {

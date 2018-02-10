@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.montecito.samayu.ui.UserProfile">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/UserProfileDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="0sp"
+        android:orientation="vertical"
+       >
+        <include
+            android:id="@+id/bin"
+            layout="@layout/activity_bin_details"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/UserDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/UserProfileDetails"
+        android:padding="0sp"
+        android:orientation="vertical"
+       >
+        <include
+            android:id="@+id/bin"
+            layout="@layout/activity_bin_details"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ChangePasswordLayout"
+        android:layout_below="@id/UserDetails"
+        android:paddingRight="10sp"
+        android:layout_weight="1.5"
+        android:orientation="horizontal">
+
+
+        <TextView
+            style="@style/header"
+            android:id="@+id/BinDetailsId"
+            android:layout_weight="1.5"
+            android:textColor="@color/Heading"
+            android:text="Change Password" />
+
+        <ImageButton
+            style="@style/header"
+            android:layout_weight="0"
+            android:background="@null"
+            android:src="@drawable/downarrow"
+            android:id="@+id/changeButton"/>
+
+    </LinearLayout>
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/ChangePasswordDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ChangePasswordLayout"
+        android:padding="0sp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <include
+            android:id="@+id/bin"
+            layout="@layout/activity_bin_details"/>
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
