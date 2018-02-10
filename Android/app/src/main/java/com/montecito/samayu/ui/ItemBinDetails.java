@@ -57,11 +57,21 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
     }
     public void binDetails (){
+
         binDetails(true);
     }
     public void binDetails(boolean toggle) {
         expandableLayout1 = (ExpandableRelativeLayout) findViewById(R.id.BinDetailsLayout);
-        if(toggle) expandableLayout1.toggle(); // toggle expand and collapse
+        if(toggle) {
+            expandableLayout1.toggle(); // toggle expand and collapse
+
+        }
+        if (expandableLayout1.isExpanded()) {
+            binButton.setImageResource(R.drawable.downarrow);
+        } else {
+            binButton.setImageResource(R.drawable.uparrow);
+        }
+
         //RelativeLayout relativeLayout=(RelativeLayout) expandableLayout1.findViewById(R.id.bin);
         TextView binName=(TextView) findViewById(R.id.binName);
         TextView binLocation=(TextView) findViewById(R.id.binLocation);
@@ -79,14 +89,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
 
 
-       if(expandableLayout1.isExpanded())
-       {
-           binButton.setImageResource(R.drawable.downarrow);
-       }
-       else
-       {
-           binButton.setImageResource(R.drawable.uparrow);
-       }
+
     }
 
     public void ItemDetails() {

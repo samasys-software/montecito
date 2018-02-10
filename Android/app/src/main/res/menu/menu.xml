@@ -32,13 +32,13 @@
         android:id="@+id/nav_user"
         android:icon="@drawable/account_theme"
         app:showAsAction="always"
-        android:title="home"/>
+        android:title="User Profile"/>
 
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/logout_theme"
         app:showAsAction="always"
-        android:title="home"/>
+        android:title="Logout"/>
 
     <item
         android:id="@+id/nav_remainder"
