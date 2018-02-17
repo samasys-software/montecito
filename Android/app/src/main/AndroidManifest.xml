@@ -29,7 +29,8 @@
             android:label="@string/title_activity_item_bin_details"
             android:theme="@style/AppTheme" />
         <activity android:name="com.montecito.samayu.ui.BinMonitor" />
-        <activity android:name="com.montecito.samayu.ui.UserProfile"></activity>
+        <activity android:name="com.montecito.samayu.ui.UserProfile" />
+        <activity android:name="com.montecito.samayu.ui.ReportScreen"></activity>
     </application>
 
 </manifest>
