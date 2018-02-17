@@ -24,6 +24,8 @@
     <color name="TabSelected">#ffffff
     </color>
     <color name="TabUnSelect">#808080</color>
+    <color name="DonutBackgroundColor">#ffb349</color>
+
 </resources>
 
 <!--

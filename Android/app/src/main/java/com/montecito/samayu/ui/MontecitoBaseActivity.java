@@ -88,6 +88,9 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
             intent =new Intent(this, BinMonitor.class);
             startActivity(intent);
         }else if (id == R.id.nav_chart) {
+            intent=new Intent(this,ReportScreen.class);
+            startActivity(intent);
+
 
 
         } else if (id == R.id.nav_user) {

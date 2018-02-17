@@ -32,6 +32,7 @@ public class ChartFragment1 extends Fragment{
     BarChart barChart;
 
 
+
     // newInstance constructor for creating fragment with arguments
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
@@ -65,12 +66,12 @@ public class ChartFragment1 extends Fragment{
 
         if(position==0) {
             List<Consumption> list = new ArrayList<Consumption>();
-            for(int i=0;i<15;i++) {
+            for(int i=0;i<2;i++) {
 
                 Consumption info = new Consumption();
                 info.setId("_id"+i);
                 info.setItem("item");
-                info.setUsage(""+10 *i);
+                info.setUsage(""+10);
                 list.add(info);
             }
             final List<Consumption> consumptionInfo = list;
@@ -86,7 +87,7 @@ public class ChartFragment1 extends Fragment{
                 Consumption info = new Consumption();
                 info.setId("_id"+i);
                 info.setItem("item");
-                info.setUsage(""+20*i);
+                info.setUsage(""+20);
                 list.add(info);
             }
             final List<Consumption> consumptionInfo = list;
@@ -101,7 +102,7 @@ public class ChartFragment1 extends Fragment{
                             Consumption info = new Consumption();
                             info.setId("_id"+i);
                             info.setItem("item");
-                            info.setUsage(""+15*i);
+                            info.setUsage(""+15);
                             list.add(info);
                        }
                        final List<Consumption> consumptionInfo = list;
@@ -115,7 +116,7 @@ public class ChartFragment1 extends Fragment{
     public void updateChart(BarChart barChart, List<Consumption> consumptionInfo){
         List<BarEntry> data = new ArrayList<>();
         for(int i =0; i<consumptionInfo.size(); i++){
-            data.add( new BarEntry(i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
+            data.add( new BarEntry( i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
         }
 
         BarDataSet dataSet = new BarDataSet(data,"Usage");
@@ -146,7 +147,7 @@ public class ChartFragment1 extends Fragment{
     public static int[] getColorsForChart(int size, int end, int start){
         int[] gradient = new int[size];
         for(int i=0;i<size;i++){
-            float ratio = ((float)i)/size;
+            float ratio = ((float)i)/(size-1);
 
             int red = (int)(Color.red(end)*ratio+Color.red(start)*(1-ratio));
             int green =(int) (Color.green(end)*ratio+Color.green(start)*(1-ratio));
