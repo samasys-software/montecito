@@ -2,6 +2,7 @@ package com.montecito.samayu.service;
 
 import com.montecito.samayu.domain.UserLogin;
 import com.montecito.samayu.dto.ItemBinDTO;
+import com.montecito.samayu.dto.UserProfileDTO;
 
 import java.util.List;
 
@@ -57,4 +58,14 @@ public class SessionInfo {
     }
 
     private ItemBinDTO currentItem;
+
+    public UserProfileDTO getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfileDTO userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    private UserProfileDTO userProfile;
 }
