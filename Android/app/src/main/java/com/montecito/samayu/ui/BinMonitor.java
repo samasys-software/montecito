@@ -79,7 +79,7 @@ public class BinMonitor extends MontecitoBaseActivity {
         sortBy.setAdapter(dataAdapter);
 
 
-        final Call<List<ItemBinDTO>> itemBinAvailability = new MontecitoClient().getClient().getItemBinDTO();
+        final Call<List<ItemBinDTO>> itemBinAvailability = new MontecitoClient().getClient().getItemBinDTO(SessionInfo.getInstance().getUserLogin().getToken());
         itemBinAvailability.enqueue(new Callback<List<ItemBinDTO>>() {
             @Override
             public void onResponse(Call<List<ItemBinDTO>> call, Response<List<ItemBinDTO>> response) {
@@ -149,8 +149,8 @@ public class BinMonitor extends MontecitoBaseActivity {
        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-              SessionInfo.getInstance().setCurrentItem(SessionInfo.getInstance().getItemBinDetails().get(i));
-               Intent intent = new Intent(BinMonitor.this, ItemBinDetails.class);
+              SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getItemBinDetails().get(i).get_id());
+              Intent intent = new Intent(BinMonitor.this, ItemBinDetails.class);
                startActivity(intent);
 
            }

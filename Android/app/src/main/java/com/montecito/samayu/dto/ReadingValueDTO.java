@@ -5,6 +5,15 @@ package com.montecito.samayu.dto;
  */
 public class ReadingValueDTO {
     private float weight;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public float getWeight() {
         return weight;

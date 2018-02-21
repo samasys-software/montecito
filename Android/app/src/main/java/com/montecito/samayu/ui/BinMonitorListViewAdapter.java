@@ -1,6 +1,7 @@
 package com.montecito.samayu.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.service.GlobalUsage;
+import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import java.text.NumberFormat;
@@ -71,6 +73,7 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
             }
 
 
+
             /*ItemBinDTO availableBinItem=binItem.get(position);
             String status= availableBinItem.getStatus();
             if(status.equals("critical"))
@@ -97,4 +100,7 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
         public TextView itemCount,tv1,tv2;
         public ImageView itemImage;
     }
+
+
+
 }
