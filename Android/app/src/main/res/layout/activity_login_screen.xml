@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/logo1"
+            app:srcCompat="@drawable/logo"
             android:id="@+id/montecitoLogo"
             android:layout_centerVertical="true"/>
 
