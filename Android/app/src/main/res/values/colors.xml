@@ -21,8 +21,10 @@
     <color name="CompanyName">#8fd580</color>
     <color name="Heading">#fff</color>
     <color name="title">#ffffff</color>
-    <color name="TabSelected">#ffffff
-    </color>
+    <color name="TabSelected">#ffffff</color>
+    <color name="low">#FFA500</color>
+    <color name="critical">#FF0000</color>
+    <color name="normal">#008000</color>
     <color name="TabUnSelect">#808080</color>
     <color name="DonutBackgroundColor">#ffb349</color>
 
