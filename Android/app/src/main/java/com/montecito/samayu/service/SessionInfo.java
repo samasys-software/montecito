@@ -2,6 +2,7 @@ package com.montecito.samayu.service;
 
 import com.montecito.samayu.domain.UserLogin;
 import com.montecito.samayu.dto.ItemBinDTO;
+import com.montecito.samayu.dto.ItemBinDetailsDTO;
 import com.montecito.samayu.dto.UserProfileDTO;
 
 import java.util.List;
@@ -49,23 +50,23 @@ public class SessionInfo {
         this.itemBinDetails = itemBinDetails;
     }
 
-    public ItemBinDTO getCurrentItem() {
-        return currentItem;
+    public String getCurrentItemBinId() {
+        return currentItemBinId;
     }
 
-    public void setCurrentItem(ItemBinDTO currentItem) {
-        this.currentItem = currentItem;
+    public void setCurrentItemBinId(String currentItemBinId) {
+        this.currentItemBinId = currentItemBinId;
     }
 
-    private ItemBinDTO currentItem;
+    private String currentItemBinId;
 
-    public UserProfileDTO getUserProfile() {
-        return userProfile;
+    private ItemBinDetailsDTO currenItemBinDetails;
+
+    public ItemBinDetailsDTO getCurrenItemBinDetails() {
+        return currenItemBinDetails;
     }
 
-    public void setUserProfile(UserProfileDTO userProfile) {
-        this.userProfile = userProfile;
+    public void setCurrenItemBinDetails(ItemBinDetailsDTO currenItemBinDetails) {
+        this.currenItemBinDetails = currenItemBinDetails;
     }
-
-    private UserProfileDTO userProfile;
 }

@@ -61,7 +61,7 @@ public class LoginScreen extends AppCompatActivity {
         forgetPassword = (TextView)findViewById(R.id.forgotPassword);
         //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
         //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        montecitoName.setText(Html.fromHtml("cBin<sup>TM</sup>\t"));
+        montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
 
         //montecitoName.setText(cs);
 
@@ -110,7 +110,7 @@ public class LoginScreen extends AppCompatActivity {
                    UserLogin userLogin=new UserLogin();
                    userLogin.setFirstName(loginDTO.getFirstName());
                    userLogin.setLastName(loginDTO.getLastName());
-                   userLogin.setToken(loginDTO.getToken());
+                   userLogin.setToken("Bearer "+loginDTO.getToken());
 
                    SessionInfo.getInstance().setUserLogin( userLogin);
                   loginToFile(userLogin);

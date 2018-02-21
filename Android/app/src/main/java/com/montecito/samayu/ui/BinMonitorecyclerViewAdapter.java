@@ -95,7 +95,7 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
         @Override
         public void onClick(View view) {
 
-            SessionInfo.getInstance().setCurrentItem(SessionInfo.getInstance().getItemBinDetails().get(position));
+            SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getItemBinDetails().get(position).get_id());
             Intent intent = new Intent(context, ItemBinDetails.class);
             context.startActivity(intent);
 

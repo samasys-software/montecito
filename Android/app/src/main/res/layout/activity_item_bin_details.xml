@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.montecito.samayu.ui.ItemBinDetails">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -154,6 +157,150 @@
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ReplenishmentTitleLayout"
+            android:layout_below="@id/AlertSettingsLayout"
+            android:paddingRight="10sp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/header"
+                android:src="@drawable/alert"
+                android:layout_weight="0.2"
+                android:id="@+id/ReplenishmentDetailsImage"/>
+
+            <TextView
+                style="@style/header"
+                android:id="@+id/ReplenishmentDetailsId"
+                android:layout_weight="1.5"
+                android:textColor="@color/Heading"
+                android:text="Replenishment Details" />
+
+            <ImageButton
+                style="@style/header"
+                android:layout_weight="0"
+                android:background="@null"
+                android:src="@drawable/downarrow"
+                android:id="@+id/ReplenishmentDetailsButton"/>
+
+        </LinearLayout>
+
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/ReplenishmentDetailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ReplenishmentTitleLayout"
+            android:padding="0sp"
+            app:ael_duration="400"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
+
+            <include
+                android:id="@+id/bin"
+                layout="@layout/activity_bin_details"/>
+
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ReplenishmentHistoryTitleLayout"
+            android:layout_below="@id/ReplenishmentDetailsLayout"
+            android:paddingRight="10sp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/header"
+                android:layout_weight="0.2"
+                android:src="@drawable/item"
+                android:id="@+id/ReplenishmentHistoryImage"/>
+
+            <TextView
+                style="@style/header"
+                android:id="@+id/ReplenishmentHistoryId1"
+                android:layout_weight="1.5"
+                android:textColor="@color/Heading"
+                android:text="Replenishment History"/>
+
+            <ImageButton
+                style="@style/header"
+                android:background="@null"
+                android:layout_weight="0"
+                android:src="@drawable/downarrow"
+                android:id="@+id/ReplenishmentHistoryButton"/>
+
+        </LinearLayout>
+
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/ReplenishmentHistoryLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ReplenishmentHistoryTitleLayout"
+            android:padding="0sp"
+            app:ael_duration="400"
+            app:ael_expanded="false"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
+
+            <include
+                android:id="@+id/item"
+                layout="@layout/activity_item_details"/>
+
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cbinMovementTitleLayout"
+            android:layout_below="@id/ReplenishmentHistoryTitleLayout"
+            android:paddingRight="10sp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/header"
+                android:src="@drawable/alert"
+                android:layout_weight="0.2"
+                android:id="@+id/cbinMovementImage"/>
+
+            <TextView
+                style="@style/header"
+                android:id="@+id/cbinMovementId"
+                android:layout_weight="1.5"
+                android:textColor="@color/Heading"
+                android:text="cBin Movement History"/>
+
+            <ImageButton
+                style="@style/header"
+                android:background="@null"
+                android:src="@drawable/downarrow"
+                android:layout_weight="0"
+                android:id="@+id/cbinMovementButton"/>
+
+        </LinearLayout>
+
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/cbinMovementLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cbinMovementTitleLayout"
+            android:padding="0sp"
+            app:ael_duration="400"
+            app:ael_expanded="false"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
+
+            <include
+                android:id="@+id/item"
+                layout="@layout/activity_alert_details"/>
+
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
     </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
