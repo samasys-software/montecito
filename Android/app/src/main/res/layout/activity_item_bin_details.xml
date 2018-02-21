@@ -168,7 +168,7 @@
 
             <ImageView
                 style="@style/header"
-                android:src="@drawable/alert"
+                android:src="@drawable/bucket"
                 android:layout_weight="0.2"
                 android:id="@+id/ReplenishmentDetailsImage"/>
 
@@ -216,7 +216,7 @@
             <ImageView
                 style="@style/header"
                 android:layout_weight="0.2"
-                android:src="@drawable/item"
+                android:src="@drawable/clock"
                 android:id="@+id/ReplenishmentHistoryImage"/>
 
             <TextView
@@ -256,14 +256,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/cbinMovementTitleLayout"
-            android:layout_below="@id/ReplenishmentHistoryTitleLayout"
+            android:layout_below="@id/ReplenishmentHistoryLayout"
             android:paddingRight="10sp"
             android:layout_weight="1.5"
             android:orientation="horizontal">
 
             <ImageView
                 style="@style/header"
-                android:src="@drawable/alert"
+                android:src="@drawable/bidirection"
                 android:layout_weight="0.2"
                 android:id="@+id/cbinMovementImage"/>
 
