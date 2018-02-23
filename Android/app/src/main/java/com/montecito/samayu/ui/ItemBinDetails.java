@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
@@ -48,26 +50,20 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
         String itemBinId=SessionInfo.getInstance().getCurrentItemBinId();
 
-
-        final Call<ItemBinDetailsDTO> itemBinDetails = new MontecitoClient().getClient().getItemBinDetails(itemBinId,SessionInfo.getInstance().getUserLogin().getToken());
+      final Call<ItemBinDetailsDTO> itemBinDetails=new MontecitoClient().getClient().getItemBinDetails(itemBinId,SessionInfo.getInstance().getUserLogin().getToken());
         itemBinDetails.enqueue(new Callback<ItemBinDetailsDTO>() {
             @Override
-            public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO>response) {
-                if (response.isSuccessful()) {
-                    binItems= response.body();
-
-
+            public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
+                if(response.isSuccessful()){
+                    binItems=response.body();
                 }
             }
 
             @Override
             public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
-                //mProgressDialog.dismiss();
 
             }
         });
-
-
         binDetails(false);
         binButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,9 +138,9 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
             binName.setText(binItems.getCrateBin().getName());
             binLocation.setText("null");
-            binType.setText("-----");
-            binDimension.setText("-----");
-            rfid.setText("-----");
+            binType.setText("null");
+            binDimension.setText("null");
+            rfid.setText(binItems.getRfId());
             cBinIdentity.setText("null");
         }
 
@@ -167,11 +163,11 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
             itemName.setText(binItems.getItem().getName());
             material.setText(binItems.getItem().getMaterial());
-            itemDimension.setText("-----");
-            itemVolume.setText("------");
             units.setText(binItems.getItem().getUom());
-            surface.setText("------");
-            availability.setText("-----");
+            itemDimension.setText("null");
+            itemVolume.setText("null");
+            surface.setText("null");
+            availability.setText("null");
         }
         if(itemDetailsLayout.isExpanded())
         {
@@ -185,6 +181,11 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
     public void AlertDetails() {
         alertSettingsLayout = (ExpandableRelativeLayout) findViewById(R.id.AlertSettingsLayout);
+        SwitchCompat alertStatus=(SwitchCompat) findViewById(R.id.alertEnable);
+        SwitchCompat changeAlert=(SwitchCompat) findViewById(R.id.itemChangeAlertEnabled);
+
+        TextView notificationAlert=(TextView)findViewById(R.id.notificationAlert);
+        TextView calibrationFactor=(TextView)findViewById(R.id.calibrationFactor);
         alertSettingsLayout.toggle(); // toggle expand and collapse
 
         if(alertSettingsLayout.isExpanded())
@@ -195,6 +196,21 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         {
             alertButton.setImageResource(R.drawable.uparrow);
         }
+        if(binItems.isItemAlert()==true){
+            changeAlert.setChecked(true);
+        }
+        else{
+            changeAlert.setChecked(false);
+        }
+       if(binItems.isStockAlert()==true){
+           alertStatus.setChecked(true);
+       }
+       else{
+           alertStatus.setChecked(false);
+       }
+        notificationAlert.setText(binItems.getThresold().getMin());
+        calibrationFactor.setText("null");
+
     }
 
     public void replenishmentDetails(){
