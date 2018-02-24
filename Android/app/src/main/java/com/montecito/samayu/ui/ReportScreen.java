@@ -3,10 +3,12 @@ package com.montecito.samayu.ui;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -19,9 +21,15 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +47,8 @@ public class ReportScreen extends MontecitoBaseActivity {
         pieChart = (PieChart) findViewById(R.id.pieChart);
         updateChart(barChart);
         updatePieDiagram(pieChart);
-
-
-
-
     }
+
     public void updateChart(BarChart barChart){
         List<BarEntry> data = new ArrayList<>();
         for(int i =0; i<5; i++){
@@ -92,11 +97,42 @@ public class ReportScreen extends MontecitoBaseActivity {
         return gradient;
     }
 
-    public void updatePieDiagram(PieChart pieChart){
+    public void updatePieDiagram(PieChart pieChart)
+    {
+        pieChart.setUsePercentValues(true);
 
+        ArrayList<PieEntry> yvalues = new ArrayList<PieEntry>();
+        yvalues.add(new PieEntry(8f, 0));
+        yvalues.add(new PieEntry(15f, 1));
+        yvalues.add(new PieEntry(12f, 2));
 
+        PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
 
+        ArrayList<String> xVals = new ArrayList<String>();
 
+        xVals.add("January");
+        xVals.add("February");
+        xVals.add("March");
+        xVals.add("April");
+        xVals.add("May");
+        xVals.add("June");
+
+        PieData data = new PieData( dataSet);
+        // In Percentage term
+        data.setValueFormatter(new PercentFormatter());
+        // Default value
+        //data.setValueFormatter(new DefaultValueFormatter(0));
+        pieChart.setData(data);
+
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setTransparentCircleRadius(25f);
+        pieChart.setHoleRadius(25f);
+
+        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
+        data.setValueTextSize(13f);
+        data.setValueTextColor(Color.WHITE);
+
+        pieChart.animateXY(1400, 1400);
     }
 
 }

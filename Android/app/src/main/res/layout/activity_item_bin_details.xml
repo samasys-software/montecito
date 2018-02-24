@@ -297,8 +297,8 @@
             app:ael_orientation="vertical">
 
             <include
-                android:id="@+id/item"
-                layout="@layout/activity_alert_details"/>
+                android:id="@+id/cbin"
+                layout="@layout/activity_cbin_movement"/>
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 

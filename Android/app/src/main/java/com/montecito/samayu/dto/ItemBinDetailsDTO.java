@@ -12,10 +12,10 @@ public class ItemBinDetailsDTO {
     private Date updated, created;
     private int __v, capacity;
     private BinDTO crateBin;
-    private String item;
+    private ItemDTO item;
     private ThresoldDTO thresold;
-    private String currDevice;
-    private String lastReading;
+    private DeviceDTO currDevice;
+    private ReadingDTO lastReading;
     private List<ReplenishmentsDTO> replenishments;
 
 
@@ -30,8 +30,7 @@ public class ItemBinDetailsDTO {
     private ReplenishmentTaskDTO replishmentTask;
     private boolean itemAlert, stockAlert, active;
     private List<DeviceHistoryDTO> deviceHistory;
-
-
+    
 
     public String get_id() {
         return _id;
@@ -129,14 +128,6 @@ public class ItemBinDetailsDTO {
         this.crateBin = crateBin;
     }
 
-    public String getItem() {
-        return item;
-    }
-
-    public void setItem(String item) {
-        this.item = item;
-    }
-
     public ThresoldDTO getThresold() {
         return thresold;
     }
@@ -145,21 +136,6 @@ public class ItemBinDetailsDTO {
         this.thresold = thresold;
     }
 
-    public String getCurrDevice() {
-        return currDevice;
-    }
-
-    public void setCurrDevice(String currDevice) {
-        this.currDevice = currDevice;
-    }
-
-    public String getLastReading() {
-        return lastReading;
-    }
-
-    public void setLastReading(String lastReading) {
-        this.lastReading = lastReading;
-    }
 
     public List<ReplenishmentsDTO> getReplenishments() {
         return replenishments;
@@ -199,6 +175,30 @@ public class ItemBinDetailsDTO {
 
     public void setDeviceHistory(List<DeviceHistoryDTO> deviceHistory) {
         this.deviceHistory = deviceHistory;
+    }
+
+    public ItemDTO getItem() {
+        return item;
+    }
+
+    public void setItem(ItemDTO item) {
+        this.item = item;
+    }
+
+    public DeviceDTO getCurrDevice() {
+        return currDevice;
+    }
+
+    public void setCurrDevice(DeviceDTO currDevice) {
+        this.currDevice = currDevice;
+    }
+
+    public ReadingDTO getLastReading() {
+        return lastReading;
+    }
+
+    public void setLastReading(ReadingDTO lastReading) {
+        this.lastReading = lastReading;
     }
 }
 
