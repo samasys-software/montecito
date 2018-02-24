@@ -6,6 +6,7 @@ import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
 import com.montecito.samayu.dto.LoginDTO;
 import com.montecito.samayu.dto.LoginInput;
+import com.montecito.samayu.dto.UserProfileDTO;
 import com.montecito.samayu.ui.ItemBinDetails;
 
 import java.util.List;
@@ -53,6 +54,9 @@ public interface MontecitoService {
 
     @POST("api/itembins/{itemBinId}/stockalert")
     public Call<ItemBinDetailsDTO> StockAlert(@Path("itemBinId") String itemBinId,@Body boolean changeStatus,@Header("Authorization") String token);
+
+    @GET("http://localhost:3000/api/users/me")
+    public Call<UserProfileDTO> getUserProfile(@Header("Authorization") String token);
 
 
 }
