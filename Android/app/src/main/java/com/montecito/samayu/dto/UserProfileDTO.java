@@ -5,53 +5,29 @@ package com.montecito.samayu.dto;
  */
 
 public class UserProfileDTO {
-    private String lastName;
-    private String dob;
-    private String designation;
-    private String firstName;
-    private String name;
-
-    public String getImageUrl() {
-        return imageUrl;
+    public String get_id() {
+        return _id;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    private String imageUrl;
+    private String _id;
+    private String role;
+   private String name;
 
-    public String getFirstName() {
-        return firstName;
+
+
+
+    public String getRole() {
+        return role;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
 
     public String getName() {
         return name;
@@ -60,6 +36,10 @@ public class UserProfileDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+    
+
+
 
 
 
