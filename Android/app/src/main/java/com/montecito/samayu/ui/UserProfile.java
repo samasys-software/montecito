@@ -12,11 +12,16 @@ import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.montecito.samayu.dto.UserProfileDTO;
+import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserProfile extends MontecitoBaseActivity {
     ExpandableRelativeLayout changePasswordLayout;
@@ -25,6 +30,7 @@ public class UserProfile extends MontecitoBaseActivity {
     Button savePassword,cancelPassword;
     boolean cancel=false;
     View focusview=null;
+    UserProfileDTO userProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,26 @@ public class UserProfile extends MontecitoBaseActivity {
                 clear();
             }
         });
+        String token=SessionInfo.getInstance().getUserLogin().getToken();
+       final Call<UserProfileDTO> userProfileDTOCall=new MontecitoClient().getClient().getUserProfile(token);
+        userProfileDTOCall.enqueue(new Callback<UserProfileDTO>() {
+            @Override
+            public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
+                if(response.isSuccessful()){
+                    userProfile=response.body();
+                    String userId=userProfile.get_id();
+                    System.out.print(userId);
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserProfileDTO> call, Throwable t) {
+
+            }
+        });
+
         setUserProfile();
     }
     public void changePassword() {
@@ -124,20 +150,24 @@ public class UserProfile extends MontecitoBaseActivity {
             }
      }
      private void setUserProfile(){
+
          ImageView userImage=(ImageView)findViewById(R.id.userImage);
          TextView name=(TextView)findViewById(R.id.userName);
          TextView firstName=(TextView)findViewById(R.id.userFirstName);
          TextView lastName=(TextView)findViewById(R.id.userLastName);
          TextView dob=(TextView)findViewById(R.id.userDateOfBirth);
          TextView designation=(TextView)findViewById(R.id.userDesignation);
-       /*  UserProfileDTO userProfile= SessionInfo.getInstance().getUserProfile();
-         name.setText(userProfile.getName());
-         firstName.setText(userProfile.getFirstName());
-         lastName.setText(userProfile.getLastName());
-         dob.setText(userProfile.getDob());
+         //UserProfileDTO userProfile= SessionInfo.getInstance().getUserProfile();
+         if(userProfile!=null) {
+             name.setText(userProfile.getName());
+             firstName.setText(userProfile.getName());
+             lastName.setText(userProfile.getName());
+             // dob.setText(userProfile.getDob());
 
-         designation.setText(userProfile.getDesignation());*/
-         //Picasso.with(getBaseContext()).load(userProfile.getImageUrl()).into(userImage);
+             designation.setText(userProfile.getRole());
+
+             //Picasso.with(getBaseContext()).load(userProfile.getImageUrl()).into(userImage);
+         }
      }
 
 }
