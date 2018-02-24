@@ -9,6 +9,7 @@ public class ItemDTO {
     private String name;
     private String category;
     private String uom;
+    //private String dimension;
 
     public String get_id() {
         return _id;
@@ -51,4 +52,13 @@ public class ItemDTO {
     }
 
     private String material;
+
+
+//    public String getDimension() {
+//        return dimension;
+//    }
+//
+//    public void setDimension(String dimension) {
+//        this.dimension = dimension;
+//    }
 }

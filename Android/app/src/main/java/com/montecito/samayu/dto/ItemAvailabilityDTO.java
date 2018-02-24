@@ -52,7 +52,24 @@ public class ItemAvailabilityDTO implements  Comparable{
     private String item;
     private String location;
     private String status;
-    private String available;
+    private String available,itemBinId,availablePercent;
+
+
+    public String getItemBinId() {
+        return itemBinId;
+    }
+
+    public void setItemBinId(String itemBinId) {
+        this.itemBinId = itemBinId;
+    }
+
+    public String getAvailablePercent() {
+        return availablePercent;
+    }
+
+    public void setAvailablePercent(String availablePercent) {
+        this.availablePercent = availablePercent;
+    }
 
     @Override
     public int compareTo(@NonNull Object o) {

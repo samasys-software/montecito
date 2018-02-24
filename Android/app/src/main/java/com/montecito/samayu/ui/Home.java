@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
@@ -86,6 +87,7 @@ public class Home extends MontecitoBaseActivity  {
 
 
                     List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
+                    SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
                     //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
                     //This line is commented for the purpose of server data testing
                     listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
@@ -113,6 +115,15 @@ public class Home extends MontecitoBaseActivity  {
             public void doOnUI(final JSONArray jsonArray) {
                 //updateTasks(jsonArray);      This line is commented for the purpose of server data testing
 
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getMyReplenishmentTask().get(i).get_id());
+                Intent intent = new Intent(Home.this, ItemBinDetails.class);
+                startActivity(intent);
             }
         });
     }

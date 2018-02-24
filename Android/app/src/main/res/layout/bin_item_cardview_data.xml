@@ -25,12 +25,13 @@
                 android:layout_gravity="center"
                 android:text="BIN #1"/>
 
-            <ImageView
+            <ProgressBar
+                android:id="@+id/capacityImage"
+                style="@style/MyProgressBar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/itemImage"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_bin"/>
+                android:progress="25"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

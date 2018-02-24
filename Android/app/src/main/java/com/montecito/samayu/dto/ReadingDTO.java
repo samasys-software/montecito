@@ -26,3 +26,4 @@ public class ReadingDTO {
 
     private ReadingValueDTO reading;
 }
+

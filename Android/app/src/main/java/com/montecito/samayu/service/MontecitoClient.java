@@ -33,6 +33,7 @@ public class MontecitoClient {
                     Request request = chain.request();
                     Response response = chain.proceed(request);
                     String body = response.body().string();
+                    System.out.println("current API Call"+body);
 
                     return response.newBuilder().body(ResponseBody.create(response.body().contentType(), body)).build();
                 }

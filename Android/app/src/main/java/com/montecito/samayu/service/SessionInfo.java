@@ -1,6 +1,8 @@
 package com.montecito.samayu.service;
 
+import com.montecito.samayu.domain.ItemAvailablity;
 import com.montecito.samayu.domain.UserLogin;
+import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
 import com.montecito.samayu.dto.UserProfileDTO;
@@ -68,5 +70,15 @@ public class SessionInfo {
 
     public void setCurrenItemBinDetails(ItemBinDetailsDTO currenItemBinDetails) {
         this.currenItemBinDetails = currenItemBinDetails;
+    }
+
+    private List<ItemAvailabilityDTO> myReplenishmentTask;
+
+    public List<ItemAvailabilityDTO> getMyReplenishmentTask() {
+        return myReplenishmentTask;
+    }
+
+    public void setMyReplenishmentTask(List<ItemAvailabilityDTO > myReplenishmentTask) {
+        this.myReplenishmentTask = myReplenishmentTask;
     }
 }

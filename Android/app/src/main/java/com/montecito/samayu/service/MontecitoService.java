@@ -48,4 +48,11 @@ public interface MontecitoService {
     @GET("api/itembins/{itemBinId}/summary")
     public Call<ItemBinDetailsDTO> getItemBinDetails( @Path("itemBinId") String itemBinId, @Header("Authorization") String token);
 
+    @POST("api/itembins/{itemBinId}/itemalert")
+    public Call<ItemBinDetailsDTO> itemAlert(@Path("itemBinId") String itemBinId,@Body boolean changeStatus,@Header("Authorization") String token);
+
+    @POST("api/itembins/{itemBinId}/stockalert")
+    public Call<ItemBinDetailsDTO> StockAlert(@Path("itemBinId") String itemBinId,@Body boolean changeStatus,@Header("Authorization") String token);
+
+
 }

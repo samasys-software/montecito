@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.montecito.samayu.db.AppDatabase;
 import com.montecito.samayu.domain.Consumption;
 import com.montecito.samayu.service.SessionInfo;
@@ -40,7 +43,7 @@ import retrofit2.Response;
  * Created by fgs on 1/18/2018.
  */
 
-public class ChartFragment extends Fragment {
+public class ChartFragment extends Fragment  {
     private WebSocketClient mWebSocketClient;
     private AppDatabase db;
     Context context;
@@ -206,11 +209,18 @@ public class ChartFragment extends Fragment {
 
     public void updateChart(BarChart barChart, List<Consumption> consumptionInfo){
         List<BarEntry> data = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
         for(int i =0; i<consumptionInfo.size(); i++){
             data.add( new BarEntry(i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
+            labels.add( consumptionInfo.get(i).getItem());
         }
 
+
+
+
+
         BarDataSet dataSet = new BarDataSet(data,"Usage");
+
         // barChart.setDescription("");
         barChart.getAxisLeft().setDrawLabels(false);
         barChart.getAxisRight().setDrawLabels(false);
@@ -228,9 +238,14 @@ public class ChartFragment extends Fragment {
 
 
 
+        Legend legend = barChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+
 
         BarData barData = new BarData(dataSet);
+
         barChart.setData( barData );
+
         barChart.invalidate();
 
     }

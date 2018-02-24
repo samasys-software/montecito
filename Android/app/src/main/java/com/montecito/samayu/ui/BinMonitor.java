@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
@@ -157,6 +158,12 @@ public class BinMonitor extends MontecitoBaseActivity {
        });
 
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+//        Toast.makeText(context,"Sorry! Your Item Bin Is Empty",Toast.LENGTH_LONG).show();
+    }
+
 
     public void setBinData() {
         List<ItemBinDTO> binItem=SessionInfo.getInstance().getItemBinDetails();

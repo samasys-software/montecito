@@ -1,17 +1,26 @@
 package com.montecito.samayu.dto;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by NandhiniGovindasamy on 2/20/18.
  */
 
 public class ItemBinDetailsDTO {
-    private String _id, rfId, oldId, confDevice, confBy, uom, status, updated, created;
+    private String _id, rfId, oldId, confDevice, confBy, uom, status;
+    private Date updated, created;
     private int __v, capacity;
     private BinDTO crateBin;
-    private ItemDTO item;
+    private String item;
     private ThresoldDTO thresold;
-    private ReadingDTO lastReading;
+    private String currDevice;
+    private String lastReading;
+    private List<ReplenishmentsDTO> replenishments;
     private boolean itemAlert, stockAlert, active;
+    private List<DeviceHistoryDTO> deviceHistory;
+
+
 
     public String get_id() {
         return _id;
@@ -69,19 +78,19 @@ public class ItemBinDetailsDTO {
         this.status = status;
     }
 
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
@@ -109,11 +118,11 @@ public class ItemBinDetailsDTO {
         this.crateBin = crateBin;
     }
 
-    public ItemDTO getItem() {
+    public String getItem() {
         return item;
     }
 
-    public void setItem(ItemDTO item) {
+    public void setItem(String item) {
         this.item = item;
     }
 
@@ -125,12 +134,28 @@ public class ItemBinDetailsDTO {
         this.thresold = thresold;
     }
 
-    public ReadingDTO getLastReading() {
+    public String getCurrDevice() {
+        return currDevice;
+    }
+
+    public void setCurrDevice(String currDevice) {
+        this.currDevice = currDevice;
+    }
+
+    public String getLastReading() {
         return lastReading;
     }
 
-    public void setLastReading(ReadingDTO lastReading) {
+    public void setLastReading(String lastReading) {
         this.lastReading = lastReading;
+    }
+
+    public List<ReplenishmentsDTO> getReplenishments() {
+        return replenishments;
+    }
+
+    public void setReplenishments(List<ReplenishmentsDTO> replenishments) {
+        this.replenishments = replenishments;
     }
 
     public boolean isItemAlert() {
@@ -156,4 +181,17 @@ public class ItemBinDetailsDTO {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public List<DeviceHistoryDTO> getDeviceHistory() {
+        return deviceHistory;
+    }
+
+    public void setDeviceHistory(List<DeviceHistoryDTO> deviceHistory) {
+        this.deviceHistory = deviceHistory;
+    }
 }
+
+
+
+
+

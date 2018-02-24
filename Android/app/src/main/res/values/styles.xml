@@ -87,6 +87,14 @@
         <item name="colorSwitchThumbNormal">#874008</item>
     </style>
 
+    <style name="MyProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressBackgroundTint">#69f0ae</item>
+        <item name="android:progressTint">#b71c1c</item>
+        <item name="android:minWidth">200dp</item>
+        <item name="android:text">nothing</item>
+    </style>
+
+
 
 
 </resources>

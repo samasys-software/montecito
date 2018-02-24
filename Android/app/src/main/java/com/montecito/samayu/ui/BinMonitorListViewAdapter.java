@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
@@ -60,14 +61,15 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.bin_item_list_data, null);
             holder.itemCount = (TextView) convertView.findViewById(R.id.itemCount);
-            holder.itemImage = (ImageView) convertView.findViewById(R.id.itemImage);
+            holder.itemImage = (ProgressBar) convertView.findViewById(R.id.capacityImage);
 
             holder.tv1 = (TextView) convertView.findViewById(R.id.capacity);
             holder.tv2 = (TextView) convertView.findViewById(R.id.itemName);
             if(binItem.get(position).getCrateBin()!=null) {
                 holder.itemCount.setText(binItem.get(position).getCrateBin().getBrand()+":"+binItem.get(position).getCrateBin().getName());
-                String capacity=(numberFormat.format(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100))+"%";
-                holder.tv1.setText(capacity);
+                int capacity=(int)(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100);
+                holder.itemImage.setProgress(capacity);
+                holder.tv1.setText(String.valueOf(capacity)+"%");
                 holder.tv2.setText(binItem.get(position).getItem().getName());
 
             }
@@ -98,7 +100,7 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
 
     public class Holder {
         public TextView itemCount,tv1,tv2;
-        public ImageView itemImage;
+        public ProgressBar itemImage;
     }
 
 

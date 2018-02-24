@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.montecito.samayu.dto.ItemBinDTO;
@@ -46,8 +47,10 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
 
         if(binItem.get(position).getCrateBin()!=null) {
             holder.itemCount.setText(binItem.get(position).getCrateBin().getBrand()+":"+binItem.get(position).getCrateBin().getName());
-            String capacity=(numberFormat.format(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100))+"%";
-            holder.tv1.setText(capacity);
+
+            int capacity=(int)(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100);
+            holder.itemImage.setProgress(capacity);
+            holder.tv1.setText(String.valueOf(capacity)+"% ");
             holder.tv2.setText(binItem.get(position).getItem().getName());
             holder.position = position;
         }
@@ -79,13 +82,13 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView itemCount,tv1,tv2;
-        public ImageView itemImage;
+        public ProgressBar itemImage;
         int position;
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             itemCount=(TextView)itemView.findViewById(R.id.itemCount);
-            itemImage=(ImageView)itemView.findViewById(R.id.itemImage);
+            itemImage=(ProgressBar)itemView.findViewById(R.id.capacityImage);
             tv1=(TextView)itemView.findViewById(R.id.capacity);
             tv2=(TextView)itemView.findViewById(R.id.itemName);
 

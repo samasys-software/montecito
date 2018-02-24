@@ -13,6 +13,7 @@ public class BinDTO implements Comparable{
     private String brand;
 
 
+
     public String get_id() {
         return _id;
     }
@@ -44,6 +45,7 @@ public class BinDTO implements Comparable{
     public void setBrand(String brand) {
         this.brand = brand;
     }
+
 
 
     @Override

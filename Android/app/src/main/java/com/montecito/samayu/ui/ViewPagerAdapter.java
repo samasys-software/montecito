@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private String title[]={"Items","Category","Floor"};
+    private String title[]={"Items","Category"};
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
