@@ -71,6 +71,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
             public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
                 if(response.isSuccessful()){
                     binItems=response.body();
+
                 }
             }
 
@@ -282,6 +283,14 @@ public class ItemBinDetails extends MontecitoBaseActivity {
     public void replenishmentDetails(){
         ReplenishmentDetailsLayout = (ExpandableRelativeLayout) findViewById(R.id.ReplenishmentDetailsLayout);
         ReplenishmentDetailsLayout.toggle(); // toggle expand and collapse
+        TextView triggerOn=(TextView)findViewById(R.id.triggeredOn);
+        TextView quantity=(TextView)findViewById(R.id.quantity);
+        TextView replenishmentStatus=(TextView)findViewById(R.id.percentage);
+        if(binItems!=null) {
+            triggerOn.setText(String.valueOf(binItems.getReplishmentTask().getCreated()));
+            quantity.setText(binItems.getReplishmentTask().getTrigger());
+            replenishmentStatus.setText((binItems.getReplishmentTask().getTrigger() / binItems.getThresold().getMax()*100)+"%");
+        }
 
         if(ReplenishmentDetailsLayout.isExpanded())
         {
@@ -291,12 +300,12 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         {
             replenishmentDetailsButton.setImageResource(R.drawable.uparrow);
         }
+
     }
 
     public void replenishmentHistoryDetails(){
         ReplenishmentHistoryLayout = (ExpandableRelativeLayout) findViewById(R.id.ReplenishmentHistoryLayout);
         ReplenishmentHistoryLayout.toggle(); // toggle expand and collapse
-
         if(ReplenishmentHistoryLayout.isExpanded())
         {
             replenishmentHistoryButton.setImageResource(R.drawable.downarrow);

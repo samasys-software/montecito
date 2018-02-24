@@ -81,8 +81,7 @@ public class UserProfile extends MontecitoBaseActivity {
                     userProfile=response.body();
                     String userId=userProfile.get_id();
                     System.out.print(userId);
-
-
+                    setUserProfile();
                 }
             }
 
@@ -92,7 +91,7 @@ public class UserProfile extends MontecitoBaseActivity {
             }
         });
 
-        setUserProfile();
+
     }
     public void changePassword() {
         changePasswordLayout = (ExpandableRelativeLayout) findViewById(R.id.ChangePasswordDetailsLayout);
@@ -185,15 +184,14 @@ public class UserProfile extends MontecitoBaseActivity {
          ImageView userImage=(ImageView)findViewById(R.id.userImage);
          TextView name=(TextView)findViewById(R.id.userName);
          TextView firstName=(TextView)findViewById(R.id.userFirstName);
-         TextView lastName=(TextView)findViewById(R.id.userLastName);
-         TextView dob=(TextView)findViewById(R.id.userDateOfBirth);
+       //  TextView lastName=(TextView)findViewById(R.id.userLastName);
+       //TextView dob=(TextView)findViewById(R.id.userDateOfBirth);-->
          TextView designation=(TextView)findViewById(R.id.userDesignation);
-         //UserProfileDTO userProfile= SessionInfo.getInstance().getUserProfile();
          if(userProfile!=null) {
-             name.setText(userProfile.getName());
+            // name.setText(userProfile.getName());
              firstName.setText(userProfile.getName());
-             lastName.setText(userProfile.getName());
-             // dob.setText(userProfile.getDob());
+           //  lastName.setText(userProfile.getName());
+            // dob.setText("null");
 
              designation.setText(userProfile.getRole());
 

@@ -17,6 +17,17 @@ public class ItemBinDetailsDTO {
     private DeviceDTO currDevice;
     private ReadingDTO lastReading;
     private List<ReplenishmentsDTO> replenishments;
+
+
+    public ReplenishmentTaskDTO getReplishmentTask() {
+        return replishmentTask;
+    }
+
+    public void setReplishmentTask(ReplenishmentTaskDTO replishmentTask) {
+        this.replishmentTask = replishmentTask;
+    }
+
+    private ReplenishmentTaskDTO replishmentTask;
     private boolean itemAlert, stockAlert, active;
     private List<DeviceHistoryDTO> deviceHistory;
     
