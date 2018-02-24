@@ -1,5 +1,7 @@
 package com.montecito.samayu.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,14 +11,25 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+import com.montecito.samayu.domain.UserLogin;
+import com.montecito.samayu.dto.ChangePassword;
+import com.montecito.samayu.dto.LoginDTO;
+import com.montecito.samayu.dto.LoginInput;
 import com.montecito.samayu.dto.UserProfileDTO;
+import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserProfile extends MontecitoBaseActivity {
     ExpandableRelativeLayout changePasswordLayout;
@@ -25,11 +38,13 @@ public class UserProfile extends MontecitoBaseActivity {
     Button savePassword,cancelPassword;
     boolean cancel=false;
     View focusview=null;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        context=this;
         oldPassword=(EditText)findViewById(R.id.oldPassword);
         newPassword=(EditText)findViewById(R.id.newPassword);
         confirmPassword=(EditText)findViewById(R.id.confirmPassword);
@@ -122,6 +137,25 @@ public class UserProfile extends MontecitoBaseActivity {
                 focusview.requestFocus();
                 return;
             }
+            else{
+                ChangePassword changePassword = new ChangePassword();
+                changePassword.setOldPassword(oldPwd);
+                changePassword.setNewPassword(newPwd);
+                Call<ResponseBody> changePasswordDTOCall = new MontecitoClient().getClient().changePassword("5a7a5f8e38fc7803245ab625" , changePassword ,SessionInfo.getInstance().getUserLogin().getToken() );
+                changePasswordDTOCall.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                Toast.makeText(context,"Your Password Changed Successfully",Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
+                }
+
      }
      private void setUserProfile(){
          ImageView userImage=(ImageView)findViewById(R.id.userImage);
