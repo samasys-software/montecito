@@ -5,6 +5,12 @@ package com.montecito.samayu.dto;
  */
 
 public class UserProfileDTO {
+
+
+    private String _id;
+    private String role;
+   private String name;
+
     public String get_id() {
         return _id;
     }
@@ -12,13 +18,6 @@ public class UserProfileDTO {
     public void set_id(String _id) {
         this._id = _id;
     }
-
-    private String _id;
-    private String role;
-   private String name;
-
-
-
 
     public String getRole() {
         return role;
@@ -28,7 +27,6 @@ public class UserProfileDTO {
         this.role = role;
     }
 
-
     public String getName() {
         return name;
     }
@@ -36,19 +34,6 @@ public class UserProfileDTO {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    private String lastName;
-
-
-
 
 
 }

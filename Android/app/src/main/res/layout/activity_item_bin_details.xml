@@ -200,7 +200,8 @@
 
             <include
                 android:id="@+id/bin"
-                layout="@layout/activity_bin_details"/>
+                layout="@layout/binitem_replenishment_history"/>
+
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -248,7 +249,8 @@
 
             <include
                 android:id="@+id/item"
-                layout="@layout/activity_item_details"/>
+                layout="@layout/activity_bin_details"/>
+
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 

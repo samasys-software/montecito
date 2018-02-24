@@ -55,7 +55,7 @@ public interface MontecitoService {
     @POST("api/itembins/{itemBinId}/stockalert")
     public Call<ItemBinDetailsDTO> StockAlert(@Path("itemBinId") String itemBinId,@Body boolean changeStatus,@Header("Authorization") String token);
 
-    @GET("http://localhost:3000/api/users/me")
+    @GET("api/users/me")
     public Call<UserProfileDTO> getUserProfile(@Header("Authorization") String token);
 
 

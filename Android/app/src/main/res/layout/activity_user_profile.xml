@@ -33,6 +33,7 @@
             android:gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:textColor="@color/name"
+            android:visibility="gone"
             android:layout_below="@+id/userImage"
             android:text="Ramji Rengarajan"/>
 
@@ -60,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/firstNameHint"
-            android:text="First Name"
+            android:text="Name"
             android:layout_marginTop="10dp"
             android:textColor="@color/name"
            />
@@ -72,6 +73,7 @@
             android:text="Last Name"
             android:textColor="@color/name"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:layout_below="@+id/firstNameHint"/>
         <TextView
             android:id="@+id/dopHint"
@@ -79,6 +81,7 @@
             android:layout_height="wrap_content"
             android:text="Date Of Birth"
             android:textColor="@color/name"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/lastNameHint"/>
         <TextView
@@ -108,12 +111,14 @@
                 android:layout_height="wrap_content"
                 android:text=":"
                 android:textColor="@color/name"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=":"
+                android:visibility="gone"
                 android:textColor="@color/name"
                 android:layout_marginTop="10dp"
                 />
@@ -144,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:text="Rengarajan"
                 android:layout_weight="5"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/name"
                 android:id="@+id/userLastName"/>
@@ -152,6 +158,7 @@
                 android:layout_height="wrap_content"
                 android:text="01-JAN-1989"
                 android:layout_weight="5"
+                android:visibility="gone"
                 android:textColor="@color/name"
                 android:layout_marginTop="10dp"
                 android:id="@+id/userDateOfBirth"/>
