@@ -6,22 +6,22 @@ package com.montecito.samayu.dto;
 
 public class ThresoldDTO {
 
-    private String min;
-    private String normal;
+    private float min;
+    private float normal;
 
-    public String getMin() {
+    public float getMin() {
         return min;
     }
 
-    public void setMin(String min) {
+    public void setMin(float min) {
         this.min = min;
     }
 
-    public String getNormal() {
+    public float getNormal() {
         return normal;
     }
 
-    public void setNormal(String normal) {
+    public void setNormal(float normal) {
         this.normal = normal;
     }
 

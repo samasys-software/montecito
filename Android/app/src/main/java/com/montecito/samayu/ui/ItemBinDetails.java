@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -170,20 +172,20 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         itemDetailsLayout.toggle(); // toggle expand and collapse
         TextView itemName=(TextView) findViewById(R.id.itemName);
         TextView itemDimension=(TextView) findViewById(R.id.itemDimension);
-        TextView itemVolume=(TextView) findViewById(R.id.itemVolume);
+       // TextView itemVolume=(TextView) findViewById(R.id.itemVolume);
         TextView material=(TextView) findViewById(R.id.material);
         TextView units=(TextView) findViewById(R.id.units);
-        TextView surface=(TextView) findViewById(R.id.surface);
-        TextView availability=(TextView) findViewById(R.id.availability);
+      //  TextView surface=(TextView) findViewById(R.id.surface);
+        //TextView availability=(TextView) findViewById(R.id.availability);
 
 
             itemName.setText(binItems.getItem().getName());
             material.setText(binItems.getItem().getMaterial());
             units.setText(binItems.getItem().getUom());
-            itemDimension.setText("");  //binItems.getItem().getDimension());
-            itemVolume.setText("");
-            surface.setText("");
-            availability.setText("");
+            itemDimension.setText(binItems.getItem().getDimension().getLength()+"X"+binItems.getItem().getDimension().getWidth()+"X"+binItems.getItem().getDimension().getHeight());
+           // itemVolume.setText("");
+            //surface.setText("");
+            //availability.setText("");
 
         if(itemDetailsLayout.isExpanded())
         {
@@ -201,7 +203,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         SwitchCompat changeAlert=(SwitchCompat) findViewById(R.id.itemChangeAlertEnabled);
 
         TextView notificationAlert=(TextView)findViewById(R.id.notificationAlert);
-        TextView calibrationFactor=(TextView)findViewById(R.id.calibrationFactor);
+        //TextView calibrationFactor=(TextView)findViewById(R.id.calibrationFactor);
         alertSettingsLayout.toggle(); // toggle expand and collapse
 
         if(alertSettingsLayout.isExpanded())
@@ -213,9 +215,13 @@ public class ItemBinDetails extends MontecitoBaseActivity {
             alertButton.setImageResource(R.drawable.uparrow);
         }
 
-        changeAlert.setChecked(binItems.isItemAlert());
+        if(binItems!=null) {
 
-        alertStatus.setChecked(binItems.isStockAlert());
+
+            changeAlert.setChecked(binItems.isItemAlert());
+
+            alertStatus.setChecked(binItems.isStockAlert());
+        }
      changeAlert.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
          @Override
          public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -277,8 +283,8 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
          }
      });
-        notificationAlert.setText(binItems.getThresold().getMin());
-        calibrationFactor.setText("");
+        notificationAlert.setText(((binItems.getThresold().getMin()/binItems.getThresold().getMax())*100)+"");
+       // calibrationFactor.setText("");x
 
     }
 
@@ -288,8 +294,10 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         TextView triggerOn=(TextView)findViewById(R.id.triggeredOn);
         TextView quantity=(TextView)findViewById(R.id.quantity);
         TextView replenishmentStatus=(TextView)findViewById(R.id.percentage);
-        if(binItems!=null) {
-            triggerOn.setText(String.valueOf(binItems.getReplenishTask().getCreated()));
+        if(binItems.getReplenishTask()!=null) {
+            SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String formattedDate=df.format(binItems.getReplenishTask().getCreated());
+            triggerOn.setText(formattedDate);
             quantity.setText(String.valueOf(binItems.getReplenishTask().getTrigger()));
             replenishmentStatus.setText((binItems.getReplenishTask().getTrigger() / binItems.getThresold().getMax()*100)+"%");
         }
@@ -309,6 +317,9 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         ReplenishmentHistoryLayout = (ExpandableRelativeLayout) findViewById(R.id.ReplenishmentHistoryLayout);
 
         ReplenishmentHistoryLayout.toggle(); // toggle expand and collapse
+        ListView listView;
+        listView=(ListView) findViewById(R.id.replenishmentHistroy);
+
         if(ReplenishmentHistoryLayout.isExpanded())
         {
             replenishmentHistoryButton.setImageResource(R.drawable.downarrow);
@@ -317,6 +328,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         {
             replenishmentHistoryButton.setImageResource(R.drawable.uparrow);
         }
+        listView.setAdapter(new ReplenishmentHistroyAdapter(ItemBinDetails.this, binItems));
 
     }
     public void cbinMovementDetails(){

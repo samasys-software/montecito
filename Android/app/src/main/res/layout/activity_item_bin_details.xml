@@ -249,7 +249,7 @@
 
             <include
                 android:id="@+id/item"
-                layout="@layout/activity_bin_details"/>
+                layout="@layout/activity_replenishment_histroy"/>
 
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>

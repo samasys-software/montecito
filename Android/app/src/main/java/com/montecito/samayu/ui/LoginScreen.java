@@ -40,35 +40,41 @@ public class LoginScreen extends AppCompatActivity {
     Context context;
     View focusView = null;
     public static final String FILE_NAME = "MontecitoLogin.txt";
+    public static final String INPUT_FILE_NAME = "MontecitoLoginDetails.txt";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LoginInput userLogin = loginRetrive();
+        UserLogin userLogin = loginRetrive();
         if (userLogin != null) {
-
-           login(userLogin);
+           SessionInfo.getInstance().setUserLogin(userLogin);
+           Intent intent=new Intent(LoginScreen.this,Home.class);
+           startActivity(intent);
         }
-        setContentView(R.layout.activity_login_screen);
-        context = this;
+        else {
+            LoginInput loginInput = inputRetrive();
+            if (loginInput != null) {
+               login(loginInput);
+            }
+            else{
+                setContentView(R.layout.activity_login_screen);
+                context = this;
 
-        loginID= (EditText)findViewById(R.id.loginID);
-        montecitoName= (TextView) findViewById(R.id.montecitoName);
-        password= (EditText)findViewById(R.id.password);
-        loginButton = (Button) findViewById(R.id.loginButton);
-        forgetPassword = (TextView)findViewById(R.id.forgotPassword);
-        //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
-        //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
+                loginID = (EditText) findViewById(R.id.loginID);
+                montecitoName = (TextView) findViewById(R.id.montecitoName);
+                password = (EditText) findViewById(R.id.password);
+                loginButton = (Button) findViewById(R.id.loginButton);
+                forgetPassword = (TextView) findViewById(R.id.forgotPassword);
+                //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
+                //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
 
-        //montecitoName.setText(cs);
+                //montecitoName.setText(cs);
+            }
 
-
-
-
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        }
+            loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 attemptLogin();
@@ -151,7 +157,8 @@ public class LoginScreen extends AppCompatActivity {
                     userLogin.setToken("Bearer "+loginDTO.getToken());
 
                     SessionInfo.getInstance().setUserLogin( userLogin);
-                    loginToFile(loginInput);
+                    loginToFile(userLogin);
+                    storeInput(loginInput);
                     Intent intent = new Intent(LoginScreen.this, Home.class);
                     startActivity(intent);
 
@@ -169,7 +176,7 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-    public void loginToFile(LoginInput customersLogin) {
+    public void loginToFile(UserLogin customersLogin) {
         File file = new File(getFilesDir(), FILE_NAME);
         file.delete();
 
@@ -186,10 +193,10 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    public LoginInput loginRetrive() {
+    public UserLogin loginRetrive() {
         try {
             ObjectInputStream ois = new ObjectInputStream(openFileInput(FILE_NAME));
-            LoginInput r = (LoginInput) ois.readObject();
+            UserLogin r = (UserLogin) ois.readObject();
             return r;
         }
         catch (Exception e) {
@@ -198,7 +205,34 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
+    public void storeInput(LoginInput userInput) {
+        File file = new File(getFilesDir(), FILE_NAME);
+        file.delete();
 
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(INPUT_FILE_NAME, LoginScreen.this.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+            oos.writeObject(userInput);
+            outputStream.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public LoginInput inputRetrive() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(openFileInput(INPUT_FILE_NAME));
+            LoginInput r = (LoginInput) ois.readObject();
+            return r;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 }
