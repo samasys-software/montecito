@@ -81,9 +81,9 @@ public class Home extends MontecitoBaseActivity  {
 
         final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
         itemAvailablityDTOCall.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
+
             @Override
             public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
-                if (response.isSuccessful()) {
 
                     if(response.code()==200) {
                         List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
@@ -95,7 +95,13 @@ public class Home extends MontecitoBaseActivity  {
                     }
                     else if(response.code()==401 || response.code() ==403)
                     {
-                        Intent intent=new Intent(Home.this,LoginScreen.class);
+                        File dir =getFilesDir();
+                        File file = new File(dir, "MontecitoLogin.txt");
+
+                        boolean deleted = file.delete();
+                        SessionInfo.getInstance().destroy();
+
+                        Intent intent = new Intent(Home.this, LoginScreen.class);
                         startActivity(intent);
 
                     }
@@ -104,7 +110,7 @@ public class Home extends MontecitoBaseActivity  {
                     }
 
 
-                }
+
             }
 
             @Override
