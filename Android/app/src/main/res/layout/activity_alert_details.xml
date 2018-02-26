@@ -7,8 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120sp"
-        android:layout_marginTop="0dp"
+        android:layout_height="90sp"
+        android:layout_marginTop="8dp"
         android:background="#10000000">
 
         <LinearLayout
@@ -25,7 +25,7 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:gravity="right"/>
 
             <TextView
                 android:id="@+id/notificationAlert"
@@ -35,7 +35,7 @@
                 android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                android:gravity="center" />
+                android:gravity="right"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/alertEnable"
@@ -54,7 +54,7 @@
                 android:layout_height="10sp"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
         </LinearLayout>
 
@@ -73,7 +73,7 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:checked="true"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                android:gravity="center"
+                android:gravity="left"
                 android:id="@+id/itemChangeAlertEnabled"/>
 
         </LinearLayout>

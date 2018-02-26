@@ -12,8 +12,7 @@
         android:id="@+id/rlimagemontecito"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/name"
-        android:layout_marginTop="0dp">
+        android:background="@color/name">
 
         <ImageView
             android:layout_width="match_parent"
