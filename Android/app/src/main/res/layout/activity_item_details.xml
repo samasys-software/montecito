@@ -14,11 +14,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40sp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:id="@+id/itemLayout1">
 
             <TextView
-                android:text="Item Name : "
+                android:text="Name : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
@@ -34,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                android:gravity="center" />
+                android:gravity="left" />
 
         </LinearLayout>
 
@@ -63,22 +64,22 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <TextView
                 android:id="@+id/itemDimension"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Volume"
+                android:visibility="invisible"
                 android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:textStyle="bold"
@@ -87,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:visibility="invisible"
                 android:textSize="8dp"
                 android:textColor="@color/name"
                 android:layout_marginLeft="5dp"
@@ -100,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
-
+                android:visibility="invisible"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:gravity="center"/>
@@ -122,17 +123,16 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:layout_gravity="left"/>
 
             <TextView
                 android:id="@+id/material"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                android:gravity="center" />
+                android:layout_gravity="left" />
 
             <TextView
                 android:text="Units : "
@@ -142,17 +142,16 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:layout_gravity="right"/>
 
             <TextView
                 android:id="@+id/units"
                 android:layout_width="wrap_content"
-
                 android:textColor="@color/name"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:gravity="center" />
+                android:layout_gravity="right" />
 
         </LinearLayout>
 
@@ -161,6 +160,7 @@
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:id="@+id/ItemLayout4"
+            android:visibility="invisible"
             android:layout_below="@id/ItemLayout3">
 
             <TextView
