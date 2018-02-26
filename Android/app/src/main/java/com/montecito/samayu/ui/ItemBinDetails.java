@@ -53,7 +53,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_bin_details);
         context=this;
-        binItemPercentage=findViewById(R.id.BinItem);
+        binItemPercentage=(TextView)findViewById(R.id.BinItem);
         binButton=(ImageButton)findViewById(R.id.binButton);
         itemButton=(ImageButton)findViewById(R.id.itemButton);
         alertButton=(ImageButton)findViewById(R.id.alertButton);
@@ -72,6 +72,9 @@ public class ItemBinDetails extends MontecitoBaseActivity {
                 if(response.isSuccessful()){
                     binItems=response.body();
 
+                    binItemPercentage.setText((binItems.getLastReading().getReading().getWeight()/binItems.getThresold(). getMax() * 100)+"%");
+                    binDetails(false);
+
                 }
             }
 
@@ -82,7 +85,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         });
 
 
-        //nDetails(false);
+
         binButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +149,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         }
 
         //RelativeLayout relativeLayout=(RelativeLayout) expandableLayout1.findViewById(R.id.bin);
-        binItemPercentage.setText((binItems.getLastReading().getReading().getWeight()/binItems.getThresold(). getMax() * 100)+"%");
+
         TextView binName=(TextView) findViewById(R.id.binName);
         TextView binLocation=(TextView) findViewById(R.id.binLocation);
         TextView binType=(TextView) findViewById(R.id.binType);
@@ -156,8 +159,8 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
             binName.setText(binItems.getCrateBin().getBrand() + ":" +binItems.getCrateBin().getName());
             binLocation.setText( binItems.getCurrDevice().getName());
-            binType.setText("null"); //binItems.getCrateBin().getBinType().getName());
-            binDimension.setText( "null");  //binItems.getCrateBin().getDimension().getLength() + "X" + binItems.getCrateBin().getDimension().getWidth() + "X"+ binItems.getCrateBin().getDimension().getHeight());
+            binType.setText(binItems.getCrateBin().getBinType().getName());
+            binDimension.setText( binItems.getItem().getDimension().getLength() + "X" + binItems.getItem().getDimension().getDia());
             rfid.setText(binItems.getRfId());
             cBinIdentity.setText(binItems.getCurrDevice() + "#" + binItems.getCurrDevice());
     }
@@ -177,10 +180,10 @@ public class ItemBinDetails extends MontecitoBaseActivity {
             itemName.setText(binItems.getItem().getName());
             material.setText(binItems.getItem().getMaterial());
             units.setText(binItems.getItem().getUom());
-            itemDimension.setText("null");  //binItems.getItem().getDimension());
-            itemVolume.setText("null");
-            surface.setText("null");
-            availability.setText("null");
+            itemDimension.setText("");  //binItems.getItem().getDimension());
+            itemVolume.setText("");
+            surface.setText("");
+            availability.setText("");
 
         if(itemDetailsLayout.isExpanded())
         {
@@ -223,8 +226,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
              itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>() {
                  @Override
                  public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
-                     if( response.isSuccessful() ) {
-                         ItemBinDetailsDTO binItems = response.body();
+                     if( response.code()==200 ) {
 
                          Toast.makeText(context,"Your Item Alert is Changed Successfully",Toast.LENGTH_LONG).show();
 
@@ -253,7 +255,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
              itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>() {
                  @Override
                  public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
-                     if( response.isSuccessful() ) {
+                     if( response.code()==200 ) {
                          ItemBinDetailsDTO binItems = response.body();
 
                          Toast.makeText(context,"Your Stock Alert Is Changed Successfully",Toast.LENGTH_LONG).show();
@@ -276,7 +278,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
          }
      });
         notificationAlert.setText(binItems.getThresold().getMin());
-        calibrationFactor.setText("null");
+        calibrationFactor.setText("");
 
     }
 
@@ -287,9 +289,9 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         TextView quantity=(TextView)findViewById(R.id.quantity);
         TextView replenishmentStatus=(TextView)findViewById(R.id.percentage);
         if(binItems!=null) {
-            triggerOn.setText(String.valueOf(binItems.getReplishmentTask().getCreated()));
-            quantity.setText(binItems.getReplishmentTask().getTrigger());
-            replenishmentStatus.setText((binItems.getReplishmentTask().getTrigger() / binItems.getThresold().getMax()*100)+"%");
+            triggerOn.setText(String.valueOf(binItems.getReplenishTask().getCreated()));
+            quantity.setText(String.valueOf(binItems.getReplenishTask().getTrigger()));
+            replenishmentStatus.setText((binItems.getReplenishTask().getTrigger() / binItems.getThresold().getMax()*100)+"%");
         }
 
         if(ReplenishmentDetailsLayout.isExpanded())
@@ -305,6 +307,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
     public void replenishmentHistoryDetails(){
         ReplenishmentHistoryLayout = (ExpandableRelativeLayout) findViewById(R.id.ReplenishmentHistoryLayout);
+
         ReplenishmentHistoryLayout.toggle(); // toggle expand and collapse
         if(ReplenishmentHistoryLayout.isExpanded())
         {

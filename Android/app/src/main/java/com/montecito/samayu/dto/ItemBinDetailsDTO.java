@@ -19,15 +19,15 @@ public class ItemBinDetailsDTO {
     private List<ReplenishmentsDTO> replenishments;
 
 
-    public ReplenishmentTaskDTO getReplishmentTask() {
-        return replishmentTask;
+    public ReplenishmentTaskDTO getReplenishTask() {
+        return replenishTask;
     }
 
-    public void setReplishmentTask(ReplenishmentTaskDTO replishmentTask) {
-        this.replishmentTask = replishmentTask;
+    public void setReplenishTask(ReplenishmentTaskDTO replenishTask) {
+        this.replenishTask = replenishTask;
     }
 
-    private ReplenishmentTaskDTO replishmentTask;
+    private ReplenishmentTaskDTO replenishTask;
     private boolean itemAlert, stockAlert, active;
     private List<DeviceHistoryDTO> deviceHistory;
     

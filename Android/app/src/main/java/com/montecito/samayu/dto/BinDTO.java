@@ -11,6 +11,7 @@ public class BinDTO implements Comparable{
     private String name;
     private String capacity;
     private String brand;
+    private BinTypeDTO binType;
 
 
 
@@ -46,7 +47,13 @@ public class BinDTO implements Comparable{
         this.brand = brand;
     }
 
+    public BinTypeDTO getBinType() {
+        return binType;
+    }
 
+    public void setBinType(BinTypeDTO binType) {
+        this.binType = binType;
+    }
 
     @Override
     public int compareTo(@NonNull Object o) {

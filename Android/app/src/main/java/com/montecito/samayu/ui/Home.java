@@ -81,18 +81,31 @@ public class Home extends MontecitoBaseActivity  {
 
         final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
         itemAvailablityDTOCall.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
+
             @Override
             public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
-                if (response.isSuccessful()) {
+
+                    if(response.code()==200) {
+                        List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
+                        SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
+                        //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
+                        //This line is commented for the purpose of server data testing
+                        listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+                        mProgressDialog.dismiss();
+                    }
+                    else if(response.code()==401 || response.code() ==403)
+                    {
+
+                        Intent intent = new Intent(Home.this, LoginScreen.class);
+                        startActivity(intent);
+
+                    }
+                    else {
+
+                    }
 
 
-                    List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
-                    SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
-                    //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
-                    //This line is commented for the purpose of server data testing
-                    listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
-                    mProgressDialog.dismiss();
-                }
+
             }
 
             @Override
@@ -121,7 +134,7 @@ public class Home extends MontecitoBaseActivity  {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getMyReplenishmentTask().get(i).get_id());
+                SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getMyReplenishmentTask().get(i).getItemBinId());
                 Intent intent = new Intent(Home.this, ItemBinDetails.class);
                 startActivity(intent);
             }

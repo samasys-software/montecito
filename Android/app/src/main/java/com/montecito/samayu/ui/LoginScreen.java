@@ -45,11 +45,10 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserLogin userLogin = loginRetrive();
+        LoginInput userLogin = loginRetrive();
         if (userLogin != null) {
-            SessionInfo.getInstance().setUserLogin(userLogin);
-            Intent intent = new Intent(LoginScreen.this, Home.class);
-            startActivity(intent);
+
+           login(userLogin);
         }
         setContentView(R.layout.activity_login_screen);
         context = this;
@@ -98,37 +97,11 @@ public class LoginScreen extends AppCompatActivity {
 
         }
         loginButton.setEnabled(false);
-        LoginInput loginInput = new LoginInput();
+        final LoginInput loginInput = new LoginInput();
         loginInput.setEmail(email);
         loginInput.setPassword(pass);
-        Call<LoginDTO> loginDTOCall = new MontecitoClient().getClient().authenticate( loginInput );
-       loginDTOCall.enqueue(new Callback<LoginDTO>() {
-           @Override
-           public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
-               if( response.isSuccessful() ) {
-                   LoginDTO loginDTO = response.body();
-                   UserLogin userLogin=new UserLogin();
-                   userLogin.setFirstName(loginDTO.getFirstName());
-                   userLogin.setLastName(loginDTO.getLastName());
-                   userLogin.setToken("Bearer "+loginDTO.getToken());
+        login(loginInput);
 
-                   SessionInfo.getInstance().setUserLogin( userLogin);
-                  loginToFile(userLogin);
-                   Intent intent = new Intent(LoginScreen.this, Home.class);
-                   startActivity(intent);
-
-               }
-               else{
-                   loginButton.setEnabled(true);
-                   //Show Error Message
-               }
-           }
-
-           @Override
-           public void onFailure(Call<LoginDTO> call, Throwable t) {
-
-           }
-       });
     }
 
 
@@ -164,7 +137,39 @@ public class LoginScreen extends AppCompatActivity {
         return cancel;
     }
 
-    public void loginToFile(UserLogin customersLogin) {
+    public void login(final LoginInput loginInput)
+    {
+        Call<LoginDTO> loginDTOCall = new MontecitoClient().getClient().authenticate( loginInput );
+        loginDTOCall.enqueue(new Callback<LoginDTO>() {
+            @Override
+            public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
+                if( response.isSuccessful() ) {
+                    LoginDTO loginDTO = response.body();
+                    UserLogin userLogin=new UserLogin();
+                    userLogin.setFirstName(loginDTO.getFirstName());
+                    userLogin.setLastName(loginDTO.getLastName());
+                    userLogin.setToken("Bearer "+loginDTO.getToken());
+
+                    SessionInfo.getInstance().setUserLogin( userLogin);
+                    loginToFile(loginInput);
+                    Intent intent = new Intent(LoginScreen.this, Home.class);
+                    startActivity(intent);
+
+                }
+                else{
+                    loginButton.setEnabled(true);
+                    //Show Error Message
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginDTO> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void loginToFile(LoginInput customersLogin) {
         File file = new File(getFilesDir(), FILE_NAME);
         file.delete();
 
@@ -181,10 +186,10 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    public UserLogin loginRetrive() {
+    public LoginInput loginRetrive() {
         try {
             ObjectInputStream ois = new ObjectInputStream(openFileInput(FILE_NAME));
-            UserLogin r = (UserLogin) ois.readObject();
+            LoginInput r = (LoginInput) ois.readObject();
             return r;
         }
         catch (Exception e) {
