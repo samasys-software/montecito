@@ -106,7 +106,7 @@ public class ReportScreen extends MontecitoBaseActivity {
         yvalues.add(new PieEntry(15f, 1));
         yvalues.add(new PieEntry(12f, 2));
 
-        PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
+        PieDataSet dataSet = new PieDataSet(yvalues, "Replenishment Results");
 
         ArrayList<String> xVals = new ArrayList<String>();
 
