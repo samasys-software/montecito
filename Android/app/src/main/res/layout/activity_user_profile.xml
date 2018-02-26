@@ -76,12 +76,11 @@
             android:visibility="gone"
             android:layout_below="@+id/firstNameHint"/>
         <TextView
-            android:id="@+id/dopHint"
+            android:id="@+id/emaiHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date Of Birth"
+            android:text="Email"
             android:textColor="@color/name"
-            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/lastNameHint"/>
         <TextView
@@ -118,7 +117,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=":"
-                android:visibility="gone"
                 android:textColor="@color/name"
                 android:layout_marginTop="10dp"
                 />
@@ -156,12 +154,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="01-JAN-1989"
+                android:text="yyy@gmail.com"
                 android:layout_weight="5"
-                android:visibility="gone"
                 android:textColor="@color/name"
                 android:layout_marginTop="10dp"
-                android:id="@+id/userDateOfBirth"/>
+                android:id="@+id/userEmail"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
