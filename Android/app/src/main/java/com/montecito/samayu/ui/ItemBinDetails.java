@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
     TextView binItemPercentage;
     String itemBinId=SessionInfo.getInstance().getCurrentItemBinId();
     Context context;
+    ListView cBinListView;
 
 
 
@@ -60,6 +62,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         replenishmentDetailsButton=(ImageButton)findViewById(R.id.ReplenishmentDetailsButton);
         replenishmentHistoryButton=(ImageButton)findViewById(R.id.ReplenishmentHistoryButton);
         cbinMovementButton=(ImageButton)findViewById(R.id.cbinMovementButton);
+        cBinListView=(ListView)findViewById(R.id.cbinMovement);
 
 
 
@@ -330,6 +333,10 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         else
         {
             cbinMovementButton.setImageResource(R.drawable.uparrow);
+        }
+        if(binItems!=null){
+            cBinListView.setAdapter(new CBinMovementAdapter(ItemBinDetails.this, binItems));
+
         }
 
     }
