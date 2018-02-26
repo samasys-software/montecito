@@ -185,11 +185,12 @@ public class UserProfile extends MontecitoBaseActivity {
          TextView name=(TextView)findViewById(R.id.userName);
          TextView firstName=(TextView)findViewById(R.id.userFirstName);
        //  TextView lastName=(TextView)findViewById(R.id.userLastName);
-       //TextView dob=(TextView)findViewById(R.id.userDateOfBirth);-->
+       TextView email=(TextView)findViewById(R.id.userEmail);
          TextView designation=(TextView)findViewById(R.id.userDesignation);
          if(userProfile!=null) {
             // name.setText(userProfile.getName());
              firstName.setText(userProfile.getName());
+             email.setText(userProfile.getEmail());
            //  lastName.setText(userProfile.getName());
             // dob.setText("null");
 

@@ -11,6 +11,16 @@ public class UserProfileDTO {
     private String role;
    private String name;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
+
     public String get_id() {
         return _id;
     }
