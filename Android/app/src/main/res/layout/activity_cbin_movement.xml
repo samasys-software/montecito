@@ -19,6 +19,7 @@
 
             <TextView
                 android:text="On"
+                android:id="@+id/CtriggeredOn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
@@ -29,7 +30,7 @@
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/notificationAlert"
+                android:id="@+id/Cslno"
                 android:layout_width="wrap_content"
                 android:text=" Sl No "
                 android:layout_weight="1"
@@ -40,9 +41,11 @@
                 android:gravity="center" />
 
             <TextView
+                android:id="@+id/Clocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location "
+
                 android:textColor="@color/name"
                 android:layout_weight="1"
                 android:layout_marginLeft="5sp"
