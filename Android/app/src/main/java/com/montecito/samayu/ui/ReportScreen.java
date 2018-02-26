@@ -100,22 +100,16 @@ public class ReportScreen extends MontecitoBaseActivity {
     public void updatePieDiagram(PieChart pieChart)
     {
         pieChart.setUsePercentValues(true);
-
         ArrayList<PieEntry> yvalues = new ArrayList<PieEntry>();
-        yvalues.add(new PieEntry(8f, 0));
-        yvalues.add(new PieEntry(15f, 1));
-        yvalues.add(new PieEntry(12f, 2));
+        yvalues.add(new PieEntry(1, 0));
+        yvalues.add(new PieEntry(1, 1));
 
-        PieDataSet dataSet = new PieDataSet(yvalues, "Replenishment Results");
+        PieDataSet dataSet = new PieDataSet(yvalues,"");
 
         ArrayList<String> xVals = new ArrayList<String>();
 
         xVals.add("January");
         xVals.add("February");
-        xVals.add("March");
-        xVals.add("April");
-        xVals.add("May");
-        xVals.add("June");
 
         PieData data = new PieData( dataSet);
         // In Percentage term
@@ -123,16 +117,17 @@ public class ReportScreen extends MontecitoBaseActivity {
         // Default value
         //data.setValueFormatter(new DefaultValueFormatter(0));
         pieChart.setData(data);
-
-        pieChart.setDrawHoleEnabled(true);
+        pieChart.setDrawHoleEnabled(false);
+        pieChart.setDrawEntryLabels(false);
         pieChart.setTransparentCircleRadius(25f);
-        pieChart.setHoleRadius(25f);
+
+        dataSet.setDrawValues(false);
+        data.setDrawValues(false);
 
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-        data.setValueTextSize(13f);
-        data.setValueTextColor(Color.WHITE);
 
-        pieChart.animateXY(1400, 1400);
+
+       // pieChart.animateXY(1400, 1400);
     }
 
 }
