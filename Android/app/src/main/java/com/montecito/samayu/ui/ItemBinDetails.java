@@ -201,7 +201,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         SwitchCompat changeAlert=(SwitchCompat) findViewById(R.id.itemChangeAlertEnabled);
 
         TextView notificationAlert=(TextView)findViewById(R.id.notificationAlert);
-        TextView calibrationFactor=(TextView)findViewById(R.id.calibrationFactor);
+        //TextView calibrationFactor=(TextView)findViewById(R.id.calibrationFactor);
         alertSettingsLayout.toggle(); // toggle expand and collapse
 
         if(alertSettingsLayout.isExpanded())
@@ -278,7 +278,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
          }
      });
         notificationAlert.setText(binItems.getThresold().getMin());
-        calibrationFactor.setText("");
+        //calibrationFactor.setText("");
 
     }
 

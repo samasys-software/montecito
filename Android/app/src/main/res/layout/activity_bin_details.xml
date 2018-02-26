@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="170sp"
+        android:layout_height="200sp"
         android:layout_marginTop="0dp"
         android:background="#10000000">
 
@@ -19,7 +19,6 @@
             <TextView
                 android:text="Bin Name : "
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
@@ -35,27 +34,7 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textColor="@color/name"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location : "
-                android:textColor="@color/name"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/binLocation"
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:textColor="@color/name"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
         </LinearLayout>
 
@@ -74,7 +53,7 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:layout_gravity="left"/>
 
             <TextView
                 android:id="@+id/binType"
@@ -83,7 +62,7 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textColor="@color/name"
-                android:gravity="center" />
+                android:layout_gravity="left" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -92,7 +71,7 @@
                 android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:layout_gravity="right"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -103,7 +82,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:layout_gravity="right"/>
 
             <TextView
                 android:id="@+id/binDimension"
@@ -112,7 +91,38 @@
                 android:textColor="@color/name"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:gravity="center"/>
+                android:layout_gravity="right"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:orientation="horizontal"
+            android:id="@+id/binLayout3"
+            android:layout_below="@+id/binLayout2"
+            android:layout_gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location : "
+                android:layout_weight="1"
+                android:textColor="@color/name"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:textStyle="bold"
+                android:gravity="left"/>
+
+            <TextView
+                android:id="@+id/binLocation"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/name"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:gravity="left"/>
 
         </LinearLayout>
 
@@ -120,8 +130,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:id="@+id/binLayout3"
-            android:layout_below="@id/binLayout2">
+            android:id="@+id/binLayout4"
+            android:layout_below="@id/binLayout3">
 
             <TextView
                 android:text="cBin Identifier : "
@@ -131,7 +141,7 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <TextView
                 android:id="@+id/cBinIdentity"
@@ -140,7 +150,7 @@
                 android:textColor="@color/name"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:gravity="center" />
+                android:gravity="left" />
 
         </LinearLayout>
 
@@ -148,8 +158,8 @@
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:orientation="horizontal"
-            android:id="@+id/binLayout4"
-            android:layout_below="@id/binLayout3">
+            android:id="@+id/binLayout5"
+            android:layout_below="@id/binLayout4">
 
             <TextView
                 android:text="RFID : "
@@ -159,7 +169,7 @@
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:textStyle="bold"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <TextView
                 android:id="@+id/rfid"
@@ -168,7 +178,7 @@
                 android:textColor="@color/name"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
         </LinearLayout>
 

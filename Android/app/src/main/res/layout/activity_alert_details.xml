@@ -60,39 +60,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40sp"
+            android:layout_height="40dp"
             android:orientation="horizontal"
             android:id="@+id/AlertLayout2"
             android:layout_below="@id/AlertLayout1">
-
-            <TextView
-                android:text="Calibration Factor : "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/name"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/calibrationFactor"
-                android:layout_width="wrap_content"
-                android:text="0.432"
-                android:textColor="@color/name"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
-                android:gravity="center" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:id="@+id/AlertLayout3"
-            android:layout_below="@id/AlertLayout2">
 
             <TextView
                 android:text="Item Change Alert Enabled : "
