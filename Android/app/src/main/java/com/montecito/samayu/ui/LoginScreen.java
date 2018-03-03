@@ -55,9 +55,8 @@ public class LoginScreen extends AppCompatActivity {
         else {
             LoginInput loginInput = inputRetrive();
             if (loginInput != null) {
-               login(loginInput);
-            }
-            else{
+                login(loginInput);
+            } else {
                 setContentView(R.layout.activity_login_screen);
                 context = this;
 
@@ -71,23 +70,26 @@ public class LoginScreen extends AppCompatActivity {
                 montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
 
                 //montecitoName.setText(cs);
-            }
+                loginButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        attemptLogin();
+                    }
+                });
 
+
+                forgetPassword.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+
+            }
         }
-            loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attemptLogin();
-            }
-        });
 
 
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
 
@@ -103,7 +105,7 @@ public class LoginScreen extends AppCompatActivity {
 
         }
         loginButton.setEnabled(false);
-        final LoginInput loginInput = new LoginInput();
+         LoginInput loginInput = new LoginInput();
         loginInput.setEmail(email);
         loginInput.setPassword(pass);
         login(loginInput);
@@ -206,7 +208,7 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     public void storeInput(LoginInput userInput) {
-        File file = new File(getFilesDir(), FILE_NAME);
+        File file = new File(getFilesDir(), INPUT_FILE_NAME);
         file.delete();
 
         FileOutputStream outputStream;

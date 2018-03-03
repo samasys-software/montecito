@@ -28,7 +28,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:background="@drawable/box"
-                    android:text="2"
+                    android:text="23"
                     android:textColor="@color/AlertTitleColor"
                     android:textSize="50sp"
                     tools:layout_editor_absoluteX="33dp"

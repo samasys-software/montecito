@@ -7,15 +7,8 @@ package com.montecito.samayu.dto;
 public class DimensionDTO {
 
 
-  private int dia,length,width,height ;
+  private int length,width,height ;
 
-    public int getDia() {
-        return dia;
-    }
-
-    public void setDia(int dia) {
-        this.dia = dia;
-    }
 
     public int getLength() {
         return length;

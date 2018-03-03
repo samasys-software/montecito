@@ -32,6 +32,7 @@ import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,6 +47,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
     TextView binItemPercentage;
     String itemBinId=SessionInfo.getInstance().getCurrentItemBinId();
     Context context;
+    ListView cBinListView;
 
 
 
@@ -62,6 +64,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         replenishmentDetailsButton=(ImageButton)findViewById(R.id.ReplenishmentDetailsButton);
         replenishmentHistoryButton=(ImageButton)findViewById(R.id.ReplenishmentHistoryButton);
         cbinMovementButton=(ImageButton)findViewById(R.id.cbinMovementButton);
+        cBinListView=(ListView)findViewById(R.id.cbinMovement);
 
 
 
@@ -160,17 +163,18 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         TextView rfid=(TextView) findViewById(R.id.rfid);
 
             binName.setText(binItems.getCrateBin().getBrand() + ":" +binItems.getCrateBin().getName());
-            binLocation.setText( binItems.getCurrDevice().getName());
+            binLocation.setText( binItems.getCurrDevice().getLocation());
             binType.setText(binItems.getCrateBin().getBinType().getName());
-            binDimension.setText( binItems.getItem().getDimension().getLength() + "X" + binItems.getItem().getDimension().getDia());
+            binDimension.setText( binItems.getCrateBin().getDimension().getLength() + "X" + binItems.getCrateBin().getDimension().getWidth()+"X"+binItems.getCrateBin().getDimension().getHeight());
             rfid.setText(binItems.getRfId());
-            cBinIdentity.setText(binItems.getCurrDevice() + "#" + binItems.getCurrDevice());
+            cBinIdentity.setText(binItems.getCurrDevice().getName()+ "#" + binItems.getCurrDevice().getSlno());
     }
 
     public void ItemDetails() {
         itemDetailsLayout = (ExpandableRelativeLayout) findViewById(R.id.ItemDetailsLayout);
         itemDetailsLayout.toggle(); // toggle expand and collapse
         TextView itemName=(TextView) findViewById(R.id.itemName);
+        LinearLayout layout=(LinearLayout) findViewById(R.id.itemLayout2) ;
         TextView itemDimension=(TextView) findViewById(R.id.itemDimension);
        // TextView itemVolume=(TextView) findViewById(R.id.itemVolume);
         TextView material=(TextView) findViewById(R.id.material);
@@ -178,11 +182,11 @@ public class ItemBinDetails extends MontecitoBaseActivity {
       //  TextView surface=(TextView) findViewById(R.id.surface);
         //TextView availability=(TextView) findViewById(R.id.availability);
 
-
+        layout.setVisibility(View.GONE);
             itemName.setText(binItems.getItem().getName());
             material.setText(binItems.getItem().getMaterial());
             units.setText(binItems.getItem().getUom());
-            itemDimension.setText(binItems.getItem().getDimension().getLength()+"X"+binItems.getItem().getDimension().getWidth()+"X"+binItems.getItem().getDimension().getHeight());
+            itemDimension.setText(binItems.getItem().getDimension().getLength() + "X" + binItems.getItem().getDimension().getWidth() + "X" + binItems.getItem().getDimension().getHeight());
            // itemVolume.setText("");
             //surface.setText("");
             //availability.setText("");
@@ -221,6 +225,9 @@ public class ItemBinDetails extends MontecitoBaseActivity {
             changeAlert.setChecked(binItems.isItemAlert());
 
             alertStatus.setChecked(binItems.isStockAlert());
+            notificationAlert.setText(((binItems.getThresold().getMin()/binItems.getThresold().getMax())*100)+"");
+            // calibrationFactor.setText("");x
+
         }
      changeAlert.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
          @Override
@@ -283,8 +290,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
          }
      });
-        notificationAlert.setText(((binItems.getThresold().getMin()/binItems.getThresold().getMax())*100)+"");
-       // calibrationFactor.setText("");x
+
 
     }
 
@@ -294,12 +300,19 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         TextView triggerOn=(TextView)findViewById(R.id.triggeredOn);
         TextView quantity=(TextView)findViewById(R.id.quantity);
         TextView replenishmentStatus=(TextView)findViewById(R.id.percentage);
+
         if(binItems.getReplenishTask()!=null) {
-            SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            String formattedDate=df.format(binItems.getReplenishTask().getCreated());
-            triggerOn.setText(formattedDate);
-            quantity.setText(String.valueOf(binItems.getReplenishTask().getTrigger()));
-            replenishmentStatus.setText((binItems.getReplenishTask().getTrigger() / binItems.getThresold().getMax()*100)+"%");
+            try {
+                SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                String formattedDate=df.format(binItems.getReplenishTask().getCreated());
+                triggerOn.setText(formattedDate);
+                quantity.setText(String.valueOf(binItems.getReplenishTask().getTrigger()));
+                replenishmentStatus.setText((binItems.getReplenishTask().getTrigger() / binItems.getThresold().getMax() * 100) + "%");
+            }
+            catch(Exception e)
+            {
+
+            }
         }
 
         if(ReplenishmentDetailsLayout.isExpanded())
@@ -342,6 +355,10 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         else
         {
             cbinMovementButton.setImageResource(R.drawable.uparrow);
+        }
+        if(binItems!=null){
+            cBinListView.setAdapter(new CBinMovementAdapter(ItemBinDetails.this, binItems));
+
         }
 
     }

@@ -91,12 +91,13 @@ public class TaskListAdapter extends BaseAdapter {
         ItemAvailabilityDTO availabilityDTO=itemAvailabilityDTOLists.get(holder.position);
         String itemName = availabilityDTO.getItem();
         String location = availabilityDTO.getLocation();
-        String available = availabilityDTO.getAvailable();
+        String available = availabilityDTO.getAvailablePercent();
         String status= availabilityDTO.getStatus();
 
         holder.tv1.setText(itemName);
 
         holder.tv2.setText(location);
+
         holder.tv3.setText(available+"%");
         //holder.tv4.setText(status);
 

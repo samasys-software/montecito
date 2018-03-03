@@ -65,6 +65,10 @@ public interface MontecitoService {
     public Call<ResponseBody> changePassword(@Path("userId") String userId, @Body ChangePassword changePassword, @Header("Authorization") String token);
 
 
+
+    @GET("api/devices/active/count")
+    public Call<ResponseBody> getDevicesActiveCount(@Header("Authorization") String token);
+
     @GET("api/users/me")
     public Call<UserProfileDTO> getUserProfile(@Header("Authorization") String token);
 

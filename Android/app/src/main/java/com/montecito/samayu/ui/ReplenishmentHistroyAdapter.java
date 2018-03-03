@@ -14,6 +14,7 @@ import com.montecito.samayu.dto.ItemDTO;
 import com.montecito.samayu.dto.ReplenishmentsDTO;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -96,6 +97,8 @@ public class ReplenishmentHistroyAdapter extends BaseAdapter {
             holder.position=position;
             ReplenishmentsDTO replenishmentsDTO=replenishmentHistroy.getReplenishments().get(holder.position);
 
+            SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            String formattedDate=df.format(replenishmentsDTO.getCreated());
 
             holder.tv1.setText(String.valueOf(replenishmentsDTO.getCreated ()));
 

@@ -12,7 +12,7 @@ public class BinDTO implements Comparable{
     private String capacity;
     private String brand;
     private BinTypeDTO binType;
-
+    private DimensionDTO dimension;
 
 
     public String get_id() {
@@ -53,6 +53,14 @@ public class BinDTO implements Comparable{
 
     public void setBinType(BinTypeDTO binType) {
         this.binType = binType;
+    }
+
+    public DimensionDTO getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(DimensionDTO dimension) {
+        this.dimension = dimension;
     }
 
     @Override

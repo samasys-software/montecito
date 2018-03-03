@@ -1,5 +1,8 @@
 package com.montecito.samayu.dto;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,7 +13,7 @@ import java.util.Date;
 public class ReplenishmentTaskDTO {
     private String _id,itemBin,status;
     private int trigger,__v;
-    private String updated,created;
+    private Date updated,created;
 
     public String get_id() {
         return _id;
@@ -52,19 +55,19 @@ public class ReplenishmentTaskDTO {
         this.__v = __v;
     }
 
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 }
