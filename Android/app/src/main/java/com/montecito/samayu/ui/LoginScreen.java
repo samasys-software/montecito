@@ -55,8 +55,8 @@ public class LoginScreen extends AppCompatActivity {
         else {
             LoginInput loginInput = inputRetrive();
             if (loginInput != null) {
-                login(loginInput);
-            } else {
+               login(loginInput);
+            }
                 setContentView(R.layout.activity_login_screen);
                 context = this;
 
@@ -86,7 +86,7 @@ public class LoginScreen extends AppCompatActivity {
                 });
 
 
-            }
+
         }
 
 
