@@ -47,7 +47,7 @@ public class MontecitoClient {
         String baseUrl = "http://13.126.19.130:3000";
         //String baseUrl = ""http://ec2-52-91-5-22.compute-1.amazonaws.com:8080/montecito"
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .excludeFieldsWithModifiers(Modifier.FINAL,Modifier.STATIC,Modifier.TRANSIENT)
                 .serializeNulls()
                 .create();

@@ -105,6 +105,11 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
             boolean deleted = file.delete();
             SessionInfo.getInstance().destroy();
 
+
+            File file1 = new File(dir, "MontecitoLoginDetails.txt");
+
+            boolean deleted1 = file1.delete();
+
             intent = new Intent(this, LoginScreen.class);
             startActivity(intent);
         }else if (id == R.id.nav_remainder) {

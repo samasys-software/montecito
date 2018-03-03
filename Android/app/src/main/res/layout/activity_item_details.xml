@@ -76,36 +76,36 @@
                 android:layout_marginRight="5sp"
                 android:gravity="left"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Volume"
-                android:visibility="invisible"
-                android:textColor="@color/name"
-                android:layout_marginLeft="5sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Volume"-->
+                <!--android:visibility="invisible"-->
+                <!--android:textColor="@color/name"-->
+                <!--android:layout_marginLeft="5sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:gravity="center"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:textSize="8dp"
-                android:textColor="@color/name"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:visibility="invisible"-->
+                <!--android:textSize="8dp"-->
+                <!--android:textColor="@color/name"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:gravity="center"/>-->
 
-            <TextView
-                android:id="@+id/itemVolume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/name"
-                android:visibility="invisible"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="center"/>
+            <!--<TextView-->
+                <!--android:id="@+id/itemVolume"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/name"-->
+                <!--android:visibility="invisible"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:gravity="center"/>-->
 
         </LinearLayout>
 

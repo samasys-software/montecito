@@ -24,6 +24,7 @@ import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 
+import java.io.File;
 
 import okhttp3.ResponseBody;
 
@@ -39,6 +40,7 @@ public class UserProfile extends MontecitoBaseActivity {
     boolean cancel=false;
     View focusview=null;
     Context context;
+    String userId;
 
     UserProfileDTO userProfile;
 
@@ -79,7 +81,7 @@ public class UserProfile extends MontecitoBaseActivity {
             public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
                 if(response.isSuccessful()){
                     userProfile=response.body();
-                    String userId=userProfile.get_id();
+                     userId=userProfile.get_id();
                     System.out.print(userId);
                     setUserProfile();
                 }
@@ -163,12 +165,20 @@ public class UserProfile extends MontecitoBaseActivity {
                 ChangePassword changePassword = new ChangePassword();
                 changePassword.setOldPassword(oldPwd);
                 changePassword.setNewPassword(newPwd);
-                Call<ResponseBody> changePasswordDTOCall = new MontecitoClient().getClient().changePassword("5a7a5f8e38fc7803245ab625" , changePassword ,SessionInfo.getInstance().getUserLogin().getToken() );
+                Call<ResponseBody> changePasswordDTOCall = new MontecitoClient().getClient().changePassword(userId, changePassword ,SessionInfo.getInstance().getUserLogin().getToken() );
                 changePasswordDTOCall.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                                 Toast.makeText(context,"Your Password Changed Successfully",Toast.LENGTH_LONG).show();
+                                File dir =getFilesDir();
+                                File file = new File(dir, "MontecitoLoginDetails.txt");
+
+                                boolean deleted = file.delete();
+
+
+
+
                         }
 
                         @Override

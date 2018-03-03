@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.montecito.samayu.dto.DeviceHistoryDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
+import com.montecito.samayu.dto.ReplenishmentsDTO;
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -70,10 +72,13 @@ public class CBinMovementAdapter extends BaseAdapter {
         }
         holder.position=position;
         DeviceHistoryDTO deviceHistory=deviceHistoryDTO.getDeviceHistory().get(holder.position);
-        String triggeredOn=String.valueOf(deviceHistory.getCreated());
+
+        SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        String formattedDate=df.format(deviceHistory.getCreated());
+
         String slno=deviceHistoryDTO.getCurrDevice().getSlno();
         String location=deviceHistoryDTO.getCurrDevice().getLocation();
-        holder.tv1.setText(triggeredOn);
+        holder.tv1.setText(formattedDate);
         holder.tv2.setText(slno);
         holder.tv3.setText(location);
         return convertView;

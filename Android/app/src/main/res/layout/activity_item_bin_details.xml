@@ -177,7 +177,7 @@
                 android:id="@+id/ReplenishmentDetailsId"
                 android:layout_weight="1.5"
                 android:textColor="@color/Heading"
-                android:text="Replenishment Details" />
+                android:text="Replenishment Task" />
 
             <ImageButton
                 style="@style/header"
@@ -249,7 +249,7 @@
 
             <include
                 android:id="@+id/item"
-                layout="@layout/activity_bin_details"/>
+                layout="@layout/activity_replenishment_histroy"/>
 
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>

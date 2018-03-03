@@ -95,10 +95,14 @@ public class Home extends MontecitoBaseActivity  {
                     }
                     else if(response.code()==401 || response.code() ==403)
                     {
+                        File dir =getFilesDir();
+                        File file = new File(dir, "MontecitoLogin.txt");
+
+                        boolean deleted = file.delete();
+                        SessionInfo.getInstance().destroy();
 
                         Intent intent = new Intent(Home.this, LoginScreen.class);
                         startActivity(intent);
-
                     }
                     else {
 
