@@ -9,12 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
-        android:background="#10000000">
+        android:background="#00000000">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="5dp"
             android:id="@+id/replenishmentHistroyTitle">
 
             <TextView
@@ -23,8 +24,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
                 android:layout_weight="1"
-
-                android:textStyle="bold"
                 android:gravity="center"/>
 
             <TextView
@@ -42,7 +41,6 @@
                 android:text="% "
                 android:textColor="@color/name"
                 android:layout_weight="1"
-                android:textStyle="bold"
                 android:gravity="center"/>
 
         </LinearLayout>
@@ -56,7 +54,7 @@
             <ListView
                 android:id="@+id/replenishmentHistroy"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/selector"
                 android:listSelector="@android:color/transparent"
                 android:divider="#00000000"
