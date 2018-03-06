@@ -23,11 +23,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
-                android:layout_marginLeft="5sp"
-                android:layout_weight="1"
-                android:layout_marginRight="5sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:layout_weight="0.6"
+                android:gravity="fill_horizontal"/>
 
             <TextView
                 android:id="@+id/Cslno"
@@ -36,22 +33,16 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
-                android:gravity="center" />
+                android:gravity="fill_horizontal" />
 
             <TextView
                 android:id="@+id/Clocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location "
-
                 android:textColor="@color/name"
                 android:layout_weight="1"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:gravity="fill_horizontal"/>
 
         </LinearLayout>
 
