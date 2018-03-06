@@ -9,14 +9,16 @@ import android.support.annotation.NonNull;
  */
 @Entity(tableName = "bin_details")
 
-public class BinDTO implements Comparable{
+public class BinDTO {
 
     private String _id;
     private String name;
     private String capacity;
     private String brand;
     private BinTypeDTO binType;
-    private DimensionDTO dimension;
+    private BinDimensionDTO dimension;
+
+
 
 
     public String get_id() {
@@ -59,17 +61,17 @@ public class BinDTO implements Comparable{
         this.binType = binType;
     }
 
-    public DimensionDTO getDimension() {
+    public BinDimensionDTO getDimension() {
         return dimension;
     }
 
-    public void setDimension(DimensionDTO dimension) {
+    public void setDimension(BinDimensionDTO dimension) {
         this.dimension = dimension;
     }
 
-    @Override
+   /* @Override
     public int compareTo(@NonNull Object o) {
         BinDTO item = (BinDTO) o;
         return name.compareToIgnoreCase(item.getName());
-    }
+    }*/
 }

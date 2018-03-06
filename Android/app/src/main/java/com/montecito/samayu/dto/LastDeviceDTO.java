@@ -1,15 +1,14 @@
 package com.montecito.samayu.dto;
 
-import android.support.annotation.NonNull;
-
 /**
- * Created by NandhiniGovindasamy on 2/2/18.
+ * Created by NandhiniGovindasamy on 3/6/18.
  */
-public class DeviceDTO {
 
+public class LastDeviceDTO {
     private String _id;
     private String slno;
-    private String name;
+    private String location;
+
 
 
     public String get_id() {
@@ -28,14 +27,6 @@ public class DeviceDTO {
         this.slno = slno;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -44,13 +35,4 @@ public class DeviceDTO {
         this.location = location;
     }
 
-    private String location;
-
-   /*@Override
-    public int compareTo(@NonNull Object o) {
-        DeviceDTO item = (DeviceDTO) o;
-        return location.compareToIgnoreCase(item.getLocation());
-
-    }
-    */
 }

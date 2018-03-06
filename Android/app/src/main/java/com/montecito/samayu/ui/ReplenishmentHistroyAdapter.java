@@ -29,7 +29,7 @@ public class ReplenishmentHistroyAdapter extends BaseAdapter {
         Context context;
         LayoutInflater inflater;
 
-        public ReplenishmentHistroyAdapter(Context Home, ItemBinDetailsDTO itemAvailabilityDTOList){
+        public ReplenishmentHistroyAdapter(ItemBinDetails mainActivity, ItemBinDetailsDTO itemAvailabilityDTOList){
 
             // TODO Auto-generated constructor stub
             replenishmentHistroy=itemAvailabilityDTOList;
@@ -39,7 +39,7 @@ public class ReplenishmentHistroyAdapter extends BaseAdapter {
             //   System.out.println(products.size());
 
 
-            context=Home;
+            context=mainActivity;
             // System.out.println(context);
 
             inflater = LayoutInflater.from(context);
@@ -77,10 +77,9 @@ public class ReplenishmentHistroyAdapter extends BaseAdapter {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            com.montecito.samayu.ui.ReplenishmentHistroyAdapter.Holder holder=null;
-            if (convertView == null) {
-                holder=new com.montecito.samayu.ui.ReplenishmentHistroyAdapter.Holder();
-                convertView = inflater.inflate(R.layout.activity_replenishmenthistroy_list, parent,false);
+            final Holder holder;
+                holder=new Holder();
+                convertView = inflater.inflate(R.layout.activity_replenishmenthistroy_list, null);
                 //holder.tv = (TextView) convertView.findViewById(R.id.id);
                 holder.tv1 = (TextView) convertView.findViewById(R.id.RtriggeredOn);
                 holder.tv2 = (TextView) convertView.findViewById(R.id.Rquantity);
@@ -90,17 +89,15 @@ public class ReplenishmentHistroyAdapter extends BaseAdapter {
 
 
                 convertView.setTag(holder);
-            }
-            else{
-                holder=(com.montecito.samayu.ui.ReplenishmentHistroyAdapter.Holder) convertView.getTag();
-            }
+
+
             holder.position=position;
             ReplenishmentsDTO replenishmentsDTO=replenishmentHistroy.getReplenishments().get(holder.position);
 
             SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy HH:mm");
             String formattedDate=df.format(replenishmentsDTO.getCreated());
 
-            holder.tv1.setText(String.valueOf(replenishmentsDTO.getCreated ()));
+            holder.tv1.setText(formattedDate);
 
             holder.tv2.setText(String.valueOf(replenishmentsDTO.getQuantity()));
             holder.tv3.setText(((replenishmentsDTO.getQuantity()/replenishmentHistroy.getThresold().getMax())*100)+"%");

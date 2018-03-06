@@ -186,7 +186,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
             itemName.setText(binItems.getItem().getName());
             material.setText(binItems.getItem().getMaterial());
             units.setText(binItems.getItem().getUom());
-            itemDimension.setText(binItems.getItem().getDimension().getLength() + "X" + binItems.getItem().getDimension().getWidth() + "X" + binItems.getItem().getDimension().getHeight());
+            itemDimension.setText(binItems.getItem().getDimension().getLength() + "X" + binItems.getItem().getDimension().getDia() + "(" + binItems.getItem().getDimension().getUom()+")");
            // itemVolume.setText("");
             //surface.setText("");
             //availability.setText("");

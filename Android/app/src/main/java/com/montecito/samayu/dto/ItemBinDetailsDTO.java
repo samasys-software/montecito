@@ -17,6 +17,12 @@ public class ItemBinDetailsDTO {
     private DeviceDTO currDevice;
     private ReadingDTO lastReading;
     private List<ReplenishmentsDTO> replenishments;
+    private ReplenishmentTaskDTO replenishTask;
+    private boolean itemAlert, stockAlert, active;
+    private List<DeviceHistoryDTO> deviceHistory;
+
+
+
 
 
     public ReplenishmentTaskDTO getReplenishTask() {
@@ -27,9 +33,7 @@ public class ItemBinDetailsDTO {
         this.replenishTask = replenishTask;
     }
 
-    private ReplenishmentTaskDTO replenishTask;
-    private boolean itemAlert, stockAlert, active;
-    private List<DeviceHistoryDTO> deviceHistory;
+
     
 
     public String get_id() {

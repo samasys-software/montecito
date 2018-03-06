@@ -6,6 +6,7 @@ package com.montecito.samayu.dto;
 
 public class BinTypeDTO {
 
+
     private  String name,_id;
 
     public String getName() {

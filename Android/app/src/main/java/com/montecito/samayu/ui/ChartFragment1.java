@@ -66,7 +66,7 @@ public class ChartFragment1 extends Fragment{
 
         if(position==0) {
             List<Consumption> list = new ArrayList<Consumption>();
-            for(int i=0;i<2;i++) {
+            for(int i=0;i<1;i++) {
 
                 Consumption info = new Consumption();
                 info.setId("_id"+i);
