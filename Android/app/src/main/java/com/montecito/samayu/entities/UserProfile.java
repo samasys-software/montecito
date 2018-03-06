@@ -4,7 +4,7 @@ package com.montecito.samayu.entities;
  * Created by fgs on 2/12/2018.
  */
 
-public class UserProfileDTO {
+public class UserProfile {
 
 
     private String _id;

@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by NandhiniGovindasamy on 2/23/18.
  */
 
-public class DeviceHistoryDTO {
+public class DeviceHistory {
     private String _id,itemBin;
     private int __v;
     private Date created;

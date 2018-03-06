@@ -4,7 +4,7 @@ package com.montecito.samayu.entities;
  * Created by NandhiniGovindasamy on 2/2/18.
  */
 
-public class ReadingDTO {
+public class Reading {
 
     private String _id;
 
