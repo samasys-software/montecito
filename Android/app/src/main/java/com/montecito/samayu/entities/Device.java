@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 /**
  * Created by NandhiniGovindasamy on 2/2/18.
  */
-public class DeviceDTO implements Comparable{
+public class Device implements Comparable{
 
     private String _id;
     private String slno;

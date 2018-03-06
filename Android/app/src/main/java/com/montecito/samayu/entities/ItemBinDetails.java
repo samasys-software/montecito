@@ -7,7 +7,7 @@ import java.util.List;
  * Created by NandhiniGovindasamy on 2/20/18.
  */
 
-public class ItemBinDetailsDTO {
+public class ItemBinDetails {
     private String _id, rfId, oldId, confDevice, confBy, uom, status;
     private Date updated, created;
     private int __v, capacity;

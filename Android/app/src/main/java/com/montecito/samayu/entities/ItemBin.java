@@ -13,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
  */
 @Entity(tableName = "item_bins")
 
-public class ItemBinDTO {
+public class ItemBin {
 
     @PrimaryKey(autoGenerate = false)
     @SerializedName("_id")

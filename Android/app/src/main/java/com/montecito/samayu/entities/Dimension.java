@@ -4,7 +4,7 @@ package com.montecito.samayu.entities;
  * Created by NandhiniGovindasamy on 2/23/18.
  */
 
-public class DimensionDTO {
+public class Dimension {
 
 
   private int length,width,height ;

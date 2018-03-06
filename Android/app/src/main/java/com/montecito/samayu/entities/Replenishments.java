@@ -6,10 +6,12 @@ import java.util.Date;
  * Created by NandhiniGovindasamy on 2/23/18.
  */
 
-public class ReplenishmentTaskDTO {
-    private String _id,itemBin,status;
-    private int trigger,__v;
-    private Date updated,created;
+public class Replenishments {
+    private String _id,status,itemBin;
+    private float quantity;
+    private int __v;
+    private ReplenishmentTaskDTO replenishTask;
+    private Date created;
 
     public String get_id() {
         return _id;
@@ -17,14 +19,6 @@ public class ReplenishmentTaskDTO {
 
     public void set_id(String _id) {
         this._id = _id;
-    }
-
-    public String getItemBin() {
-        return itemBin;
-    }
-
-    public void setItemBin(String itemBin) {
-        this.itemBin = itemBin;
     }
 
     public String getStatus() {
@@ -35,12 +29,20 @@ public class ReplenishmentTaskDTO {
         this.status = status;
     }
 
-    public int getTrigger() {
-        return trigger;
+    public String getItemBin() {
+        return itemBin;
     }
 
-    public void setTrigger(int trigger) {
-        this.trigger = trigger;
+    public void setItemBin(String itemBin) {
+        this.itemBin = itemBin;
+    }
+
+    public float getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
     }
 
     public int get__v() {
@@ -51,12 +53,12 @@ public class ReplenishmentTaskDTO {
         this.__v = __v;
     }
 
-    public Date getUpdated() {
-        return updated;
+    public ReplenishmentTaskDTO getReplenishTask() {
+        return replenishTask;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setReplenishTask(ReplenishmentTaskDTO replenishTask) {
+        this.replenishTask = replenishTask;
     }
 
     public Date getCreated() {

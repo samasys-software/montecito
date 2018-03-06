@@ -4,7 +4,7 @@ package com.montecito.samayu.entities;
  * Created by NandhiniGovindasamy on 2/2/18.
  */
 
-public class ItemDTO {
+public class Item {
     private String _id;
     private String name;
     private String category;

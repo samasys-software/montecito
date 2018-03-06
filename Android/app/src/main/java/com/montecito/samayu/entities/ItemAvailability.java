@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Preethiv on 1/15/2018.
  */
 @Entity(tableName = "item_availablity_details")
-public class ItemAvailabilityDTO {
+public class ItemAvailability {
 
 
     @PrimaryKey(autoGenerate = false)

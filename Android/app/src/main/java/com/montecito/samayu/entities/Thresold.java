@@ -4,7 +4,7 @@ package com.montecito.samayu.entities;
  * Created by NandhiniGovindasamy on 2/2/18.
  */
 
-public class ThresoldDTO {
+public class Thresold {
 
     private float min;
     private float normal;

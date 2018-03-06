@@ -4,7 +4,7 @@ package com.montecito.samayu.entities;
  * Created by NandhiniGovindasamy on 2/23/18.
  */
 
-public class BinTypeDTO {
+public class BinType {
 
     private  String name,_id;
 

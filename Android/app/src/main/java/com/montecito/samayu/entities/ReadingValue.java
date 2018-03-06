@@ -3,7 +3,7 @@ package com.montecito.samayu.entities;
 /**
  * Created by NandhiniGovindasamy on 2/2/18.
  */
-public class ReadingValueDTO {
+public class ReadingValue {
     private float weight;
     private String status;
 
