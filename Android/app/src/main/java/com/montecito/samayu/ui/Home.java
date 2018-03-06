@@ -3,6 +3,8 @@ package com.montecito.samayu.ui;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
 import android.support.design.widget.TabLayout;
@@ -10,13 +12,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.montecito.samayu.db.AppDatabase;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
@@ -57,6 +62,9 @@ public class Home extends MontecitoBaseActivity  {
     private WebSocketClient mWebSocketClient;
     ProgressDialog mProgressDialog;
     Context context;
+    private AppDatabase db;
+
+
 
 
 
@@ -65,6 +73,7 @@ public class Home extends MontecitoBaseActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         context=this;
+        db=AppDatabase.getAppDatabase(context);
         listView = findViewById(R.id.list);
 //        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 //       getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -78,16 +87,20 @@ public class Home extends MontecitoBaseActivity  {
         mProgressDialog=getProgressDialog(context);
         mProgressDialog.show();
         String token = SessionInfo.getInstance().getUserLogin().getToken();
+        if(isNetworkAvailable())
+        {
+            Log.d("message","You are Online");
 
-        final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
-        itemAvailablityDTOCall.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
+            final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
+            itemAvailablityDTOCall.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
 
-            @Override
-            public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
+                @Override
+                public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
 
                     if(response.code()==200) {
                         List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
                         SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
+                        addItemAvailablity(db,itemAvailabilityDTOList);
                         //  Collections.sort(itemAvailabilityDTOList,new StatusComp());
                         //This line is commented for the purpose of server data testing
                         listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
@@ -110,13 +123,24 @@ public class Home extends MontecitoBaseActivity  {
 
 
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<List<ItemAvailabilityDTO>> call, Throwable t) {
-                mProgressDialog.dismiss();
-            }
-        });
+                @Override
+                public void onFailure(Call<List<ItemAvailabilityDTO>> call, Throwable t) {
+                    mProgressDialog.dismiss();
+                    Toast.makeText(context,"Network Error",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            Log.d("message","You are Offline");
+            List<ItemAvailabilityDTO> itemAvailabilityDTOList = getAllItemAvailablities(db);
+            SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
+            listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+            mProgressDialog.dismiss();
+
+        }
+
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
@@ -154,7 +178,7 @@ public class Home extends MontecitoBaseActivity  {
                 JSONObject obj = (JSONObject) jsonArray.get(i);
                 ItemAvailabilityDTO item = new ItemAvailabilityDTO();
                 item.setAvailable(obj.getString("available"));
-                item.set_id(obj.getString("_id"));
+                item.setId(obj.getString("id"));
                 item.setItem(obj.getString("item"));
                 item.setLocation(obj.getString("location"));
                 item.setStatus(obj.getString("status"));
@@ -187,31 +211,16 @@ public class Home extends MontecitoBaseActivity  {
 
 
 
+    private static void addItemAvailablity(final AppDatabase db, List<ItemAvailabilityDTO> itemAvailabilityDTOList) {
+        db.itemAvailablityDAO().deleteAll();
+        db.itemAvailablityDAO().insertAll(itemAvailabilityDTOList);
 
-   /* public void logout(){
-        SessionInfo.destroy();
-        File dir = getFilesDir();
+    }
+    private static List<ItemAvailabilityDTO> getAllItemAvailablities(final AppDatabase db)
+    {
+        return db.itemAvailablityDAO().getAll();
 
-       finish();
-    }*/
+    }
 
-
-
-
-  /*  class StatusComp implements Comparator<ItemAvailabilityDTO> {
-
-        @Override
-        public int compare(ItemAvailabilityDTO task1, ItemAvailabilityDTO task2) {
-            if(task1.getStatus()>task2.getStatus()){
-                return 1;
-            }
-            else if(task1.getStatus()<task2.getStatus()) {
-                return -1;
-            }
-            else{
-                return 0;
-            }
-        }
-    }*/
 
 }

@@ -150,7 +150,7 @@ public class BinMonitor extends MontecitoBaseActivity {
        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-              SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getItemBinDetails().get(i).get_id());
+              SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getItemBinDetails().get(i).getId());
               Intent intent = new Intent(BinMonitor.this, ItemBinDetails.class);
                startActivity(intent);
 

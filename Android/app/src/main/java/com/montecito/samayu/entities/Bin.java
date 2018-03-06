@@ -1,7 +1,6 @@
-package com.montecito.samayu.dto;
+package com.montecito.samayu.entities;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.support.annotation.NonNull;
 
 /**
@@ -9,7 +8,7 @@ import android.support.annotation.NonNull;
  */
 @Entity(tableName = "bin_details")
 
-public class BinDTO implements Comparable{
+public class Bin{
 
     private String _id;
     private String name;
@@ -67,9 +66,9 @@ public class BinDTO implements Comparable{
         this.dimension = dimension;
     }
 
-    @Override
+    /*@Override
     public int compareTo(@NonNull Object o) {
         BinDTO item = (BinDTO) o;
         return name.compareToIgnoreCase(item.getName());
-    }
+    }*/
 }
