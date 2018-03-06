@@ -161,7 +161,7 @@ public class ChartFragment1 extends Fragment{
         return gradient;
     }
 
-    private static void addConsumption(final AppDatabase db,List<Consumption> consumptionDetails) {
+  /*  private static void addConsumption(final AppDatabase db,List<Consumption> consumptionDetails) {
         db.consumptionDAO().deleteAll();
         db.consumptionDAO().insertAll(consumptionDetails);
 
@@ -170,7 +170,7 @@ public class ChartFragment1 extends Fragment{
     {
         return db.consumptionDAO().getAll();
 
-    }
+    }*/
 
 
 
