@@ -12,7 +12,8 @@ import java.util.Date;
 
 public class ReplenishmentTaskDTO {
     private String _id,itemBin,status;
-    private int trigger,__v;
+    private int __v;
+    private float trigger;
     private Date updated,created;
 
     public String get_id() {
@@ -39,7 +40,7 @@ public class ReplenishmentTaskDTO {
         this.status = status;
     }
 
-    public int getTrigger() {
+    public float getTrigger() {
         return trigger;
     }
 

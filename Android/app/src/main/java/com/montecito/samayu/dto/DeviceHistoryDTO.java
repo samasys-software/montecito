@@ -10,7 +10,8 @@ public class DeviceHistoryDTO {
     private String _id,itemBin;
     private int __v;
     private Date created;
-    private DeviceDTO lastDevice;
+    private LastDeviceDTO lastDevice;
+
 
     public String get_id() {
         return _id;
@@ -44,11 +45,11 @@ public class DeviceHistoryDTO {
         this.created = created;
     }
 
-    public DeviceDTO getLastDevice() {
+    public LastDeviceDTO getLastDevice() {
         return lastDevice;
     }
 
-    public void setLastDevice(DeviceDTO lastDevice) {
+    public void setLastDevice(LastDeviceDTO lastDevice) {
         this.lastDevice = lastDevice;
     }
 }

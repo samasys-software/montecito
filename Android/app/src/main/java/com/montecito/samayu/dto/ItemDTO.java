@@ -10,7 +10,10 @@ public class ItemDTO {
     private String category;
     private String uom;
 
-   private DimensionDTO dimension;
+   private ItemDimensionDTO dimension;
+
+
+
 
     public String get_id() {
         return _id;
@@ -54,11 +57,11 @@ public class ItemDTO {
 
     private String material;
 
-    public DimensionDTO getDimension() {
+    public ItemDimensionDTO getDimension() {
         return dimension;
     }
 
-    public void setDimension(DimensionDTO dimension) {
+    public void setDimension(ItemDimensionDTO dimension) {
         this.dimension = dimension;
     }
 }

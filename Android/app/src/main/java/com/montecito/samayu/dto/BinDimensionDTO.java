@@ -1,10 +1,10 @@
-package com.montecito.samayu.entities;
+package com.montecito.samayu.dto;
 
 /**
  * Created by NandhiniGovindasamy on 2/23/18.
  */
 
-public class Dimension {
+public class BinDimensionDTO {
 
 
   private int length,width,height ;

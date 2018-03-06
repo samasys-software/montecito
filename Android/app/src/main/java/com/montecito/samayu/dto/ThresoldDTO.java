@@ -9,6 +9,7 @@ public class ThresoldDTO {
     private float min;
     private float normal;
 
+
     public float getMin() {
         return min;
     }

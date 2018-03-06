@@ -284,7 +284,15 @@ public class ChartFragment extends Fragment  {
     public static int[] getColorsForChart(int size, int end, int start){
         int[] gradient = new int[size];
         for(int i=0;i<size;i++){
-            float ratio = ((float)i)/size;
+            float ratio;
+            if(size>1)
+            {
+                ratio= ((float)i)/(size-1);
+            }
+            else{
+                ratio=((float)i)/size;
+            }
+
 
             int red = (int)(Color.red(end)*ratio+Color.red(start)*(1-ratio));
             int green =(int) (Color.green(end)*ratio+Color.green(start)*(1-ratio));
@@ -297,7 +305,6 @@ public class ChartFragment extends Fragment  {
 
         return gradient;
     }
-
    private static void addConsumption(final AppDatabase db,List<Consumption> consumptionDetails) {
        db.consumptionDAO().deleteAll();
        db.consumptionDAO().insertAll(consumptionDetails);
