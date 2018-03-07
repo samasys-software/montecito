@@ -1,8 +1,11 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.Entity;
+
 /**
  * Created by fgs on 2/12/2018.
  */
+@Entity(tableName = "user_profile")
 
 public class UserProfileDTO {
 

@@ -1,26 +1,47 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by NandhiniGovindasamy on 2/2/18.
  */
-
+@Entity(tableName = "item")
 public class ItemDTO {
-    private String _id;
+
+    @PrimaryKey(autoGenerate = false)
+    @SerializedName("_id")
+    @NonNull
+    private String id;
+
+    @ColumnInfo(name = "itemBinId")
+    private String itemBinId;
+
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "category")
     private String category;
+
+    @ColumnInfo(name = "uom")
     private String uom;
 
-   private ItemDimensionDTO dimension;
+    @Ignore
+    private ItemDimensionDTO dimension;
 
 
-
-
-    public String get_id() {
-        return _id;
+    @NonNull
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -63,5 +84,13 @@ public class ItemDTO {
 
     public void setDimension(ItemDimensionDTO dimension) {
         this.dimension = dimension;
+    }
+
+    public String getItemBinId() {
+        return itemBinId;
+    }
+
+    public void setItemBinId(String itemBinId) {
+        this.itemBinId = itemBinId;
     }
 }

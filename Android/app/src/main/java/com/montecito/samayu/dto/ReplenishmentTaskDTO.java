@@ -1,5 +1,7 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.Entity;
+
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -9,7 +11,7 @@ import java.util.Date;
 /**
  * Created by NandhiniGovindasamy on 2/23/18.
  */
-
+@Entity(tableName = "replenishment_task")
 public class ReplenishmentTaskDTO {
     private String _id,itemBin,status;
     private int __v;

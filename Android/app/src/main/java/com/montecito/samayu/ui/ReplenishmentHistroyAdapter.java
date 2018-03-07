@@ -12,8 +12,11 @@ import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
 import com.montecito.samayu.dto.ItemDTO;
 import com.montecito.samayu.dto.ReplenishmentsDTO;
+import com.montecito.samayu.service.FormatNumber;
+
 import com.prodcast.samayu.samayusoftcorp.R;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -28,6 +31,7 @@ public class ReplenishmentHistroyAdapter extends BaseAdapter {
         int count=0;
         Context context;
         LayoutInflater inflater;
+        NumberFormat numberFormat= FormatNumber.getNumberFormat();
 
         public ReplenishmentHistroyAdapter(ItemBinDetails mainActivity, ItemBinDetailsDTO itemAvailabilityDTOList){
 
@@ -100,7 +104,7 @@ public class ReplenishmentHistroyAdapter extends BaseAdapter {
             holder.tv1.setText(formattedDate);
 
             holder.tv2.setText(String.valueOf(replenishmentsDTO.getQuantity()));
-            holder.tv3.setText(((replenishmentsDTO.getQuantity()/replenishmentHistroy.getThresold().getMax())*100)+"%");
+            holder.tv3.setText(numberFormat.format((replenishmentsDTO.getQuantity()/replenishmentHistroy.getThresold().getMax())*100)+"%");
             //holder.tv4.setText(status);
 
 

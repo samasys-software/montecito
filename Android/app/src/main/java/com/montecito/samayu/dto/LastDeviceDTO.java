@@ -1,9 +1,11 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.Entity;
+
 /**
  * Created by NandhiniGovindasamy on 3/6/18.
  */
-
+@Entity(tableName = "last_device")
 public class LastDeviceDTO {
     private String _id;
     private String slno;

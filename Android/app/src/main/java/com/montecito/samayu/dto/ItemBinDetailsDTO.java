@@ -1,12 +1,14 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.Entity;
+
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by NandhiniGovindasamy on 2/20/18.
  */
-
+@Entity(tableName = "item_bin_details")
 public class ItemBinDetailsDTO {
     private String _id, rfId, oldId, confDevice, confBy, uom, status;
     private Date updated, created;

@@ -1,11 +1,13 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.Entity;
+
 import java.util.Date;
 
 /**
  * Created by NandhiniGovindasamy on 2/23/18.
  */
-
+@Entity(tableName = "replenishments")
 public class ReplenishmentsDTO {
     private String _id,status,itemBin;
     private float quantity;

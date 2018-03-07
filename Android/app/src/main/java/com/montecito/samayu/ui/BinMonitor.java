@@ -20,6 +20,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.montecito.samayu.db.AppDatabase;
+import com.montecito.samayu.dto.BinDTO;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.service.MontecitoClient;
@@ -45,6 +47,7 @@ public class BinMonitor extends MontecitoBaseActivity {
     Context context;
     LinearLayout  locationLayout, floorLayout;
     Spinner sortBy;
+    private AppDatabase db;
 
     private int currentViewMode=0;
     final int VIEW_MODE_LISTVIEW=1;
@@ -55,6 +58,7 @@ public class BinMonitor extends MontecitoBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bin_monitor);
         context=this;
+        db=AppDatabase.getAppDatabase(context);
         locationLayout=(LinearLayout) findViewById(R.id.locationLayout);
         floorLayout=(LinearLayout) findViewById(R.id.FloorLayout);
         locationLayout.setVisibility(View.GONE);
@@ -79,17 +83,18 @@ public class BinMonitor extends MontecitoBaseActivity {
         ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,sortByValues);
         sortBy.setAdapter(dataAdapter);
 
-
-        final Call<List<ItemBinDTO>> itemBinAvailability = new MontecitoClient().getClient().getItemBinDTO(SessionInfo.getInstance().getUserLogin().getToken());
-        itemBinAvailability.enqueue(new Callback<List<ItemBinDTO>>() {
-            @Override
-            public void onResponse(Call<List<ItemBinDTO>> call, Response<List<ItemBinDTO>> response) {
-                if (response.isSuccessful()) {
-                    List<ItemBinDTO> binItem = response.body();
-                    SessionInfo.getInstance().setItemBinDetails(binItem);
-                    setBinData();
+        if(isNetworkAvailable()) {
+            final Call<List<ItemBinDTO>> itemBinAvailability = new MontecitoClient().getClient().getItemBinDTO(SessionInfo.getInstance().getUserLogin().getToken());
+            itemBinAvailability.enqueue(new Callback<List<ItemBinDTO>>() {
+                @Override
+                public void onResponse(Call<List<ItemBinDTO>> call, Response<List<ItemBinDTO>> response) {
+                    if (response.isSuccessful()) {
+                        List<ItemBinDTO> binItem = response.body();
+                        SessionInfo.getInstance().setItemBinDetails(binItem);
+                        addItemBins(db,binItem);
+                        setBinData();
+                    }
                 }
-            }
 
                 @Override
                 public void onFailure(Call<List<ItemBinDTO>> call, Throwable t) {
@@ -97,7 +102,13 @@ public class BinMonitor extends MontecitoBaseActivity {
 
                 }
             });
+        }
+        else{
+            List<ItemBinDTO> binItem = getAllItemBins(db);
+            SessionInfo.getInstance().setItemBinDetails(binItem);
+            setBinData();
 
+        }
         assert recyclerView != null;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -185,6 +196,17 @@ public class BinMonitor extends MontecitoBaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
         return true;
+    }
+
+    private static void addItemBins(final AppDatabase db, List<ItemBinDTO> itemBins) {
+
+        db.itemBinDAO().insertAll(itemBins);
+
+    }
+    private static List<ItemBinDTO> getAllItemBins(final AppDatabase db)
+    {
+        return db.itemBinDAO().getAllItemBins();
+
     }
 
 

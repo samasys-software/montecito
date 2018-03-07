@@ -29,10 +29,10 @@ public class ItemBinDTO {
     @Ignore
     private DeviceDTO currDevice;
 
-    @ColumnInfo(name = "available")
+    @ColumnInfo(name = "uom")
     private String uom;
 
-    @ColumnInfo(name = "available")
+    @ColumnInfo(name = "capacity")
     private float capacity;
 
     @Ignore
@@ -41,7 +41,7 @@ public class ItemBinDTO {
     @Ignore
     private ThresoldDTO thresold;
 
-    @ColumnInfo(name = "available")
+    @ColumnInfo(name = "status")
     private String status;
 
     @NonNull

@@ -5,19 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.SuperscriptSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.montecito.samayu.domain.UserLogin;
+import com.montecito.samayu.dto.UserLoginDTO;
 import com.montecito.samayu.dto.LoginDTO;
-import com.montecito.samayu.dto.LoginInput;
+import com.montecito.samayu.domain.LoginInput;
 import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
@@ -46,7 +42,7 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserLogin userLogin = loginRetrive();
+        UserLoginDTO userLogin = loginRetrive();
         if (userLogin != null) {
            SessionInfo.getInstance().setUserLogin(userLogin);
            Intent intent=new Intent(LoginScreen.this,Home.class);
@@ -153,7 +149,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
                 if( response.isSuccessful() ) {
                     LoginDTO loginDTO = response.body();
-                    UserLogin userLogin=new UserLogin();
+                    UserLoginDTO userLogin=new UserLoginDTO();
                     userLogin.setFirstName(loginDTO.getFirstName());
                     userLogin.setLastName(loginDTO.getLastName());
                     userLogin.setToken("Bearer "+loginDTO.getToken());
@@ -178,7 +174,7 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-    public void loginToFile(UserLogin customersLogin) {
+    public void loginToFile(UserLoginDTO customersLogin) {
         File file = new File(getFilesDir(), FILE_NAME);
         file.delete();
 
@@ -195,10 +191,10 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    public UserLogin loginRetrive() {
+    public UserLoginDTO loginRetrive() {
         try {
             ObjectInputStream ois = new ObjectInputStream(openFileInput(FILE_NAME));
-            UserLogin r = (UserLogin) ois.readObject();
+            UserLoginDTO r = (UserLoginDTO) ois.readObject();
             return r;
         }
         catch (Exception e) {

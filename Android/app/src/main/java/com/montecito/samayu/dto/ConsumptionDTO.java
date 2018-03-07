@@ -1,4 +1,4 @@
-package com.montecito.samayu.domain;
+package com.montecito.samayu.dto;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by God on 1/25/2018.
  */
 @Entity(tableName = "consumption_details")
-public class Consumption {
+public class ConsumptionDTO {
 
     @PrimaryKey(autoGenerate = false)
     @SerializedName("_id")

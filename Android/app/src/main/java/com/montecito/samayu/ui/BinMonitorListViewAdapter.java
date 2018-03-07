@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
-import com.montecito.samayu.service.GlobalUsage;
+import com.montecito.samayu.service.FormatNumber;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
@@ -30,7 +30,7 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
     private List<ItemBinDTO> binItem;
     private static LayoutInflater inflater;
     private Context context;
-    NumberFormat numberFormat= GlobalUsage.getNumberFormat();
+    NumberFormat numberFormat= FormatNumber.getNumberFormat();
 
     public BinMonitorListViewAdapter(Context context, List<ItemBinDTO> binItem) {
 
