@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
 import com.montecito.samayu.db.AppDatabase;
 import com.montecito.samayu.dto.ConsumptionDTO;
 import com.montecito.samayu.service.SessionInfo;
@@ -236,40 +238,38 @@ public class ChartFragment extends Fragment  {
 
     public void updateChart(BarChart barChart, List<ConsumptionDTO> consumptionInfo){
         List<BarEntry> data = new ArrayList<>();
-        List<String> labels = new ArrayList<>();
+        final List<String> labels = new ArrayList<>();
         for(int i =0; i<consumptionInfo.size(); i++){
-            data.add( new BarEntry(i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
-            labels.add( consumptionInfo.get(i).getItem());
+            data.add( new BarEntry((float) Double.parseDouble(consumptionInfo.get(i).getUsage()),i));
+            labels.add("abc");
         }
-
-
-
-
 
         BarDataSet dataSet = new BarDataSet(data,"Usage");
 
         // barChart.setDescription("");
-        barChart.getAxisLeft().setDrawLabels(false);
         barChart.getAxisRight().setDrawLabels(false);
+        barChart.getAxisLeft().setDrawLabels(true);
         barChart.getLegend().setEnabled(false);
-        barChart.getXAxis().setDrawLabels(false);
-        barChart.setDrawGridBackground(false);
-        barChart.setFitBars(true);
 
+        barChart.getXAxis().setDrawLabels(true);
+        //barChart.setFitBars(true);
+
+        //barChart.getAxisLeft().setAxisMinimum(0f);
 
         //dataSet.setColor(Color.BLUE);
 
-        dataSet.setValueTextColor(Color.WHITE);
+        dataSet.setValueTextColor(Color.WHITE);barChart.getLegend().setTextColor(Color.WHITE);
 
+        barChart.getAxisLeft().setTextColor(Color.WHITE);
+        barChart.getXAxis().setTextColor(Color.WHITE);
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        barChart.getXAxis().setXOffset(0);
         dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
 
+        //Legend legend = barChart.getLegend();
+        //legend.setForm(Legend.LegendForm.CIRCLE);
 
-
-        Legend legend = barChart.getLegend();
-        legend.setForm(Legend.LegendForm.CIRCLE);
-
-
-        BarData barData = new BarData(dataSet);
+        BarData barData = new BarData(labels,dataSet);
 
         barChart.setData( barData );
 

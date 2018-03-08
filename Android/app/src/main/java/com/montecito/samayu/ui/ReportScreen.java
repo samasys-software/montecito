@@ -22,7 +22,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
+//import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -97,8 +97,11 @@ public class ReportScreen extends MontecitoBaseActivity {
 
     public void updateChart(BarChart barChart){
         List<BarEntry> data = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
         for(int i =0; i<5; i++){
             data.add( new BarEntry( i , 10));
+
+                labels.add("abc");
         }
 
         BarDataSet dataSet = new BarDataSet(data,"Usage");
@@ -108,7 +111,7 @@ public class ReportScreen extends MontecitoBaseActivity {
         barChart.getLegend().setEnabled(false);
         barChart.getXAxis().setDrawLabels(false);
         barChart.setDrawGridBackground(false);
-        barChart.setFitBars(true);
+        //barChart.setFitBars(true);
 
 
         //dataSet.setColor(Color.BLUE);
@@ -120,7 +123,7 @@ public class ReportScreen extends MontecitoBaseActivity {
 
 
 
-        BarData barData = new BarData(dataSet);
+        BarData barData = new BarData(labels,dataSet);
         barChart.setData( barData );
         barChart.invalidate();
 
@@ -146,32 +149,32 @@ public class ReportScreen extends MontecitoBaseActivity {
     public void updatePieDiagram(PieChart pieChart)
     {
         pieChart.setUsePercentValues(true);
-        ArrayList<PieEntry> yvalues = new ArrayList<PieEntry>();
-        yvalues.add(new PieEntry(1, 0));
-        yvalues.add(new PieEntry(1, 1));
-
-        PieDataSet dataSet = new PieDataSet(yvalues,"");
-
-        ArrayList<String> xVals = new ArrayList<String>();
-
-        xVals.add("January");
-        xVals.add("February");
-
-        PieData data = new PieData( dataSet);
-        // In Percentage term
-        data.setValueFormatter(new PercentFormatter());
-        // Default value
-        //data.setValueFormatter(new DefaultValueFormatter(0));
-        pieChart.setData(data);
-        pieChart.setDrawHoleEnabled(false);
-        pieChart.setDrawEntryLabels(false);
-        pieChart.setTransparentCircleRadius(25f);
-
-        dataSet.setDrawValues(false);
-        data.setDrawValues(false);
-
-        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-
+        //ArrayList<PieEntry> yvalues = new ArrayList<PieEntry>();
+        //yvalues.add(new PieEntry(1, 0));
+//        yvalues.add(new PieEntry(1, 1));
+//
+//        PieDataSet dataSet = new PieDataSet(yvalues,"");
+//
+//        ArrayList<String> xVals = new ArrayList<String>();
+//
+//        xVals.add("January");
+//        xVals.add("February");
+//
+//        PieData data = new PieData( dataSet);
+//        // In Percentage term
+//        data.setValueFormatter(new PercentFormatter());
+//        // Default value
+//        //data.setValueFormatter(new DefaultValueFormatter(0));
+//        pieChart.setData(data);
+//        pieChart.setDrawHoleEnabled(false);
+//        pieChart.setDrawEntryLabels(false);
+//        pieChart.setTransparentCircleRadius(25f);
+//
+//        dataSet.setDrawValues(false);
+//        data.setDrawValues(false);
+//
+//        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
+//
 
        // pieChart.animateXY(1400, 1400);
     }
