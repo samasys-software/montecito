@@ -1,6 +1,5 @@
 package com.montecito.samayu.ui;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,8 +12,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.montecito.samayu.db.AppDatabase;
-import com.montecito.samayu.domain.Consumption;
+import com.montecito.samayu.dto.ConsumptionDTO;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 import java.util.ArrayList;
@@ -65,47 +63,47 @@ public class ChartFragment1 extends Fragment{
 
 
         if(position==0) {
-            List<Consumption> list = new ArrayList<Consumption>();
+            List<ConsumptionDTO> list = new ArrayList<ConsumptionDTO>();
             for(int i=0;i<1;i++) {
 
-                Consumption info = new Consumption();
+                ConsumptionDTO info = new ConsumptionDTO();
                 info.setId("_id"+i);
                 info.setItem("item");
                 info.setUsage(""+10);
                 list.add(info);
             }
-            final List<Consumption> consumptionInfo = list;
+            final List<ConsumptionDTO> consumptionInfo = list;
             updateChart(barChart,consumptionInfo);
 
 
         }
         else if(position==1)
         {
-            List<Consumption> list = new ArrayList<Consumption>();
+            List<ConsumptionDTO> list = new ArrayList<ConsumptionDTO>();
             for(int i=0;i<4;i++) {
 
-                Consumption info = new Consumption();
+                ConsumptionDTO info = new ConsumptionDTO();
                 info.setId("_id"+i);
                 info.setItem("item");
                 info.setUsage(""+20);
                 list.add(info);
             }
-            final List<Consumption> consumptionInfo = list;
+            final List<ConsumptionDTO> consumptionInfo = list;
             updateChart(barChart,consumptionInfo);
 
         }
         else
         {
-            List<Consumption> list = new ArrayList<Consumption>();
+            List<ConsumptionDTO> list = new ArrayList<ConsumptionDTO>();
                     for(int i=0;i<7;i++) {
 
-                            Consumption info = new Consumption();
+                            ConsumptionDTO info = new ConsumptionDTO();
                             info.setId("_id"+i);
                             info.setItem("item");
                             info.setUsage(""+15);
                             list.add(info);
                        }
-                       final List<Consumption> consumptionInfo = list;
+                       final List<ConsumptionDTO> consumptionInfo = list;
                     updateChart(barChart,consumptionInfo);
         }
 
@@ -113,7 +111,7 @@ public class ChartFragment1 extends Fragment{
     }
 
 
-    public void updateChart(BarChart barChart, List<Consumption> consumptionInfo){
+    public void updateChart(BarChart barChart, List<ConsumptionDTO> consumptionInfo){
         List<BarEntry> data = new ArrayList<>();
         List<String> labels = new ArrayList<>();
         for(int i =0; i<consumptionInfo.size(); i++){
@@ -163,12 +161,12 @@ public class ChartFragment1 extends Fragment{
         return gradient;
     }
 
-  /*  private static void addConsumption(final AppDatabase db,List<Consumption> consumptionDetails) {
+  /*  private static void addConsumption(final AppDatabase db,List<ConsumptionDTO> consumptionDetails) {
         db.consumptionDAO().deleteAll();
         db.consumptionDAO().insertAll(consumptionDetails);
 
     }
-    private static List<Consumption> getAllConsumption(final AppDatabase db)
+    private static List<ConsumptionDTO> getAllConsumption(final AppDatabase db)
     {
         return db.consumptionDAO().getAll();
 

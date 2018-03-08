@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -15,33 +16,43 @@ import com.google.gson.annotations.SerializedName;
 
 public class ItemBinDTO {
 
+    @Expose
     @PrimaryKey(autoGenerate = false)
     @SerializedName("_id")
     @NonNull
+
     private String id;
 
     @Ignore
+    @Expose
     private BinDTO crateBin;
 
     @Ignore
+    @Expose
     private ItemDTO item;
 
     @Ignore
+    @Expose
     private DeviceDTO currDevice;
 
-    @ColumnInfo(name = "available")
+    @ColumnInfo(name = "uom")
+    @Expose
     private String uom;
 
-    @ColumnInfo(name = "available")
+    @ColumnInfo(name = "capacity")
+    @Expose
     private float capacity;
 
     @Ignore
+    @Expose
     private ReadingDTO lastReading;
 
     @Ignore
+    @Expose
     private ThresoldDTO thresold;
 
-    @ColumnInfo(name = "available")
+    @ColumnInfo(name = "status")
+    @Expose
     private String status;
 
     @NonNull

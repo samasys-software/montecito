@@ -1,16 +1,35 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.Entity;
+
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 
 /**
  * Created by NandhiniGovindasamy on 2/23/18.
  */
-
+@Entity(tableName = "replenishments")
 public class ReplenishmentsDTO {
-    private String _id,status,itemBin;
+    @Expose
+    private String _id;
+
+    @Expose
+    private String status;
+
+    @Expose
+    private String itemBin;
+
+    @Expose
     private float quantity;
+
+    @Expose
     private int __v;
+
+    @Expose
     private ReplenishmentTaskDTO replenishTask;
+
+    @Expose
     private Date created;
 
     public String get_id() {

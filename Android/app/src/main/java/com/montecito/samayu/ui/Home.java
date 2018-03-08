@@ -149,7 +149,7 @@ public class Home extends MontecitoBaseActivity  {
             tab.requestLayout();
         }
 
-        SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
+      /*  SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
 
 
             @Override
@@ -158,7 +158,7 @@ public class Home extends MontecitoBaseActivity  {
 
             }
         });
-
+*/
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

@@ -4,7 +4,6 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.montecito.samayu.domain.Consumption;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 
 import java.util.List;

@@ -1,25 +1,83 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.Entity;
+
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by NandhiniGovindasamy on 2/20/18.
+  * Created by NandhiniGovindasamy on 2/20/18.
  */
-
+@Entity(tableName = "item_bin_details")
 public class ItemBinDetailsDTO {
-    private String _id, rfId, oldId, confDevice, confBy, uom, status;
-    private Date updated, created;
-    private int __v, capacity;
+    @Expose
+    private String _id;
+
+    @Expose
+    private String rfId;
+
+    @Expose
+    private String oldId;
+
+    @Expose
+    private String confDevice;
+
+    @Expose
+    private String confBy;
+
+    @Expose
+    private String uom;
+
+    @Expose
+    private String status;
+
+    @Expose
+    private Date updated;
+
+    @Expose
+    private Date created;
+
+    @Expose
+    private int __v;
+
+    @Expose
+    private int capacity;
+
+    @Expose
     private BinDTO crateBin;
+
+    @Expose
     private ItemDTO item;
+
+    @Expose
     private ThresoldDTO thresold;
+
+    @Expose
     private DeviceDTO currDevice;
+
+    @Expose
     private ReadingDTO lastReading;
+
+    @Expose
     private List<ReplenishmentsDTO> replenishments;
+
+    @Expose
     private ReplenishmentTaskDTO replenishTask;
-    private boolean itemAlert, stockAlert, active;
+
+    @Expose
+    private boolean itemAlert;
+
+    @Expose
+    private boolean stockAlert;
+
+    @Expose
+    private boolean active;
+
+    @Expose
     private List<DeviceHistoryDTO> deviceHistory;
+
 
 
 

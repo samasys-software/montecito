@@ -2,38 +2,24 @@ package com.montecito.samayu.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
-import com.montecito.samayu.domain.UserLogin;
-import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
-import com.montecito.samayu.dto.LoginDTO;
-import com.montecito.samayu.dto.Status;
+import com.montecito.samayu.domain.Status;
 import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
