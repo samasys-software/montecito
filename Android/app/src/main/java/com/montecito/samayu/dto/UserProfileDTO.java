@@ -1,15 +1,29 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.Entity;
+
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by fgs on 2/12/2018.
  */
+@Entity(tableName = "user_profile")
 
 public class UserProfileDTO {
 
 
+    @Expose
     private String _id;
+
+    @Expose
     private String role;
+
+    @Expose
    private String name;
+
+    @Expose
+    private String email;
+
 
     public String getEmail() {
         return email;
@@ -19,7 +33,6 @@ public class UserProfileDTO {
         this.email = email;
     }
 
-    private String email;
 
     public String get_id() {
         return _id;

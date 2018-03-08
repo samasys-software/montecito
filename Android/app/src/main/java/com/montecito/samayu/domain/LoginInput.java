@@ -1,4 +1,4 @@
-package com.montecito.samayu.dto;
+package com.montecito.samayu.domain;
 
 import java.io.Serializable;
 

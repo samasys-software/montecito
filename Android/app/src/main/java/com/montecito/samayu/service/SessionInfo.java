@@ -1,11 +1,9 @@
 package com.montecito.samayu.service;
 
-import com.montecito.samayu.domain.ItemAvailablity;
-import com.montecito.samayu.domain.UserLogin;
+import com.montecito.samayu.dto.UserLoginDTO;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
-import com.montecito.samayu.dto.UserProfileDTO;
 
 import java.util.List;
 
@@ -31,13 +29,13 @@ public class SessionInfo {
         instance = new SessionInfo();
     }
 
-    private UserLogin userLogin;
+    private UserLoginDTO userLogin;
 
-    public UserLogin getUserLogin() {
+    public UserLoginDTO getUserLogin() {
         return userLogin;
     }
 
-    public void setUserLogin(UserLogin userLogin) {
+    public void setUserLogin(UserLoginDTO userLogin) {
         this.userLogin = userLogin;
     }
 

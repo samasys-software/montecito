@@ -1,8 +1,6 @@
 package com.montecito.samayu.ui;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,10 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
-import com.montecito.samayu.domain.UserLogin;
-import com.montecito.samayu.dto.ChangePassword;
-import com.montecito.samayu.dto.LoginDTO;
-import com.montecito.samayu.dto.LoginInput;
+import com.montecito.samayu.domain.ChangePassword;
 import com.montecito.samayu.dto.UserProfileDTO;
 import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;

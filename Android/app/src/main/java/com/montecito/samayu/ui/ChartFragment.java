@@ -11,17 +11,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
-//import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-//import com.github.mikephil.charting.formatter.IValueFormatter;
-//import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.components.XAxis;
 import com.montecito.samayu.db.AppDatabase;
-import com.montecito.samayu.domain.Consumption;
+import com.montecito.samayu.dto.ConsumptionDTO;
 import com.montecito.samayu.service.SessionInfo;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -35,7 +31,6 @@ import com.prodcast.samayu.samayusoftcorp.R;
 
 import org.java_websocket.client.WebSocketClient;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,21 +87,21 @@ public class ChartFragment extends Fragment  {
         barChart = view.findViewById(R.id.chart);
         //mProgressDialoggetProgressDialog(context);
 //        mProgressDialog.show();
-        SubscriptionManager.getInstance().subscribe("consumption", new UISubscriptionListener(getActivity()) {
+      /*  SubscriptionManager.getInstance().subscribe("consumption", new UISubscriptionListener(getActivity()) {
             @Override
             public void doOnUI(JSONArray jsonArray) {
                 try{
                     //This line are commented for the purpose of server data testing
-//                    List<Consumption> list = new ArrayList<Consumption>();
+//                    List<ConsumptionDTO> list = new ArrayList<ConsumptionDTO>();
 //                    for(int i=0;i<jsonArray.length();i++) {
 //                        JSONObject obj = (JSONObject) jsonArray.get(i);
-//                        Consumption info = new Consumption();
+//                        ConsumptionDTO info = new ConsumptionDTO();
 //                        info.setId(obj.getString("_id"));
 //                        info.setItem(obj.getString("item"));
 //                        info.setUsage(obj.getString("usage"));
 //                        list.add(info);
 //                    }
-//                    final List<Consumption> consumptionInfo = list;
+//                    final List<ConsumptionDTO> consumptionInfo = list;
 //                    Runnable runnable = new Runnable(){
 //                        public void run(){
 //                            addConsumption( db,consumptionInfo );
@@ -123,22 +118,22 @@ public class ChartFragment extends Fragment  {
 
             }
         });
-
+*/
         String token = SessionInfo.getInstance().getUserLogin().getToken();
 
 
         if(position==0) {
             if(isNetworkAvailable()) {
 
-                final Call<List<Consumption>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoItems(token);
-                consumptionInfoCall.enqueue(new Callback<List<Consumption>>() {
+                final Call<List<ConsumptionDTO>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoItems(token);
+                consumptionInfoCall.enqueue(new Callback<List<ConsumptionDTO>>() {
                     @Override
-                    public void onResponse(Call<List<Consumption>> call, Response<List<Consumption>> response) {
+                    public void onResponse(Call<List<ConsumptionDTO>> call, Response<List<ConsumptionDTO>> response) {
 
                         if (response.isSuccessful()) {
                             BarChart barChart = view.findViewById(R.id.chart);
 
-                            final List<Consumption> consumptionInfo = response.body();
+                            final List<ConsumptionDTO> consumptionInfo = response.body();
                             addConsumption(db, consumptionInfo);
                             updateChart(barChart, consumptionInfo);
                         } else {
@@ -148,7 +143,7 @@ public class ChartFragment extends Fragment  {
                     }
 
                     @Override
-                    public void onFailure(Call<List<Consumption>> call, Throwable t) {
+                    public void onFailure(Call<List<ConsumptionDTO>> call, Throwable t) {
 
                     }
                 });
@@ -157,7 +152,7 @@ public class ChartFragment extends Fragment  {
             else{
                 BarChart barChart = view.findViewById(R.id.chart);
 
-                final List<Consumption> consumptionInfo = getAllConsumption(db);
+                final List<ConsumptionDTO> consumptionInfo = getAllConsumption(db);
                 //addConsumption(db, consumptionInfo);
                 updateChart(barChart, consumptionInfo);
 
@@ -166,15 +161,15 @@ public class ChartFragment extends Fragment  {
         else if(position==1)
         {
             if(isNetworkAvailable()) {
-                final Call<List<Consumption>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoCategory(token);
-                consumptionInfoCall.enqueue(new Callback<List<Consumption>>() {
+                final Call<List<ConsumptionDTO>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoCategory(token);
+                consumptionInfoCall.enqueue(new Callback<List<ConsumptionDTO>>() {
                     @Override
-                    public void onResponse(Call<List<Consumption>> call, Response<List<Consumption>> response) {
+                    public void onResponse(Call<List<ConsumptionDTO>> call, Response<List<ConsumptionDTO>> response) {
 
                         if (response.isSuccessful()) {
                             BarChart barChart = view.findViewById(R.id.chart);
 
-                            final List<Consumption> consumptionInfo = response.body();
+                            final List<ConsumptionDTO> consumptionInfo = response.body();
                             //addConsumption( db,consumptionInfo );
 
                             updateChart(barChart, consumptionInfo);
@@ -185,7 +180,7 @@ public class ChartFragment extends Fragment  {
                     }
 
                     @Override
-                    public void onFailure(Call<List<Consumption>> call, Throwable t) {
+                    public void onFailure(Call<List<ConsumptionDTO>> call, Throwable t) {
 
                     }
                 });
@@ -193,7 +188,7 @@ public class ChartFragment extends Fragment  {
             else{
                 BarChart barChart = view.findViewById(R.id.chart);
 
-                final List<Consumption> consumptionInfo = getAllConsumption(db);
+                final List<ConsumptionDTO> consumptionInfo = getAllConsumption(db);
                 //addConsumption( db,consumptionInfo );
 
                 updateChart(barChart, consumptionInfo);
@@ -204,15 +199,15 @@ public class ChartFragment extends Fragment  {
         {
                 if(isNetworkAvailable()) {
 
-                    final Call<List<Consumption>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoFloor(token);
-                    consumptionInfoCall.enqueue(new Callback<List<Consumption>>() {
+                    final Call<List<ConsumptionDTO>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoFloor(token);
+                    consumptionInfoCall.enqueue(new Callback<List<ConsumptionDTO>>() {
                         @Override
-                        public void onResponse(Call<List<Consumption>> call, Response<List<Consumption>> response) {
+                        public void onResponse(Call<List<ConsumptionDTO>> call, Response<List<ConsumptionDTO>> response) {
 
                             if (response.isSuccessful()) {
                                 BarChart barChart = view.findViewById(R.id.chart);
 
-                                final List<Consumption> consumptionInfo = response.body();
+                                final List<ConsumptionDTO> consumptionInfo = response.body();
                                 //addConsumption( db,consumptionInfo );
                                 updateChart(barChart, consumptionInfo);
                             } else {
@@ -222,7 +217,7 @@ public class ChartFragment extends Fragment  {
                         }
 
                         @Override
-                        public void onFailure(Call<List<Consumption>> call, Throwable t) {
+                        public void onFailure(Call<List<ConsumptionDTO>> call, Throwable t) {
 
                         }
                     });
@@ -230,7 +225,7 @@ public class ChartFragment extends Fragment  {
                 else {
                     BarChart barChart = view.findViewById(R.id.chart);
 
-                    final List<Consumption> consumptionInfo = getAllConsumption(db);
+                    final List<ConsumptionDTO> consumptionInfo = getAllConsumption(db);
                     //addConsumption( db,consumptionInfo );
                     updateChart(barChart, consumptionInfo);
 
@@ -241,7 +236,7 @@ public class ChartFragment extends Fragment  {
     }
 
 
-    public void updateChart(BarChart barChart, List<Consumption> consumptionInfo){
+    public void updateChart(BarChart barChart, List<ConsumptionDTO> consumptionInfo){
         List<BarEntry> data = new ArrayList<>();
         final List<String> labels = new ArrayList<>();
         for(int i =0; i<consumptionInfo.size(); i++){
@@ -306,12 +301,12 @@ public class ChartFragment extends Fragment  {
 
         return gradient;
     }
-   private static void addConsumption(final AppDatabase db,List<Consumption> consumptionDetails) {
+   private static void addConsumption(final AppDatabase db,List<ConsumptionDTO> consumptionDetails) {
        db.consumptionDAO().deleteAll();
        db.consumptionDAO().insertAll(consumptionDetails);
 
     }
-    private static List<Consumption> getAllConsumption(final AppDatabase db)
+    private static List<ConsumptionDTO> getAllConsumption(final AppDatabase db)
     {
         return db.consumptionDAO().getAll();
 
