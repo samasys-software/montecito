@@ -115,8 +115,10 @@ public class ChartFragment1 extends Fragment{
 
     public void updateChart(BarChart barChart, List<Consumption> consumptionInfo){
         List<BarEntry> data = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
         for(int i =0; i<consumptionInfo.size(); i++){
-            data.add( new BarEntry( i,(float) Double.parseDouble(consumptionInfo.get(i).getUsage())));
+            data.add( new BarEntry((float) Double.parseDouble(consumptionInfo.get(i).getUsage()),i));
+            labels.add("abc");
         }
 
         BarDataSet dataSet = new BarDataSet(data,"Usage");
@@ -126,7 +128,7 @@ public class ChartFragment1 extends Fragment{
         barChart.getLegend().setEnabled(false);
         barChart.getXAxis().setDrawLabels(false);
         barChart.setDrawGridBackground(false);
-        barChart.setFitBars(true);
+        //barChart.setFitBars(true);
 
 
         //dataSet.setColor(Color.BLUE);
@@ -138,7 +140,7 @@ public class ChartFragment1 extends Fragment{
 
 
 
-        BarData barData = new BarData(dataSet);
+        BarData barData = new BarData(labels,dataSet);
         barChart.setData( barData );
         barChart.invalidate();
 
