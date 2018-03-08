@@ -1,4 +1,4 @@
-package com.montecito.samayu.dto;
+package com.montecito.samayu.domain;
 
 /**
  * Created by NandhiniGovindasamy on 2/24/18.
