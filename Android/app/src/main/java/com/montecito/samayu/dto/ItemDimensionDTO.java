@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -17,15 +18,19 @@ public class ItemDimensionDTO {
     private int id;
 
     @ColumnInfo(name= "itemId")
+
     private String itemId;
 
     @ColumnInfo(name = "dia")
+    @Expose
     private int dia;
 
     @ColumnInfo(name = "length")
+    @Expose
     private int length;
 
     @ColumnInfo(name = "uom")
+    @Expose
     private String uom;
 
     public int getDia() {

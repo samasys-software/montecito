@@ -59,7 +59,7 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
       /*  ItemBinDTO availableBinItem=binItem.get(position);
         String status= availableBinItem.getStatus();
         if(status.equals("critical"))
-        {
+x        {
             holder.tv1.setTextColor(Color.RED);
         }
         else if(status.equals("low"))

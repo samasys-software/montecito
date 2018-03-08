@@ -29,9 +29,9 @@ public abstract class ItemBinDAO {
     @Insert
     public abstract void insertBin(BinDTO bins);
 
-    @Insert
+  /*  @Insert
     public abstract void insertBinType(BinTypeDTO binType);
-
+*/
 
     @Insert
     public abstract void insertBinDimension(BinDimensionDTO binDimension);
@@ -61,8 +61,8 @@ public abstract class ItemBinDAO {
     @Query("SELECT * FROM bin WHERE itemBinId =:itemBinId")
     public abstract BinDTO getBinDetails(String itemBinId);
 
-    @Query("SELECT * FROM bin_type WHERE binId =:binId")
-    public abstract BinTypeDTO getBinTypeDetails(String binId);
+    /*@Query("SELECT * FROM bin_type WHERE binId =:binId")
+    public abstract BinTypeDTO getBinTypeDetails(String binId);*/
 
     @Query("SELECT * FROM bin_dimension WHERE binId =:binId")
     public abstract BinDimensionDTO getBinDimensionDetails(String binId);
@@ -85,20 +85,58 @@ public abstract class ItemBinDAO {
     @Query("SELECT * FROM thresold WHERE itemBinId =:itemBinId")
     public abstract ThresoldDTO getThresoldDetails(String itemBinId);
 
+    @Query("DELETE FROM item_bins")
+    public  abstract void deleteAllIB();
+
+    @Query("DELETE FROM bin")
+    public  abstract void deleteAllBin();
+
+    @Query("DELETE FROM bin_dimension")
+    public  abstract void deleteAllBD();
+
+    @Query("DELETE FROM item")
+    public  abstract void deleteAllItem();
+
+    @Query("DELETE FROM item_dimension")
+    public  abstract void deleteAllID();
+
+    @Query("DELETE FROM device")
+    public  abstract void deleteAllDevice();
+
+    @Query("DELETE FROM reading")
+    public  abstract void deleteAllReading();
+
+    @Query("DELETE FROM reading_value")
+    public  abstract void deleteAllReadValue();
+
+    @Query("DELETE FROM thresold")
+    public  abstract void deleteAllThresold();
+
+
+
     public void insertAll(List<ItemBinDTO> itemBins) {
         for (ItemBinDTO itemBin :itemBins) {
+            String itemBinId=itemBin.getId();
 
             BinDTO bin= itemBin.getCrateBin();
+
             bin.setItemBinId(itemBin.getId());
+
             insertBin(bin);
+            System.out.println("Bin Inserted Successfully");
+
+            System.out.println("bin"+bin.getId());
 
             BinDimensionDTO binDimension=bin.getDimension();
             binDimension.setBinId(bin.getId());
             insertBinDimension(binDimension);
+            System.out.println("Dimension Inserted Successfully");
 
-            BinTypeDTO binType=bin.getBinType();
+           // System.out.println("bin"+bin.getBinType().getId());
+
+           /* BinTypeDTO binType=bin.getBinType();
             binType.setBinId(bin.getId());
-            insertBinType(binType);
+            insertBinType(binType);*/
 
             ItemDTO item=itemBin.getItem();
             item.setItemBinId(itemBin.getId());
@@ -113,7 +151,7 @@ public abstract class ItemBinDAO {
             insertDevice(device);
 
             ReadingDTO reading=itemBin.getLastReading();
-            reading.setItemBinId(item.getId());
+            reading.setItemBinId(itemBin.getId());
             insertReading(reading);
 
             ReadingValueDTO readingValue=reading.getReading();
@@ -121,7 +159,7 @@ public abstract class ItemBinDAO {
             insertReadingValue(readingValue);
 
             ThresoldDTO thresold=itemBin.getThresold();
-            thresold.setItemBinId(item.getId());
+            thresold.setItemBinId(itemBin.getId());
             insertThresold(thresold);
 
         }
@@ -131,12 +169,22 @@ public abstract class ItemBinDAO {
 
     public List<ItemBinDTO> getAllItemBins() {
         List<ItemBinDTO> itemBins = getAll();
+        System.out.println("ItemBin Fetched Successfully");
+        System.out.println("ItemBin size"+itemBins.size());
+
+
         for(ItemBinDTO itemBin:itemBins)
         {
+            System.out.println("ItemBin Id="+itemBin.getId());
+
             itemBin.setCrateBin(getAllBins(itemBin.getId()));
+            System.out.println("Item Fetched entered");
             itemBin.setItem(getAllItems(itemBin.getId()));
+            System.out.println("Device Fetched entered");
             itemBin.setCurrDevice(getDeviceDetails(itemBin.getId()));
+            System.out.println("Readings Fetched entered");
             itemBin.setLastReading(getAllReadings(itemBin.getId()));
+            System.out.println("thresold Fetched entered");
             itemBin.setThresold(getThresoldDetails(itemBin.getId()));
         }
 
@@ -144,9 +192,12 @@ public abstract class ItemBinDAO {
     }
 
     public BinDTO getAllBins(String ItemBinId) {
+        System.out.println("Bin Fetched entered");
         BinDTO bins = getBinDetails(ItemBinId);
-        bins.setBinType(getBinTypeDetails(bins.getId()));
+        System.out.println(bins.getId());
+       // bins.setBinType(getBinTypeDetails(bins.getId()));
         bins.setDimension(getBinDimensionDetails(bins.getId()));
+        System.out.println("Bin Dimension Fetched entered");
 
         return bins;
     }
@@ -159,8 +210,21 @@ public abstract class ItemBinDAO {
 
     public ReadingDTO getAllReadings(String ItemBinId) {
         ReadingDTO readings = getReadingDetails(ItemBinId);
+        System.out.println("Reading Id="+readings.getId());
         readings.setReading(getReadingValueDetails(readings.getId()));
         return readings;
     }
 
+
+    public void deleteAll() {
+        deleteAllBD();
+        deleteAllBin();
+        deleteAllDevice();
+        deleteAllIB();
+        deleteAllID();
+        deleteAllItem();
+        deleteAllReading();
+        deleteAllReadValue();
+        deleteAllThresold();
+    }
 }

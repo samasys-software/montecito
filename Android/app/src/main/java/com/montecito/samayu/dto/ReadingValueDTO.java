@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -13,14 +14,18 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "reading_value")
 public class ReadingValueDTO {
 
-    @PrimaryKey(autoGenerate = false)
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int sno;
+
+    @ColumnInfo(name = "readingId")
     private String readingId;
 
     @ColumnInfo(name = "weight")
+    @Expose
     private float weight;
 
     @ColumnInfo(name = "status")
+    @Expose
     private String status;
 
     public String getStatus() {
@@ -46,5 +51,13 @@ public class ReadingValueDTO {
 
     public void setReadingId(@NonNull String readingId) {
         this.readingId = readingId;
+    }
+
+    public int getSno() {
+        return sno;
+    }
+
+    public void setSno(int sno) {
+        this.sno = sno;
     }
 }

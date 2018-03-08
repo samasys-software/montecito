@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -14,21 +15,29 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "device")
 public class DeviceDTO {
 
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    private int sno;
+
+    @ColumnInfo(name = "id")
     @SerializedName("_id")
     @NonNull
+    @Expose
     private String id;
 
     @ColumnInfo(name = "itemBinId")
+    @Expose
     private String itemBinId;
 
     @ColumnInfo(name = "slno")
+    @Expose
     private String slno;
 
     @ColumnInfo(name = "name")
+    @Expose
     private String name;
 
     @ColumnInfo(name = "location")
+    @Expose
     private String location;
 
 
@@ -71,6 +80,14 @@ public class DeviceDTO {
 
     public  void setItemBinId(String itemBinId) {
         this.itemBinId = itemBinId;
+    }
+
+    public int getSno() {
+        return sno;
+    }
+
+    public void setSno(int sno) {
+        this.sno = sno;
     }
 
     /*@Override

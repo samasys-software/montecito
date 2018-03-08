@@ -98,7 +98,7 @@ public class BinMonitor extends MontecitoBaseActivity {
 
                 @Override
                 public void onFailure(Call<List<ItemBinDTO>> call, Throwable t) {
-                    mProgressDialog.dismiss();
+                    //mProgressDialog.dismiss();
 
                 }
             });
@@ -112,7 +112,7 @@ public class BinMonitor extends MontecitoBaseActivity {
         assert recyclerView != null;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
-        mProgressDialog=getProgressDialog(context);
+        //mProgressDialog=getProgressDialog(context);
         //get currentmode view in shared preference
         SharedPreferences sharedPreferences=getSharedPreferences("ViewMode",MODE_PRIVATE);
         currentViewMode=sharedPreferences.getInt("currentViewMode",VIEW_MODE_CARDVIEW);//default viewmode
@@ -182,13 +182,13 @@ public class BinMonitor extends MontecitoBaseActivity {
             stubCardview.setVisibility(View.VISIBLE);
             stubListView.setVisibility(View.GONE);
             recyclerView.setAdapter(new BinMonitorecyclerViewAdapter(BinMonitor.this, binItem));
-            mProgressDialog.dismiss();
+           // mProgressDialog.dismiss();
         }
         else {
             stubListView.setVisibility(View.VISIBLE);
             stubCardview.setVisibility(View.GONE);
             listView.setAdapter(new BinMonitorListViewAdapter(BinMonitor.this, binItem));
-            mProgressDialog.dismiss();
+           // mProgressDialog.dismiss();
         }
     }
 
@@ -200,6 +200,7 @@ public class BinMonitor extends MontecitoBaseActivity {
 
     private static void addItemBins(final AppDatabase db, List<ItemBinDTO> itemBins) {
 
+        db.itemBinDAO().deleteAll();
         db.itemBinDAO().insertAll(itemBins);
 
     }

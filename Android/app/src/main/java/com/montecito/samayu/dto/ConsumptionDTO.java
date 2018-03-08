@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -16,6 +17,7 @@ public class ConsumptionDTO {
     @PrimaryKey(autoGenerate = false)
     @SerializedName("_id")
     @NonNull
+    @Expose
     private String id;
 
     @NonNull
@@ -44,9 +46,11 @@ public class ConsumptionDTO {
     }
 
     @ColumnInfo(name = "item")
+    @Expose
     private String item;
 
     @ColumnInfo(name = "usage")
+    @Expose
     private String usage;
 
 }

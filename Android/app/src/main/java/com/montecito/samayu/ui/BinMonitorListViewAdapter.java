@@ -67,6 +67,8 @@ public class BinMonitorListViewAdapter extends BaseAdapter {
             holder.tv2 = (TextView) convertView.findViewById(R.id.itemName);
             if(binItem.get(position).getCrateBin()!=null) {
                 holder.itemCount.setText(binItem.get(position).getCrateBin().getBrand()+":"+binItem.get(position).getCrateBin().getName());
+                System.out.println("weight="+binItem.get(position).getLastReading().getReading().getWeight());
+                System.out.println("max="+binItem.get(position).getThresold().getMax());
                 int capacity=(int)(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100);
                 holder.itemImage.setProgress(capacity);
                 holder.tv1.setText(String.valueOf(capacity)+"%");

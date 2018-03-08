@@ -85,7 +85,7 @@ public class ChartFragment extends Fragment  {
         barChart = view.findViewById(R.id.chart);
         //mProgressDialoggetProgressDialog(context);
 //        mProgressDialog.show();
-        SubscriptionManager.getInstance().subscribe("consumption", new UISubscriptionListener(getActivity()) {
+      /*  SubscriptionManager.getInstance().subscribe("consumption", new UISubscriptionListener(getActivity()) {
             @Override
             public void doOnUI(JSONArray jsonArray) {
                 try{
@@ -116,7 +116,7 @@ public class ChartFragment extends Fragment  {
 
             }
         });
-
+*/
         String token = SessionInfo.getInstance().getUserLogin().getToken();
 
 

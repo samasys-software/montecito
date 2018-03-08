@@ -2,6 +2,8 @@ package com.montecito.samayu.dto;
 
 import android.arch.persistence.room.Entity;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 
 /**
@@ -9,9 +11,20 @@ import java.util.Date;
  */
 @Entity(tableName = "device_histroy")
 public class DeviceHistoryDTO {
-    private String _id,itemBin;
+
+    @Expose
+    private String _id;
+
+    @Expose
+    private String itemBin;
+
+    @Expose
     private int __v;
+
+    @Expose
     private Date created;
+
+    @Expose
     private LastDeviceDTO lastDevice;
 
 

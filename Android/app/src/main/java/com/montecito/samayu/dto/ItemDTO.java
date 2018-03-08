@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -14,8 +15,12 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "item")
 public class ItemDTO {
 
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    private int sno;
+
+    @ColumnInfo(name = "id")
     @SerializedName("_id")
+    @Expose
     @NonNull
     private String id;
 
@@ -23,16 +28,24 @@ public class ItemDTO {
     private String itemBinId;
 
     @ColumnInfo(name = "name")
+    @Expose
     private String name;
 
     @ColumnInfo(name = "category")
+    @Expose
     private String category;
 
     @ColumnInfo(name = "uom")
+    @Expose
     private String uom;
 
     @Ignore
+    @Expose
     private ItemDimensionDTO dimension;
+
+    @ColumnInfo(name = "material")
+    @Expose
+    private String material;
 
 
     @NonNull
@@ -76,8 +89,6 @@ public class ItemDTO {
         this.material = material;
     }
 
-    private String material;
-
     public ItemDimensionDTO getDimension() {
         return dimension;
     }
@@ -92,5 +103,13 @@ public class ItemDTO {
 
     public void setItemBinId(String itemBinId) {
         this.itemBinId = itemBinId;
+    }
+
+    public int getSno() {
+        return sno;
+    }
+
+    public void setSno(int sno) {
+        this.sno = sno;
     }
 }

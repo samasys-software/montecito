@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -17,24 +18,31 @@ public class ItemAvailabilityDTO {
     @PrimaryKey(autoGenerate = false)
     @SerializedName("_id")
     @NonNull
+    @Expose
     private String id;
 
     @ColumnInfo(name = "item")
+    @Expose
     private String item;
 
     @ColumnInfo(name = "location")
+    @Expose
     private String location;
 
     @ColumnInfo(name = "status")
+    @Expose
     private String status;
 
     @ColumnInfo(name = "available")
+    @Expose
     private String available;
 
     @ColumnInfo(name = "itemBinId")
+    @Expose
     private String itemBinId;
 
     @ColumnInfo(name = "availablePercent")
+    @Expose
     private  String availablePercent;
 
     @NonNull

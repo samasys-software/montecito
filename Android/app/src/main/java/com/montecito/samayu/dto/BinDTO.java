@@ -17,7 +17,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class BinDTO {
 
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    private int sno;
+
+    @ColumnInfo(name = "id")
     @SerializedName("_id")
     @NonNull
     @Expose
@@ -38,8 +41,8 @@ public class BinDTO {
     @Expose
     private String brand;
 
-    @Ignore
     @Expose
+    @Ignore
     private BinTypeDTO binType;
 
     @Ignore
@@ -104,7 +107,15 @@ public class BinDTO {
         this.itemBinId = itemBinId;
     }
 
-    /* @Override
+    public int getSno() {
+        return sno;
+    }
+
+    public void setSno(int sno) {
+        this.sno = sno;
+    }
+
+   /* @Override
     public int compareTo(@NonNull Object o) {
         BinDTO item = (BinDTO) o;
         return name.compareToIgnoreCase(item.getName());

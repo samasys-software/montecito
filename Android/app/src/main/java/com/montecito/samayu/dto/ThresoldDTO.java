@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -21,12 +22,15 @@ public class ThresoldDTO {
 
 
     @ColumnInfo(name = "min")
+    @Expose
     private float min;
 
     @ColumnInfo(name = "normal")
+    @Expose
     private float normal;
 
     @ColumnInfo(name = "max")
+    @Expose
     private float max;
 
 

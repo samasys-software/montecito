@@ -2,6 +2,8 @@ package com.montecito.samayu.dto;
 
 import android.arch.persistence.room.Entity;
 
+import com.google.gson.annotations.Expose;
+
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -13,10 +15,26 @@ import java.util.Date;
  */
 @Entity(tableName = "replenishment_task")
 public class ReplenishmentTaskDTO {
-    private String _id,itemBin,status;
+    @Expose
+    private String _id;
+
+    @Expose
+    private String itemBin;
+
+    @Expose
+    private String status;
+
+    @Expose
     private int __v;
+
+    @Expose
     private float trigger;
-    private Date updated,created;
+
+    @Expose
+    private Date updated;
+
+    @Expose
+    private Date created;
 
     public String get_id() {
         return _id;
