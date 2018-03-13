@@ -17,7 +17,9 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.montecito.samayu.db.AppDatabase;
-import com.montecito.samayu.dto.ConsumptionDTO;
+import com.montecito.samayu.dto.ConsumptionCategoryDTO;
+
+import com.montecito.samayu.dto.ConsumptionItemDTO;
 import com.montecito.samayu.service.SessionInfo;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -125,17 +127,17 @@ public class ChartFragment extends Fragment  {
         if(position==0) {
             if(isNetworkAvailable()) {
 
-                final Call<List<ConsumptionDTO>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoItems(token);
-                consumptionInfoCall.enqueue(new Callback<List<ConsumptionDTO>>() {
+                final Call<List<ConsumptionItemDTO>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoItems(token);
+                consumptionInfoCall.enqueue(new Callback<List<ConsumptionItemDTO>>() {
                     @Override
-                    public void onResponse(Call<List<ConsumptionDTO>> call, Response<List<ConsumptionDTO>> response) {
+                    public void onResponse(Call<List<ConsumptionItemDTO>> call, Response<List<ConsumptionItemDTO>> response) {
 
                         if (response.isSuccessful()) {
                             BarChart barChart = view.findViewById(R.id.chart);
 
-                            final List<ConsumptionDTO> consumptionInfo = response.body();
-                            addConsumption(db, consumptionInfo);
-                            updateChart(barChart, consumptionInfo);
+                            final List<ConsumptionItemDTO> consumptionInfo = response.body();
+                            addConsumptionItem(db, consumptionInfo);
+                            updateChart(barChart, consumptionInfo,null);
                         } else {
                             Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
                         }
@@ -143,7 +145,7 @@ public class ChartFragment extends Fragment  {
                     }
 
                     @Override
-                    public void onFailure(Call<List<ConsumptionDTO>> call, Throwable t) {
+                    public void onFailure(Call<List<ConsumptionItemDTO>> call, Throwable t) {
 
                     }
                 });
@@ -152,27 +154,28 @@ public class ChartFragment extends Fragment  {
             else{
                 BarChart barChart = view.findViewById(R.id.chart);
 
-                final List<ConsumptionDTO> consumptionInfo = getAllConsumption(db);
+                final List<ConsumptionItemDTO> consumptionInfo = getAllConsumptionItem(db);
                 //addConsumption(db, consumptionInfo);
-                updateChart(barChart, consumptionInfo);
+                updateChart(barChart, consumptionInfo,null);
 
             }
         }
         else if(position==1)
         {
             if(isNetworkAvailable()) {
-                final Call<List<ConsumptionDTO>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoCategory(token);
-                consumptionInfoCall.enqueue(new Callback<List<ConsumptionDTO>>() {
+                final Call<List<ConsumptionCategoryDTO>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoCategory(token);
+                consumptionInfoCall.enqueue(new Callback<List<ConsumptionCategoryDTO>>() {
                     @Override
-                    public void onResponse(Call<List<ConsumptionDTO>> call, Response<List<ConsumptionDTO>> response) {
+                    public void onResponse(Call<List<ConsumptionCategoryDTO>> call, Response<List<ConsumptionCategoryDTO>> response) {
 
                         if (response.isSuccessful()) {
                             BarChart barChart = view.findViewById(R.id.chart);
 
-                            final List<ConsumptionDTO> consumptionInfo = response.body();
+                            final List<ConsumptionCategoryDTO> consumptionCategoryInfo = response.body();
                             //addConsumption( db,consumptionInfo );
+                            addConsumptionCategory(db,consumptionCategoryInfo);
 
-                            updateChart(barChart, consumptionInfo);
+                            updateChart(barChart, null,consumptionCategoryInfo);
                         } else {
                             Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
                         }
@@ -180,7 +183,7 @@ public class ChartFragment extends Fragment  {
                     }
 
                     @Override
-                    public void onFailure(Call<List<ConsumptionDTO>> call, Throwable t) {
+                    public void onFailure(Call<List<ConsumptionCategoryDTO>> call, Throwable t) {
 
                     }
                 });
@@ -188,62 +191,39 @@ public class ChartFragment extends Fragment  {
             else{
                 BarChart barChart = view.findViewById(R.id.chart);
 
-                final List<ConsumptionDTO> consumptionInfo = getAllConsumption(db);
+                final List<ConsumptionCategoryDTO> consumptionCategoryInfo = getAllConsumptionCategory(db);
                 //addConsumption( db,consumptionInfo );
 
-                updateChart(barChart, consumptionInfo);
+                updateChart(barChart, null,consumptionCategoryInfo);
 
             }
         }
         else
         {
-                if(isNetworkAvailable()) {
 
-                    final Call<List<ConsumptionDTO>> consumptionInfoCall = new MontecitoClient().getClient().getConsumptionInfoFloor(token);
-                    consumptionInfoCall.enqueue(new Callback<List<ConsumptionDTO>>() {
-                        @Override
-                        public void onResponse(Call<List<ConsumptionDTO>> call, Response<List<ConsumptionDTO>> response) {
-
-                            if (response.isSuccessful()) {
-                                BarChart barChart = view.findViewById(R.id.chart);
-
-                                final List<ConsumptionDTO> consumptionInfo = response.body();
-                                //addConsumption( db,consumptionInfo );
-                                updateChart(barChart, consumptionInfo);
-                            } else {
-                                Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<ConsumptionDTO>> call, Throwable t) {
-
-                        }
-                    });
-                }
-                else {
-                    BarChart barChart = view.findViewById(R.id.chart);
-
-                    final List<ConsumptionDTO> consumptionInfo = getAllConsumption(db);
-                    //addConsumption( db,consumptionInfo );
-                    updateChart(barChart, consumptionInfo);
-
-                }
 
         }
 
     }
 
 
-    public void updateChart(BarChart barChart, List<ConsumptionDTO> consumptionInfo){
+    public void updateChart(BarChart barChart, List<ConsumptionItemDTO> consumptionItemInfo,List<ConsumptionCategoryDTO> consumptionCategoryinfo){
         List<BarEntry> data = new ArrayList<>();
         final List<String> labels = new ArrayList<>();
-        for(int i =0; i<consumptionInfo.size(); i++){
-            data.add( new BarEntry((float) Double.parseDouble(consumptionInfo.get(i).getUsage()),i));
-            labels.add("abc");
-        }
+        if(consumptionItemInfo!=null) {
 
+            for (int i = 0; i < consumptionItemInfo.size(); i++) {
+                data.add(new BarEntry((float) Double.parseDouble(consumptionItemInfo.get(i).getUsage()), i));
+                labels.add(i, consumptionItemInfo.get(i).getItem());
+            }
+        }
+        else
+        {
+            for (int i = 0; i < consumptionCategoryinfo.size(); i++) {
+                data.add(new BarEntry((float) Double.parseDouble(consumptionCategoryinfo.get(i).getUsage()), i));
+                labels.add(i, consumptionCategoryinfo.get(i).getCategory());
+            }
+        }
         BarDataSet dataSet = new BarDataSet(data,"Usage");
 
         // barChart.setDescription("");
@@ -304,14 +284,25 @@ public class ChartFragment extends Fragment  {
 
         return gradient;
     }
-   private static void addConsumption(final AppDatabase db,List<ConsumptionDTO> consumptionDetails) {
-       db.consumptionDAO().deleteAll();
-       db.consumptionDAO().insertAll(consumptionDetails);
+   private static void addConsumptionItem(final AppDatabase db,List<ConsumptionItemDTO> consumptionDetails) {
+       db.consumptionItemDAO().deleteAll();
+       db.consumptionItemDAO().insertAll(consumptionDetails);
 
     }
-    private static List<ConsumptionDTO> getAllConsumption(final AppDatabase db)
+    private static List<ConsumptionItemDTO> getAllConsumptionItem(final AppDatabase db)
     {
-        return db.consumptionDAO().getAll();
+        return db.consumptionItemDAO() .getAll();
+
+    }
+
+    private static void addConsumptionCategory(final AppDatabase db,List<ConsumptionCategoryDTO> consumptionDetails) {
+        db.consumptionCategoryDAO().deleteAll();
+        db.consumptionCategoryDAO().insertAll(consumptionDetails);
+
+    }
+    private static List<ConsumptionCategoryDTO> getAllConsumptionCategory(final AppDatabase db)
+    {
+        return db.consumptionCategoryDAO() .getAll();
 
     }
     private boolean isNetworkAvailable() {

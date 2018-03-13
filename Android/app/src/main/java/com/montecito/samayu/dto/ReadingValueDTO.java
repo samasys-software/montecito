@@ -14,9 +14,8 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "reading_value")
 public class ReadingValueDTO {
 
-    @PrimaryKey(autoGenerate = true)
-    private int sno;
-
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
     @ColumnInfo(name = "readingId")
     private String readingId;
 
@@ -53,11 +52,5 @@ public class ReadingValueDTO {
         this.readingId = readingId;
     }
 
-    public int getSno() {
-        return sno;
-    }
 
-    public void setSno(int sno) {
-        this.sno = sno;
-    }
 }

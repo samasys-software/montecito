@@ -14,9 +14,8 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "thresold")
 public class ThresoldDTO {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
     @ColumnInfo(name = "itemBinId")
     private String itemBinId;
 
@@ -67,11 +66,5 @@ public class ThresoldDTO {
         this.itemBinId = itemBinId;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }

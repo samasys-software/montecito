@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <com.github.lzyzsd.circleprogress.CircleProgress
+                <com.montecito.samayu.service.CircleProgressDesign
                     android:id="@+id/circle_progress"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -85,7 +85,7 @@
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                    app:circle_progress="64" />
+                    app:circle_progress="60" />
 
                 <TextView
                     android:layout_width="wrap_content"

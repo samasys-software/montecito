@@ -17,9 +17,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class BinDTO {
 
-    @PrimaryKey(autoGenerate = true)
-    private int sno;
-
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
     @SerializedName("_id")
     @NonNull
@@ -107,13 +105,6 @@ public class BinDTO {
         this.itemBinId = itemBinId;
     }
 
-    public int getSno() {
-        return sno;
-    }
-
-    public void setSno(int sno) {
-        this.sno = sno;
-    }
 
    /* @Override
     public int compareTo(@NonNull Object o) {
