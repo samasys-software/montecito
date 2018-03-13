@@ -9,33 +9,26 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by NandhiniGovindasamy on 2/2/18.
+ * Created by NandhiniGovindasamy on 3/6/18.
  */
-
-@Entity(tableName = "device")
-public class DeviceDTO {
-
+@Entity(tableName = "last_device")
+public class LastDeviceDTO {
     @PrimaryKey(autoGenerate = false)
     @SerializedName("_id")
-    @NonNull
     @Expose
+    @NonNull
     private String id;
 
-    @ColumnInfo(name = "itemBinId")
     @Expose
-    private String itemBinId;
-
     @ColumnInfo(name = "slno")
-    @Expose
     private String slno;
 
-    @ColumnInfo(name = "name")
     @Expose
-    private String name;
-
     @ColumnInfo(name = "location")
-    @Expose
     private String location;
+
+    @ColumnInfo(name = "deviceHistroyId")
+    private String deviceHistroyId;
 
 
     @NonNull
@@ -55,14 +48,6 @@ public class DeviceDTO {
         this.slno = slno;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -71,20 +56,11 @@ public class DeviceDTO {
         this.location = location;
     }
 
-    public  String getItemBinId() {
-        return itemBinId;
+    public String getDeviceHistroyId() {
+        return deviceHistroyId;
     }
 
-    public  void setItemBinId(String itemBinId) {
-        this.itemBinId = itemBinId;
+    public void setDeviceHistroyId(String deviceHistroyId) {
+        this.deviceHistroyId = deviceHistroyId;
     }
-
-
-    /*@Override
-    public int compareTo(@NonNull Object o) {
-        DeviceDTO item = (DeviceDTO) o;
-        return location.compareToIgnoreCase(item.getLocation());
-
-    }
-    */
 }

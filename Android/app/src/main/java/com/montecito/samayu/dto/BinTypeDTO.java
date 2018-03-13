@@ -1,12 +1,32 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by NandhiniGovindasamy on 2/23/18.
  */
-
+@Entity(tableName = "bin_type")
 public class BinTypeDTO {
 
-    private  String name,_id;
+    @PrimaryKey(autoGenerate = false)
+    @SerializedName("_id")
+    @Expose
+    @NonNull
+    private String id;
+
+    @Expose
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @ColumnInfo(name = "binId")
+    private String binId;
+
 
     public String getName() {
         return name;
@@ -16,11 +36,20 @@ public class BinTypeDTO {
         this.name = name;
     }
 
-    public String get_id() {
-        return _id;
+    @NonNull
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    public String getBinId() {
+        return binId;
+    }
+
+    public void setBinId(String binId) {
+        this.binId = binId;
     }
 }

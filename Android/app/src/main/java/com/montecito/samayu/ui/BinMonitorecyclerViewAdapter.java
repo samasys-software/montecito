@@ -12,7 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.montecito.samayu.dto.ItemBinDTO;
-import com.montecito.samayu.service.GlobalUsage;
+import com.montecito.samayu.service.FormatNumber;
+
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
@@ -27,7 +28,7 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
 
     private List<ItemBinDTO> binItem;
     private Context context;
-    NumberFormat numberFormat= GlobalUsage.getNumberFormat();
+    NumberFormat numberFormat= FormatNumber.getNumberFormat();
     public BinMonitorecyclerViewAdapter(Context context, List<ItemBinDTO> binItem) {
         this.binItem=binItem;
         this.context=context;
@@ -58,7 +59,7 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
       /*  ItemBinDTO availableBinItem=binItem.get(position);
         String status= availableBinItem.getStatus();
         if(status.equals("critical"))
-        {
+x        {
             holder.tv1.setTextColor(Color.RED);
         }
         else if(status.equals("low"))
@@ -98,7 +99,7 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
         @Override
         public void onClick(View view) {
 
-            SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getItemBinDetails().get(position).get_id());
+            SessionInfo.getInstance().setCurrentItemBinId(SessionInfo.getInstance().getItemBinDetails().get(position).getId());
             Intent intent = new Intent(context, ItemBinDetails.class);
             context.startActivity(intent);
 

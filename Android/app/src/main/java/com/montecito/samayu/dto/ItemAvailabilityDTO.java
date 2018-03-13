@@ -1,19 +1,57 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Preethiv on 1/15/2018.
  */
+@Entity(tableName = "item_availablity_details")
+public class ItemAvailabilityDTO {
 
-public class ItemAvailabilityDTO implements  Comparable{
 
-    public String get_id() {
-        return _id;
+    @PrimaryKey(autoGenerate = false)
+    @SerializedName("_id")
+    @NonNull
+    @Expose
+    private String id;
+
+    @ColumnInfo(name = "item")
+    @Expose
+    private String item;
+
+    @ColumnInfo(name = "location")
+    @Expose
+    private String location;
+
+    @ColumnInfo(name = "status")
+    @Expose
+    private String status;
+
+    @ColumnInfo(name = "available")
+    @Expose
+    private String available;
+
+    @ColumnInfo(name = "itemBinId")
+    @Expose
+    private String itemBinId;
+
+    @ColumnInfo(name = "availablePercent")
+    @Expose
+    private  String availablePercent;
+
+    @NonNull
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public String getItem() {
@@ -48,13 +86,6 @@ public class ItemAvailabilityDTO implements  Comparable{
         this.available = available;
     }
 
-    private String _id;
-    private String item;
-    private String location;
-    private String status;
-    private String available,itemBinId,availablePercent;
-
-
     public String getItemBinId() {
         return itemBinId;
     }
@@ -71,10 +102,14 @@ public class ItemAvailabilityDTO implements  Comparable{
         this.availablePercent = availablePercent;
     }
 
-    @Override
+
+
+    /* @Override
     public int compareTo(@NonNull Object o) {
         ItemAvailabilityDTO item = (ItemAvailabilityDTO) o;
 
         return  Integer.compare( Integer.parseInt(available.substring(0,available.length()-1)),Integer.parseInt(item.available.substring(0,item.available.length()-1)));
-    }
+    }*/
 }
+
+
