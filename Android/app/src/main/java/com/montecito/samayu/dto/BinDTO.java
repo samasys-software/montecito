@@ -1,26 +1,59 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by NandhiniGovindasamy on 2/2/18.
  */
-public class BinDTO implements Comparable{
+@Entity(tableName = "bin")
 
-    private String _id;
+public class BinDTO {
+
+    @PrimaryKey(autoGenerate = false)
+    @SerializedName("_id")
+    @NonNull
+    @Expose
+    private String id;
+
+    @ColumnInfo(name = "itemBinId")
+    private  String itemBinId;
+
+    @ColumnInfo(name = "name")
+    @Expose
     private String name;
+
+    @ColumnInfo(name = "capacity")
+    @Expose
     private String capacity;
+
+    @ColumnInfo(name = "brand")
+    @Expose
     private String brand;
+
+    @Expose
+    @Ignore
     private BinTypeDTO binType;
 
+    @Ignore
+    @Expose
+    private BinDimensionDTO dimension;
 
 
-    public String get_id() {
-        return _id;
+    @NonNull
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -55,9 +88,26 @@ public class BinDTO implements Comparable{
         this.binType = binType;
     }
 
-    @Override
+    public BinDimensionDTO getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(BinDimensionDTO dimension) {
+        this.dimension = dimension;
+    }
+
+    public  String getItemBinId() {
+        return itemBinId;
+    }
+
+    public  void setItemBinId(String itemBinId) {
+        this.itemBinId = itemBinId;
+    }
+
+
+   /* @Override
     public int compareTo(@NonNull Object o) {
         BinDTO item = (BinDTO) o;
         return name.compareToIgnoreCase(item.getName());
-    }
+    }*/
 }

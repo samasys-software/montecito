@@ -1,27 +1,50 @@
 package com.montecito.samayu.dto;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by NandhiniGovindasamy on 2/2/18.
  */
-
+@Entity(tableName = "thresold")
 public class ThresoldDTO {
 
-    private String min;
-    private String normal;
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
+    private String itemBinId;
 
-    public String getMin() {
+
+    @ColumnInfo(name = "min")
+    @Expose
+    private float min;
+
+    @ColumnInfo(name = "normal")
+    @Expose
+    private float normal;
+
+    @ColumnInfo(name = "max")
+    @Expose
+    private float max;
+
+
+    public float getMin() {
         return min;
     }
 
-    public void setMin(String min) {
+    public void setMin(float min) {
         this.min = min;
     }
 
-    public String getNormal() {
+    public float getNormal() {
         return normal;
     }
 
-    public void setNormal(String normal) {
+    public void setNormal(float normal) {
         this.normal = normal;
     }
 
@@ -33,5 +56,14 @@ public class ThresoldDTO {
         this.max = max;
     }
 
-    private float max;
+    @NonNull
+    public String getItemBinId() {
+        return itemBinId;
+    }
+
+    public void setItemBinId(@NonNull String itemBinId) {
+        this.itemBinId = itemBinId;
+    }
+
+
 }

@@ -3,22 +3,18 @@ package com.montecito.samayu.ui;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.montecito.samayu.domain.ItemAvailablity;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
@@ -105,6 +101,11 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
             boolean deleted = file.delete();
             SessionInfo.getInstance().destroy();
 
+
+            File file1 = new File(dir, "MontecitoLoginDetails.txt");
+
+            boolean deleted1 = file1.delete();
+
             intent = new Intent(this, LoginScreen.class);
             startActivity(intent);
         }else if (id == R.id.nav_remainder) {
@@ -121,5 +122,11 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         progressDialog.setMessage("One Moment Please");
         //p.show();
         return progressDialog;
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 }

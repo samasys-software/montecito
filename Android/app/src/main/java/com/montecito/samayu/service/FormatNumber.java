@@ -6,7 +6,7 @@ import java.text.NumberFormat;
  * Created by NandhiniGovindasamy on 2/7/18.
  */
 
-public class GlobalUsage {
+public class FormatNumber {
 
 
     private static NumberFormat numberFormat=NumberFormat.getNumberInstance();

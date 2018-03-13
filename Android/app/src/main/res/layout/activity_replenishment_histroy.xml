@@ -9,58 +9,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
-        android:background="#10000000">
+        android:background="#00000000">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25sp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/cbinTitle">
+            android:padding="5dp"
+            android:id="@+id/replenishmentHistroyTitle">
 
             <TextView
-                android:text="On"
-                android:id="@+id/CtriggeredOn"
+                android:text="Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
-                android:layout_weight="0.6"
-                android:gravity="fill_horizontal"/>
+                android:layout_weight="1"
+                android:gravity="center"/>
 
             <TextView
-                android:id="@+id/Cslno"
+                android:id="@+id/quantityTitle"
                 android:layout_width="wrap_content"
-                android:text=" Sl No "
+                android:text=" Quantity "
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
-                android:gravity="fill_horizontal" />
+                android:gravity="center" />
 
             <TextView
-                android:id="@+id/Clocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location "
+                android:text="% "
                 android:textColor="@color/name"
                 android:layout_weight="1"
-                android:gravity="fill_horizontal"/>
+                android:gravity="center"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/cbinTitle"
+            android:layout_below="@id/replenishmentHistroyTitle"
             android:layout_weight="1">
 
             <ListView
-                android:id="@+id/cbinMovement"
+                android:id="@+id/replenishmentHistroy"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/selector"
                 android:listSelector="@android:color/transparent"
                 android:divider="#00000000"
-                android:dividerHeight="8dp"
-                android:padding="0dp">
+                android:dividerHeight="1dp"
+              >
             </ListView>
 
         </LinearLayout>

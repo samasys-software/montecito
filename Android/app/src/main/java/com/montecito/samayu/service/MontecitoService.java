@@ -1,29 +1,31 @@
 package com.montecito.samayu.service;
 
-import com.montecito.samayu.domain.Consumption;
-import com.montecito.samayu.dto.ChangePassword;
+import com.montecito.samayu.dto.AverageDTO;
+import com.montecito.samayu.dto.ConsumptionCategoryDTO;
+
+import com.montecito.samayu.domain.ChangePassword;
+import com.montecito.samayu.dto.ConsumptionItemDTO;
+import com.montecito.samayu.dto.CountDTO;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
 import com.montecito.samayu.dto.LoginDTO;
-import com.montecito.samayu.dto.LoginInput;
-import com.montecito.samayu.dto.Status;
+import com.montecito.samayu.domain.LoginInput;
+import com.montecito.samayu.domain.Status;
+import com.montecito.samayu.dto.OnTimeDTO;
+import com.montecito.samayu.dto.TopItemsDTO;
 import com.montecito.samayu.dto.UserProfileDTO;
-import com.montecito.samayu.ui.ItemBinDetails;
 
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Url;
 
 /**
  * Created by Preethiv on 1/13/2018.
@@ -34,18 +36,18 @@ public interface MontecitoService {
     public Call<LoginDTO> authenticate(@Body LoginInput loginInput);
 
     @GET("api/items/consumption/today/category")
-    public Call<List<Consumption>> getConsumptionInfoCategory(@Header("Authorization") String token);
+    public Call<List<ConsumptionCategoryDTO>> getConsumptionInfoCategory(@Header("Authorization") String token);
 
     @GET("api/replenishtasks/")
     public Call<List<ItemAvailabilityDTO>> getItemAvailablityDTO(@Header("Authorization") String token);
 
 
     @GET("api/items/consumption/today/item")
-    public Call<List<Consumption>> getConsumptionInfoItems(@Header("Authorization") String token);
+    public Call<List<ConsumptionItemDTO>> getConsumptionInfoItems(@Header("Authorization") String token);
 
 
     @GET("api/items/consumption/today/floor")
-    public Call<List<Consumption>> getConsumptionInfoFloor(@Header("Authorization") String token);
+    public Call<List<ConsumptionItemDTO>> getConsumptionInfoFloor(@Header("Authorization") String token);
 
     @GET("api/itembins")
     public Call<List<ItemBinDTO>> getItemBinDTO(@Header("Authorization") String token );
@@ -63,6 +65,21 @@ public interface MontecitoService {
 
     @PUT("api/users/{userId}/password")
     public Call<ResponseBody> changePassword(@Path("userId") String userId, @Body ChangePassword changePassword, @Header("Authorization") String token);
+
+
+
+    @GET("api/devices/active/cBin/count")
+    public Call<CountDTO> getDevicesActiveCount(@Header("Authorization") String token);
+
+    @GET("api/replenishments/ontime")
+    public Call<OnTimeDTO> getOnTime(@Header("Authorization") String token);
+
+    @GET("api/replenishments/batch/average")
+    public Call<AverageDTO> getAverage(@Header("Authorization") String token);
+
+
+    @GET("api/replenishments/top/item")
+    public Call<List<TopItemsDTO>> getTopItems(@Header("Authorization") String token);
 
 
     @GET("api/users/me")
