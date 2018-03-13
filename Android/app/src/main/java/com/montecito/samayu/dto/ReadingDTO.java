@@ -16,7 +16,6 @@ import com.google.gson.annotations.SerializedName;
 public class ReadingDTO {
 
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name="id")
     @SerializedName("_id")
     @Expose
     @NonNull

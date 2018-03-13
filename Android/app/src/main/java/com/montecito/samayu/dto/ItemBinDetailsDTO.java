@@ -25,7 +25,6 @@ public class ItemBinDetailsDTO {
         @PrimaryKey(autoGenerate = false)
         @SerializedName("_id")
         @NonNull
-
         private String id;
 
 
