@@ -243,6 +243,7 @@ public class ReportScreen extends MontecitoBaseActivity {
         barChart.getXAxis().setTextColor(Color.WHITE);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         barChart.getXAxis().setXOffset(0);
+        barChart.getXAxis().setTextSize(16);
         dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
 
         //Legend legend = barChart.getLegend();

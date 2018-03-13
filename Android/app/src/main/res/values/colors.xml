@@ -28,6 +28,10 @@
     <color name="TabUnSelect">#808080</color>
     <color name="DonutBackgroundColor">#ffb349</color>
 
+    <color name="CircleText">#ffc86f</color>
+    <color name="DonutBackground">#e6a998</color>
+    <color name="ReportText">#4b1d6e</color>
+
 </resources>
 
 <!--
