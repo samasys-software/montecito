@@ -1,13 +1,19 @@
 package com.montecito.samayu.service;
 
-import com.montecito.samayu.dto.ConsumptionDTO;
+import com.montecito.samayu.dto.AverageDTO;
+import com.montecito.samayu.dto.ConsumptionCategoryDTO;
+
 import com.montecito.samayu.domain.ChangePassword;
+import com.montecito.samayu.dto.ConsumptionItemDTO;
+import com.montecito.samayu.dto.CountDTO;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
 import com.montecito.samayu.dto.LoginDTO;
 import com.montecito.samayu.domain.LoginInput;
 import com.montecito.samayu.domain.Status;
+import com.montecito.samayu.dto.OnTimeDTO;
+import com.montecito.samayu.dto.TopItemsDTO;
 import com.montecito.samayu.dto.UserProfileDTO;
 
 import java.util.List;
@@ -30,18 +36,18 @@ public interface MontecitoService {
     public Call<LoginDTO> authenticate(@Body LoginInput loginInput);
 
     @GET("api/items/consumption/today/category")
-    public Call<List<ConsumptionDTO>> getConsumptionInfoCategory(@Header("Authorization") String token);
+    public Call<List<ConsumptionCategoryDTO>> getConsumptionInfoCategory(@Header("Authorization") String token);
 
     @GET("api/replenishtasks/")
     public Call<List<ItemAvailabilityDTO>> getItemAvailablityDTO(@Header("Authorization") String token);
 
 
     @GET("api/items/consumption/today/item")
-    public Call<List<ConsumptionDTO>> getConsumptionInfoItems(@Header("Authorization") String token);
+    public Call<List<ConsumptionItemDTO>> getConsumptionInfoItems(@Header("Authorization") String token);
 
 
     @GET("api/items/consumption/today/floor")
-    public Call<List<ConsumptionDTO>> getConsumptionInfoFloor(@Header("Authorization") String token);
+    public Call<List<ConsumptionItemDTO>> getConsumptionInfoFloor(@Header("Authorization") String token);
 
     @GET("api/itembins")
     public Call<List<ItemBinDTO>> getItemBinDTO(@Header("Authorization") String token );
@@ -62,8 +68,19 @@ public interface MontecitoService {
 
 
 
-    @GET("api/devices/active/count")
-    public Call<ResponseBody> getDevicesActiveCount(@Header("Authorization") String token);
+    @GET("api/devices/active/cBin/count")
+    public Call<CountDTO> getDevicesActiveCount(@Header("Authorization") String token);
+
+    @GET("api/replenishments/ontime")
+    public Call<OnTimeDTO> getOnTime(@Header("Authorization") String token);
+
+    @GET("api/replenishments/batch/average")
+    public Call<AverageDTO> getAverage(@Header("Authorization") String token);
+
+
+    @GET("api/replenishments/top/item")
+    public Call<List<TopItemsDTO>> getTopItems(@Header("Authorization") String token);
+
 
     @GET("api/users/me")
     public Call<UserProfileDTO> getUserProfile(@Header("Authorization") String token);

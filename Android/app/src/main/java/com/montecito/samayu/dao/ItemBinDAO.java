@@ -2,6 +2,7 @@ package com.montecito.samayu.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.montecito.samayu.dto.BinDTO;
@@ -26,33 +27,33 @@ public abstract class ItemBinDAO {
     @Insert
     public abstract void inserItemBin(List<ItemBinDTO> itemBins);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertBin(BinDTO bins);
 
   /*  @Insert
     public abstract void insertBinType(BinTypeDTO binType);
 */
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertBinDimension(BinDimensionDTO binDimension);
 
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertItem(ItemDTO items);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertItemDimension(ItemDimensionDTO itemDimension);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertDevice(DeviceDTO device);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertReading(ReadingDTO reading);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertReadingValue(ReadingValueDTO readingValue);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertThresold(ThresoldDTO thresold);
 
     @Query("SELECT * FROM item_bins")
@@ -91,14 +92,14 @@ public abstract class ItemBinDAO {
     @Query("DELETE FROM bin")
     public  abstract void deleteAllBin();
 
-    @Query("DELETE FROM bin_dimension")
-    public  abstract void deleteAllBD();
+//    @Query("DELETE FROM bin_dimension")
+//    public  abstract void deleteAllBD();
 
     @Query("DELETE FROM item")
     public  abstract void deleteAllItem();
 
-    @Query("DELETE FROM item_dimension")
-    public  abstract void deleteAllID();
+//    @Query("DELETE FROM item_dimension")
+//    public  abstract void deleteAllID();
 
     @Query("DELETE FROM device")
     public  abstract void deleteAllDevice();
@@ -217,14 +218,10 @@ public abstract class ItemBinDAO {
 
 
     public void deleteAll() {
-        deleteAllBD();
-        deleteAllBin();
-        deleteAllDevice();
+
+
         deleteAllIB();
-        deleteAllID();
-        deleteAllItem();
-        deleteAllReading();
-        deleteAllReadValue();
-        deleteAllThresold();
+
+
     }
 }

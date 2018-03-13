@@ -11,8 +11,8 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by God on 1/25/2018.
  */
-@Entity(tableName = "consumption_details")
-public class ConsumptionDTO {
+@Entity(tableName = "consumption_item_details")
+public class ConsumptionItemDTO {
 
     @PrimaryKey(autoGenerate = false)
     @SerializedName("_id")

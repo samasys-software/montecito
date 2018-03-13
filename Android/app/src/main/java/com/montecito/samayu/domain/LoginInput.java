@@ -1,5 +1,7 @@
 package com.montecito.samayu.domain;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 
 /**
@@ -23,7 +25,9 @@ public class LoginInput implements Serializable{
         this.password = password;
     }
 
+    @Expose
     private String email;
+    @Expose
     private String password;
 
 }

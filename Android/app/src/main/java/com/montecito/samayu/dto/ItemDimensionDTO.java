@@ -14,10 +14,9 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "item_dimension")
 public class ItemDimensionDTO {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name= "itemId")
+    @NonNull
 
     private String itemId;
 
@@ -65,11 +64,4 @@ public class ItemDimensionDTO {
         this.itemId = itemId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

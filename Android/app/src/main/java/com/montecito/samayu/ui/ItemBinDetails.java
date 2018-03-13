@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+import com.montecito.samayu.db.AppDatabase;
+import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
 import com.montecito.samayu.domain.Status;
 import com.montecito.samayu.service.MontecitoClient;
@@ -20,6 +22,7 @@ import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +36,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
     TextView binItemPercentage;
     String itemBinId=SessionInfo.getInstance().getCurrentItemBinId();
     Context context;
+    private AppDatabase db;
     ListView cBinListView;
 
 
@@ -43,6 +47,7 @@ public class ItemBinDetails extends MontecitoBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_bin_details);
         context=this;
+        db=AppDatabase.getAppDatabase(context);
         binItemPercentage=(TextView)findViewById(R.id.BinItem);
         binButton=(ImageButton)findViewById(R.id.binButton);
         itemButton=(ImageButton)findViewById(R.id.itemButton);
@@ -55,25 +60,35 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
 
 
-      final Call<ItemBinDetailsDTO> itemBinDetails=new MontecitoClient().getClient().getItemBinDetails(itemBinId,SessionInfo.getInstance().getUserLogin().getToken());
-        System.out.println("New Item Bin Api Call");
-        itemBinDetails.enqueue(new Callback<ItemBinDetailsDTO>() {
-            @Override
-            public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
-                if(response.isSuccessful()){
-                    binItems=response.body();
+      if(isNetworkAvailable()) {
+          final Call<ItemBinDetailsDTO> itemBinDetails = new MontecitoClient().getClient().getItemBinDetails(itemBinId, SessionInfo.getInstance().getUserLogin().getToken());
+          System.out.println("New Item Bin Api Call");
+          itemBinDetails.enqueue(new Callback<ItemBinDetailsDTO>() {
+              @Override
+              public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
+                  if (response.isSuccessful()) {
+                      binItems = response.body();
+                      addItemBinDetails(db,binItems);
 
-                    binItemPercentage.setText((binItems.getLastReading().getReading().getWeight()/binItems.getThresold(). getMax() * 100)+"%");
-                    binDetails(false);
+                      binItemPercentage.setText((binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
+                      binDetails(false);
 
-                }
-            }
+                  }
+              }
 
-            @Override
-            public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
+              @Override
+              public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
 
-            }
-        });
+              }
+          });
+      }
+      else{
+          binItems = getAllItemBinDetails(db);
+
+          binItemPercentage.setText((binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
+          binDetails(false);
+
+      }
 
 
 
@@ -221,26 +236,27 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
              Status status=new Status();
              status.setEnable(b);
-             Call<ItemBinDetailsDTO> itemBinDetailsChange = new MontecitoClient().getClient().itemAlert( itemBinId,status,SessionInfo.getInstance().getUserLogin().getToken() );
-             itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>() {
-                 @Override
-                 public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
-                     if( response.code()==200 ) {
+             if(isNetworkAvailable()) {
+                 Call<ItemBinDetailsDTO> itemBinDetailsChange = new MontecitoClient().getClient().itemAlert(itemBinId, status, SessionInfo.getInstance().getUserLogin().getToken());
+                 itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>() {
+                     @Override
+                     public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
+                         if (response.code() == 200) {
 
-                         Toast.makeText(context,"Your Item Alert is Changed Successfully",Toast.LENGTH_LONG).show();
+                             Toast.makeText(context, "Your Item Alert is Changed Successfully", Toast.LENGTH_LONG).show();
 
+
+                         } else {
+
+                         }
+                     }
+
+                     @Override
+                     public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
 
                      }
-                     else{
-
-                     }
-                 }
-
-                 @Override
-                 public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
-
-                 }
-             });
+                 });
+             }
 
 
          }
@@ -250,26 +266,27 @@ public class ItemBinDetails extends MontecitoBaseActivity {
          public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
              Status status=new Status();
              status.setEnable(b);
-             Call<ItemBinDetailsDTO> itemBinDetailsChange = new MontecitoClient().getClient().stockAlert( itemBinId,status,SessionInfo.getInstance().getUserLogin().getToken() );
-             itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>() {
-                 @Override
-                 public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
-                     if( response.code()==200 ) {
-                         ItemBinDetailsDTO binItems = response.body();
+             if(isNetworkAvailable()) {
+                 Call<ItemBinDetailsDTO> itemBinDetailsChange = new MontecitoClient().getClient().stockAlert(itemBinId, status, SessionInfo.getInstance().getUserLogin().getToken());
+                 itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>() {
+                     @Override
+                     public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
+                         if (response.code() == 200) {
+                             ItemBinDetailsDTO binItems = response.body();
 
-                         Toast.makeText(context,"Your Stock Alert Is Changed Successfully",Toast.LENGTH_LONG).show();
+                             Toast.makeText(context, "Your Stock Alert Is Changed Successfully", Toast.LENGTH_LONG).show();
+
+                         } else {
+
+                         }
+                     }
+
+                     @Override
+                     public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
 
                      }
-                     else{
-
-                     }
-                 }
-
-                 @Override
-                 public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
-
-                 }
-             });
+                 });
+             }
 
 
 
@@ -346,6 +363,18 @@ public class ItemBinDetails extends MontecitoBaseActivity {
             cBinListView.setAdapter(new CBinMovementAdapter(ItemBinDetails.this, binItems));
 
         }
+
+    }
+
+    private static void addItemBinDetails(final AppDatabase db, ItemBinDetailsDTO itemBins) {
+
+        db.itemBinDetailsDAO().deleteAll(itemBins.getId());
+        db.itemBinDetailsDAO().insertAll(itemBins);
+
+    }
+    private static ItemBinDetailsDTO getAllItemBinDetails(final AppDatabase db)
+    {
+        return db.itemBinDetailsDAO().getAllItemBins();
 
     }
 

@@ -15,9 +15,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class BinDimensionDTO {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
     @ColumnInfo(name="binId")
     private String binId;
 
@@ -58,14 +57,6 @@ public class BinDimensionDTO {
         this.height = height;
     }
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getBinId() {
         return binId;

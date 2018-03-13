@@ -15,9 +15,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "device")
 public class DeviceDTO {
 
-    @PrimaryKey(autoGenerate = true)
-    private int sno;
-
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
     @SerializedName("_id")
     @NonNull
@@ -82,13 +80,6 @@ public class DeviceDTO {
         this.itemBinId = itemBinId;
     }
 
-    public int getSno() {
-        return sno;
-    }
-
-    public void setSno(int sno) {
-        this.sno = sno;
-    }
 
     /*@Override
     public int compareTo(@NonNull Object o) {
