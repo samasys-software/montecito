@@ -18,7 +18,6 @@ import com.google.gson.annotations.SerializedName;
 public class BinDTO {
 
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "id")
     @SerializedName("_id")
     @NonNull
     @Expose

@@ -1,5 +1,6 @@
 package com.montecito.samayu.ui;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,10 +31,12 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.montecito.samayu.db.AppDatabase;
 import com.montecito.samayu.dto.AverageDTO;
 import com.montecito.samayu.dto.ConsumptionCategoryDTO;
 import com.montecito.samayu.dto.ConsumptionItemDTO;
 import com.montecito.samayu.dto.CountDTO;
+import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
 import com.montecito.samayu.dto.OnTimeDTO;
 import com.montecito.samayu.dto.TopItemsDTO;
@@ -58,155 +61,157 @@ public class ReportScreen extends MontecitoBaseActivity {
 
 
     DonutProgress donutProgress;
+    Context context;
     CircleProgressDesign circleProgress;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_screen);
+        context=this;
+        db=AppDatabase.getAppDatabase(context);
         activeCount=(TextView) findViewById(R.id.count);
         donutProgress=(DonutProgress) findViewById(R.id.donut_progress);
         circleProgress=(CircleProgressDesign) findViewById(R.id.circle_progress);
         barChart = (BarChart) findViewById(R.id.reportChart);
 
 
-        final Call<CountDTO> activeCountDTO=new MontecitoClient().getClient().getDevicesActiveCount( SessionInfo.getInstance().getUserLogin().getToken());
-        activeCountDTO.enqueue(new Callback<CountDTO>() {
-            @Override
-            public void onResponse(Call<CountDTO> call, Response<CountDTO> response) {
-                if(response.code()==200){
-                    try {
+        if(isNetworkAvailable()) {
+            final Call<CountDTO> activeCountDTO = new MontecitoClient().getClient().getDevicesActiveCount(SessionInfo.getInstance().getUserLogin().getToken());
+            activeCountDTO.enqueue(new Callback<CountDTO>() {
+                @Override
+                public void onResponse(Call<CountDTO> call, Response<CountDTO> response) {
+                    if (response.code() == 200) {
+                        try {
+                            CountDTO count = response.body();
+                            addLocalDevicesActiveCount(db,count);
+                            activeCount.setText(String.valueOf(count.getCount()));
+                        } catch (Exception e) {
 
+                        }
+                    } else if (response.code() == 401 || response.code() == 403) {
 
-                        CountDTO count = response.body();
-                        activeCount.setText(String.valueOf(count.getCount()));
-                    }
-                    catch (Exception e){
-
-                    }
-
-
-
-
-                }
-                else if(response.code()==401 || response.code() ==403){
-
-                }
-                else{
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CountDTO> call, Throwable t) {
-
-            }
-        });
-
-        final Call<OnTimeDTO> onTimeDTO=new MontecitoClient().getClient().getOnTime( SessionInfo.getInstance().getUserLogin().getToken());
-        onTimeDTO.enqueue(new Callback<OnTimeDTO>() {
-            @Override
-            public void onResponse(Call<OnTimeDTO> call, Response<OnTimeDTO> response) {
-                if(response.code()==200){
-                    try {
-
-
-                        OnTimeDTO onTime = response.body();
-                        donutProgress.setProgress(Float.valueOf(onTime.getPercent()));
+                    } else {
 
                     }
-                    catch (Exception e){
+                }
+
+                @Override
+                public void onFailure(Call<CountDTO> call, Throwable t) {
+
+                }
+            });
+        }
+        else{
+            CountDTO count = getLocalDevicesActiveCount(db);
+            activeCount.setText(String.valueOf(count.getCount()));
+        }
+        if(isNetworkAvailable()) {
+            final Call<OnTimeDTO> onTimeDTO = new MontecitoClient().getClient().getOnTime(SessionInfo.getInstance().getUserLogin().getToken());
+            onTimeDTO.enqueue(new Callback<OnTimeDTO>() {
+                @Override
+                public void onResponse(Call<OnTimeDTO> call, Response<OnTimeDTO> response) {
+                    if (response.code() == 200) {
+                        try {
+
+                            OnTimeDTO onTime = response.body();
+                            addLocalOnTime(db, onTime);
+                            donutProgress.setProgress(Float.valueOf(onTime.getPercent()));
+
+                        } catch (Exception e) {
+
+                        }
+
+
+                    } else if (response.code() == 401 || response.code() == 403) {
+
+                    } else {
 
                     }
+                }
 
-
-
+                @Override
+                public void onFailure(Call<OnTimeDTO> call, Throwable t) {
 
                 }
-                else if(response.code()==401 || response.code() ==403){
-
-                }
-                else{
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<OnTimeDTO> call, Throwable t) {
-
-            }
-        });
-
-        final Call<AverageDTO> averageDTO=new MontecitoClient().getClient().getAverage( SessionInfo.getInstance().getUserLogin().getToken());
-        averageDTO.enqueue(new Callback<AverageDTO>() {
-            @Override
-            public void onResponse(Call<AverageDTO> call, Response<AverageDTO> response) {
-                if(response.code()==200){
-                    try {
+            });
+        }
+        else{
+            OnTimeDTO onTime =getLocalOnTime(db);
+            //getLocalOnTime(db, onTime);
+            donutProgress.setProgress(Float.valueOf(onTime.getPercent()));
+        }
+        if(isNetworkAvailable()) {
+            final Call<AverageDTO> averageDTO = new MontecitoClient().getClient().getAverage(SessionInfo.getInstance().getUserLogin().getToken());
+            averageDTO.enqueue(new Callback<AverageDTO>() {
+                @Override
+                public void onResponse(Call<AverageDTO> call, Response<AverageDTO> response) {
+                    if (response.code() == 200) {
+                        try {
 
 
-                        AverageDTO averageDTO = response.body();
-                        circleProgress.setProgress(Float.valueOf(averageDTO.getAverage()));
+                            AverageDTO averageDTO = response.body();
+                            addLocalAverage(db,averageDTO);
+                            circleProgress.setProgress(Float.valueOf(averageDTO.getAverage()));
+
+                        } catch (Exception e) {
+
+                        }
 
                     }
-                    catch (Exception e){
+                    else if (response.code() == 401 || response.code() == 403) {
 
                     }
-
-
-
-
-                }
-                else if(response.code()==401 || response.code() ==403){
-
-                }
-                else{
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AverageDTO> call, Throwable t) {
-
-            }
-        });
-
-
-        final Call<List<TopItemsDTO>> topItemsDTO=new MontecitoClient().getClient().getTopItems( SessionInfo.getInstance().getUserLogin().getToken());
-        topItemsDTO.enqueue(new Callback<List<TopItemsDTO>>() {
-            @Override
-            public void onResponse(Call<List<TopItemsDTO>> call, Response<List<TopItemsDTO>> response) {
-                if(response.code()==200){
-                    try {
-
-
-                        List<TopItemsDTO> topItems = response.body();
-                        updateChart(barChart,topItems);
-
+                    else {
 
                     }
-                    catch (Exception e){
+                }
+
+                @Override
+                public void onFailure(Call<AverageDTO> call, Throwable t) {
+
+                }
+            });
+        }
+        else{
+            AverageDTO averageDTO = getLocalAverage(db);
+            circleProgress.setProgress(Float.valueOf(averageDTO.getAverage()));
+        }
+
+        if(isNetworkAvailable()) {
+            final Call<List<TopItemsDTO>> topItemsDTO = new MontecitoClient().getClient().getTopItems(SessionInfo.getInstance().getUserLogin().getToken());
+            topItemsDTO.enqueue(new Callback<List<TopItemsDTO>>() {
+                @Override
+                public void onResponse(Call<List<TopItemsDTO>> call, Response<List<TopItemsDTO>> response) {
+                    if (response.code() == 200) {
+                        try {
+                            List<TopItemsDTO> topItems = response.body();
+                            addLocalTopItems(db,topItems);
+                            updateChart(barChart, topItems);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                    else if (response.code() == 401 || response.code() == 403) {
 
                     }
+                    else {
 
+                    }
+                }
 
-
+                @Override
+                public void onFailure(Call<List<TopItemsDTO>> call, Throwable t) {
 
                 }
-                else if(response.code()==401 || response.code() ==403){
+            });
+        }
+        else{
+            List<TopItemsDTO> topItems = getLocalTopItems(db);
+            updateChart(barChart, topItems);
 
-                }
-                else{
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<TopItemsDTO>> call, Throwable t) {
-
-            }
-        });
-
+        }
 
       //  pieChart = (PieChart) findViewById(R.id.pieChart);
 
@@ -281,4 +286,48 @@ public class ReportScreen extends MontecitoBaseActivity {
         return gradient;
     }
 
+
+    private static void addLocalDevicesActiveCount(final AppDatabase db, CountDTO counts) {
+        db.countDAO().deleteAll();
+        db.countDAO().insertAll(counts);
+
+    }
+    private static CountDTO  getLocalDevicesActiveCount(final AppDatabase db)
+    {
+        return db.countDAO().getAll();
+
+    }
+
+    private static void addLocalOnTime(final AppDatabase db, OnTimeDTO onTimeDTO) {
+        db.onTimeDAO().deleteAll();
+        db.onTimeDAO().insertAll(onTimeDTO);
+
+    }
+    private static OnTimeDTO  getLocalOnTime(final AppDatabase db)
+    {
+        return db.onTimeDAO().getAll();
+
+    }
+
+    private static void addLocalAverage(final AppDatabase db, AverageDTO averageDTO) {
+        db.averageDAO().deleteAll();
+        db.averageDAO().insertAll(averageDTO);
+
+    }
+    private static AverageDTO  getLocalAverage(final AppDatabase db)
+    {
+        return db.averageDAO().getAll();
+
+    }
+
+    private static void addLocalTopItems(final AppDatabase db, List<TopItemsDTO> topItemsDTOList) {
+        db.topItemsDAO().deleteAll();
+        db.topItemsDAO().insertAll(topItemsDTOList);
+
+    }
+    private static List<TopItemsDTO>  getLocalTopItems(final AppDatabase db)
+    {
+        return db.topItemsDAO().getAll();
+
+    }
 }

@@ -16,7 +16,6 @@ public class ThresoldDTO {
 
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    @ColumnInfo(name = "itemBinId")
     private String itemBinId;
 
 

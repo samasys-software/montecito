@@ -17,7 +17,6 @@ public class BinDimensionDTO {
 
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    @ColumnInfo(name="binId")
     private String binId;
 
     @Expose

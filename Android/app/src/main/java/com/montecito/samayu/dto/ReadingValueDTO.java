@@ -16,7 +16,6 @@ public class ReadingValueDTO {
 
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    @ColumnInfo(name = "readingId")
     private String readingId;
 
     @ColumnInfo(name = "weight")

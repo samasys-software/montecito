@@ -15,7 +15,6 @@ import com.google.gson.annotations.SerializedName;
 public class ItemDimensionDTO {
 
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name= "itemId")
     @NonNull
 
     private String itemId;
