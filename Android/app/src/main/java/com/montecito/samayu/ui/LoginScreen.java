@@ -91,16 +91,19 @@ public class LoginScreen extends AppCompatActivity {
     public void attemptLogin(){
         String email = loginID.getText().toString();
         String pass = password.getText().toString();
-
-        if (checkValid(email,pass)){
+        boolean validation=checkValid(email,pass);
+        if (validation){
+            focusView.requestFocus();
             return ;
 
         }
-        loginButton.setEnabled(false);
-        final LoginInput loginInput = new LoginInput();
-        loginInput.setEmail(email);
-        loginInput.setPassword(pass);
-        login(loginInput);
+
+            loginButton.setEnabled(false);
+            final LoginInput loginInput = new LoginInput();
+            loginInput.setEmail(email);
+            loginInput.setPassword(pass);
+            login(loginInput);
+
 
     }
 
@@ -114,25 +117,21 @@ public class LoginScreen extends AppCompatActivity {
         password.setError(null);
 
         if (TextUtils.isEmpty(email)){
-            loginID.setError("Please enter the emailId");
+            loginID.setError("This field is Required");
             focusView = loginID;
             cancel = true;
+            return cancel;
         }
         if(pass!=null){
-
             if(TextUtils.isEmpty(pass)){
-                password.setError("Please enter some value");
+                password.setError("This field is Required");
                 focusView = password;
                 cancel = true;
                 return cancel;
-
             }
 
 
         }
-
-
-
 
         return cancel;
     }
@@ -143,7 +142,7 @@ public class LoginScreen extends AppCompatActivity {
         loginDTOCall.enqueue(new Callback<LoginDTO>() {
             @Override
             public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
-                if( response.isSuccessful() ) {
+                if( response.code()==200 ) {
                     LoginDTO loginDTO = response.body();
                     UserLogin userLogin=new UserLogin();
                     userLogin.setFirstName(loginDTO.getFirstName());
@@ -157,8 +156,14 @@ public class LoginScreen extends AppCompatActivity {
 
                 }
                 else{
-                    loginButton.setEnabled(true);
-                    //Show Error Message
+                    if(response.code()==401 || response.code()==403) {
+
+                        loginButton.setEnabled(true);
+                        password.setError("The Email or Password is wrong");
+                        focusView = password;
+                        return;
+                        //Show Error Message
+                    }
                 }
             }
 
