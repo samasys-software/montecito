@@ -155,8 +155,7 @@ public class LoginScreen extends AppCompatActivity {
                     startActivity(intent);
 
                 }
-                else{
-                    if(response.code()==401 || response.code()==403) {
+                else if(response.code()==401 || response.code()==403) {
 
                         loginButton.setEnabled(true);
                         password.setError("The Email or Password is wrong");
@@ -164,7 +163,10 @@ public class LoginScreen extends AppCompatActivity {
                         return;
                         //Show Error Message
                     }
+                    else{
+
                 }
+
             }
 
             @Override
