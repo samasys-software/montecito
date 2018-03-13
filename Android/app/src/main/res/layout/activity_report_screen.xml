@@ -29,7 +29,7 @@
                     android:gravity="center"
                     android:background="@drawable/box"
                     android:text="23"
-                    android:textColor="@color/AlertTitleColor"
+                    android:textColor="@color/ReportText"
                     android:textSize="50sp"
                     tools:layout_editor_absoluteX="33dp"
                     tools:layout_editor_absoluteY="159dp" />
@@ -57,8 +57,10 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    app:donut_background_color="@color/DonutBackgroundColor"
-                    app:donut_finished_color="@color/AlertTitleColor"
+                    app:donut_background_color="@color/DonutBackground"
+                    app:donut_finished_color="@color/ItemTitleColor"
+                    app:donut_unfinished_color="@color/name"
+                    app:donut_text_color="@color/name"
                     app:donut_progress="40" />
 
                 <TextView
@@ -84,6 +86,10 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
+                    app:circle_finished_color="@color/CircleText"
+                    app:circle_unfinished_color="@color/name"
+                    app:circle_text_color="@color/AlertTitleColor"
+                    app:circle_text_size="18dp"
                     android:gravity="center"
                     app:circle_progress="60" />
 
@@ -143,6 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="250sp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:background="#10000000"
             android:orientation="vertical"
             android:padding="5dp"
