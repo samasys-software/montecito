@@ -244,7 +244,7 @@ public class ChartFragment extends Fragment  {
         barChart.getXAxis().setTextColor(Color.WHITE);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         barChart.getXAxis().setXOffset(0);
-		barChart.getXAxis().setTextSize(15);
+		barChart.getXAxis().setTextSize(16);
         dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
 
 		dataSet.setValueTextSize(13);
