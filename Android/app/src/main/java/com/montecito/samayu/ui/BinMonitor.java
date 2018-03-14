@@ -88,12 +88,19 @@ public class BinMonitor extends MontecitoBaseActivity {
             itemBinAvailability.enqueue(new Callback<List<ItemBinDTO>>() {
                 @Override
                 public void onResponse(Call<List<ItemBinDTO>> call, Response<List<ItemBinDTO>> response) {
-                    if (response.isSuccessful()) {
+                    if (response.code()==200) {
                         List<ItemBinDTO> binItem = response.body();
                         SessionInfo.getInstance().setItemBinDetails(binItem);
                         addItemBins(db,binItem);
                         setBinData();
                     }
+                    else {
+                        if (response.code() == 401 || response.code() == 403) {
+                            Intent intent = new Intent(BinMonitor.this, LoginScreen.class);
+                            startActivity(intent);
+                        }
+                    }
+
                 }
 
                 @Override

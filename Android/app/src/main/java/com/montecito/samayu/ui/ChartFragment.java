@@ -2,6 +2,7 @@ package com.montecito.samayu.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -132,13 +133,18 @@ public class ChartFragment extends Fragment  {
                     @Override
                     public void onResponse(Call<List<ConsumptionItemDTO>> call, Response<List<ConsumptionItemDTO>> response) {
 
-                        if (response.isSuccessful()) {
+                        if (response.code()==200) {
                             BarChart barChart = view.findViewById(R.id.chart);
 
                             final List<ConsumptionItemDTO> consumptionInfo = response.body();
                             addConsumptionItem(db, consumptionInfo);
                             updateChart(barChart, consumptionInfo,null);
-                        } else {
+                        }
+                        else if (response.code()==401||response.code()==403){
+                            Intent intent = new Intent(getActivity(), LoginScreen.class);
+                            startActivity(intent);
+                        }
+                       else {
                             Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
                         }
 
@@ -168,7 +174,7 @@ public class ChartFragment extends Fragment  {
                     @Override
                     public void onResponse(Call<List<ConsumptionCategoryDTO>> call, Response<List<ConsumptionCategoryDTO>> response) {
 
-                        if (response.isSuccessful()) {
+                        if (response.code()==200) {
                             BarChart barChart = view.findViewById(R.id.chart);
 
                             final List<ConsumptionCategoryDTO> consumptionCategoryInfo = response.body();
@@ -176,7 +182,12 @@ public class ChartFragment extends Fragment  {
                             addConsumptionCategory(db,consumptionCategoryInfo);
 
                             updateChart(barChart, null,consumptionCategoryInfo);
-                        } else {
+                        }
+                        else if (response.code()==401||response.code()==403){
+                            Intent intent = new Intent(getActivity(), LoginScreen.class);
+                            startActivity(intent);
+                        }
+                        else {
                             Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
                         }
 

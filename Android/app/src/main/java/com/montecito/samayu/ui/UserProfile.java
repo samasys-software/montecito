@@ -1,6 +1,7 @@
 package com.montecito.samayu.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -79,12 +80,18 @@ public class UserProfile extends MontecitoBaseActivity {
             userProfileDTOCall.enqueue(new Callback<UserProfileDTO>() {
                 @Override
                 public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
-                    if (response.isSuccessful()) {
+                    if (response.code()==200) {
                         userProfile = response.body();
                         addLocalUserProfile(db,userProfile);
                         userId = userProfile.getId();
                         System.out.print(userId);
                         setUserProfile();
+                    }
+                    else {
+                        if (response.code() == 401 || response.code() == 403) {
+                            Intent intent = new Intent(UserProfile.this, LoginScreen.class);
+                            startActivity(intent);
+                        }
                     }
                 }
 
