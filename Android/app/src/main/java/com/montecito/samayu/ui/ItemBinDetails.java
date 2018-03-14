@@ -2,6 +2,7 @@ package com.montecito.samayu.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
@@ -66,13 +67,19 @@ public class ItemBinDetails extends MontecitoBaseActivity {
           itemBinDetails.enqueue(new Callback<ItemBinDetailsDTO>() {
               @Override
               public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
-                  if (response.isSuccessful()) {
+                  if (response.code()==200) {
                       binItems = response.body();
                       addItemBinDetails(db,binItems);
 
                       binItemPercentage.setText((binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
                       binDetails(false);
 
+                  }
+                  else {
+                      if (response.code() == 401 || response.code() == 403) {
+                          Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
+                          startActivity(intent);
+                      }
                   }
               }
 
@@ -246,8 +253,12 @@ public class ItemBinDetails extends MontecitoBaseActivity {
                              Toast.makeText(context, "Your Item Alert is Changed Successfully", Toast.LENGTH_LONG).show();
 
 
-                         } else {
-
+                         }
+                         else {
+                             if (response.code() == 401 || response.code() == 403) {
+                                 Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
+                                 startActivity(intent);
+                             }
                          }
                      }
 
@@ -276,8 +287,12 @@ public class ItemBinDetails extends MontecitoBaseActivity {
 
                              Toast.makeText(context, "Your Stock Alert Is Changed Successfully", Toast.LENGTH_LONG).show();
 
-                         } else {
-
+                         }
+                         else {
+                             if (response.code() == 401 || response.code() == 403) {
+                                 Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
+                                 startActivity(intent);
+                             }
                          }
                      }
 
