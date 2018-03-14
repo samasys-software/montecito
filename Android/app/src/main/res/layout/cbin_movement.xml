@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#10000000">
 
         <LinearLayout
@@ -17,14 +19,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
-                android:layout_weight="1.2"
+                android:paddingLeft="2dp"
+                android:layout_weight="0.6"
                 android:gravity="left"/>
 
             <TextView
                 android:id="@+id/Rquantity"
                 android:layout_width="match_parent"
                 android:text=" Quantity "
-                android:layout_weight="1.2"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
                 android:gravity="left" />
