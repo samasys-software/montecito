@@ -28,7 +28,6 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:background="@drawable/box"
-                    android:text="23"
                     android:textColor="@color/ReportText"
                     android:textSize="50sp"
                     tools:layout_editor_absoluteX="33dp"
@@ -61,7 +60,7 @@
                     app:donut_finished_color="@color/ItemTitleColor"
                     app:donut_unfinished_color="@color/name"
                     app:donut_text_color="@color/name"
-                    app:donut_progress="40" />
+                    app:donut_progress="0" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -91,7 +90,7 @@
                     app:circle_text_color="@color/AlertTitleColor"
                     app:circle_text_size="18dp"
                     android:gravity="center"
-                    app:circle_progress="60" />
+                    app:circle_progress="0" />
 
                 <TextView
                     android:layout_width="wrap_content"

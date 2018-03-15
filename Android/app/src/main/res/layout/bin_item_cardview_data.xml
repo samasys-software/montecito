@@ -22,15 +22,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
                 android:id="@+id/itemCount"
-                android:layout_gravity="center"
-                android:text="BIN #1"/>
+                android:layout_gravity="center"/>
 
             <ProgressBar
                 android:id="@+id/capacityImage"
                 style="@style/MyProgressBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:progress="25"
+                android:progress="0"
                 />
 
             <TextView
@@ -38,16 +37,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/capacity"
                 android:layout_gravity="center"
-                android:textColor="@color/name"
-                android:text="20%"/>
+                android:textColor="@color/name"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/itemName"
                 android:layout_gravity="center"
-                android:textColor="@color/name"
-                android:text="Slottedscrews-MAT 21A"/>
+                android:textColor="@color/name"/>
 
         </LinearLayout>
 
