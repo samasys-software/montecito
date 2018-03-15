@@ -33,7 +33,6 @@
             android:id="@+id/montecitoName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="cBinTM"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat"

@@ -18,8 +18,7 @@
           android:layout_height="wrap_content"
           android:id="@+id/itemCount"
           android:textColor="@color/name"
-          android:layout_weight="1"
-          android:text="BIN #1"/>
+          android:layout_weight="1"/>
 
    </LinearLayout>
 
@@ -37,7 +36,7 @@
           android:layout_height="match_parent"
 
 
-          android:progress="25"
+          android:progress="0"
           />
 
    </LinearLayout>
@@ -54,7 +53,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_toRightOf="@+id/capacity"
-          android:text="Slottedscrews-MAT 21A"
           android:textColor="@color/name" />
 
    </LinearLayout>
@@ -71,7 +69,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="1.5"
-          android:text="20%"
           android:textColor="@color/name" />
 
    </LinearLayout>

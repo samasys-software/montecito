@@ -237,37 +237,32 @@ public class ChartFragment extends Fragment  {
         }
         BarDataSet dataSet = new BarDataSet(data,"Usage");
 
-        // barChart.setDescription("");
+        dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
+        dataSet.setValueTextColor(Color.WHITE);barChart.getLegend().setTextColor(Color.WHITE);
+        dataSet.setValueTextSize(13);
+
         barChart.getAxisRight().setDrawLabels(false);
         barChart.getAxisLeft().setDrawLabels(true);
         barChart.getLegend().setEnabled(false);
-
         barChart.getXAxis().setDrawLabels(true);
-        //barChart.setFitBars(true);
-
-        //barChart.getAxisLeft().setAxisMinimum(0f);
-
-        //dataSet.setColor(Color.BLUE);
-
-        dataSet.setValueTextColor(Color.WHITE);barChart.getLegend().setTextColor(Color.WHITE);
 
         barChart.getAxisLeft().setTextColor(Color.WHITE);
         barChart.getXAxis().setTextColor(Color.WHITE);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         barChart.getXAxis().setXOffset(0);
 		barChart.getXAxis().setTextSize(16);
-        dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
-
-		dataSet.setValueTextSize(13);
-		
-        //Legend legend = barChart.getLegend();
-        //legend.setForm(Legend.LegendForm.CIRCLE);
 
         BarData barData = new BarData(labels,dataSet);
-
         barChart.setData( barData );
-
+        barChart.animateY(1000);
         barChart.invalidate();
+
+        // barChart.setDescription("");
+        //barChart.setFitBars(true);
+        //barChart.getAxisLeft().setAxisMinimum(0f);
+        //dataSet.setColor(Color.BLUE);
+        //Legend legend = barChart.getLegend();
+        //legend.setForm(Legend.LegendForm.CIRCLE);
 
     }
 
