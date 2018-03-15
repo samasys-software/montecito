@@ -44,42 +44,42 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         UserLoginDTO userLogin = loginRetrive();
         if (userLogin != null) {
-           SessionInfo.getInstance().setUserLogin(userLogin);
-           Intent intent=new Intent(LoginScreen.this,Home.class);
-           startActivity(intent);
+            SessionInfo.getInstance().setUserLogin(userLogin);
+            Intent intent=new Intent(LoginScreen.this,Home.class);
+            startActivity(intent);
         }
         else {
             LoginInput loginInput = inputRetrive();
             if (loginInput != null) {
-               login(loginInput);
+                login(loginInput);
             }
-                setContentView(R.layout.activity_login_screen);
-                context = this;
+            setContentView(R.layout.activity_login_screen);
+            context = this;
 
-                loginID = (EditText) findViewById(R.id.loginID);
-                montecitoName = (TextView) findViewById(R.id.montecitoName);
-                password = (EditText) findViewById(R.id.password);
-                loginButton = (Button) findViewById(R.id.loginButton);
-                forgetPassword = (TextView) findViewById(R.id.forgotPassword);
-                //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
-                //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
+            loginID = (EditText) findViewById(R.id.loginID);
+            montecitoName = (TextView) findViewById(R.id.montecitoName);
+            password = (EditText) findViewById(R.id.password);
+            loginButton = (Button) findViewById(R.id.loginButton);
+            forgetPassword = (TextView) findViewById(R.id.forgotPassword);
+            //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
+            //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
 
-                //montecitoName.setText(cs);
-                loginButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        attemptLogin();
-                    }
-                });
+            //montecitoName.setText(cs);
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    attemptLogin();
+                }
+            });
 
 
-                forgetPassword.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            forgetPassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    }
-                });
+                }
+            });
 
 
 
@@ -95,16 +95,20 @@ public class LoginScreen extends AppCompatActivity {
     public void attemptLogin(){
         String email = loginID.getText().toString();
         String pass = password.getText().toString();
-
-        if (checkValid(email,pass)){
+        boolean validation=checkValid(email,pass);
+        if (validation){
+            focusView.requestFocus();
             return ;
 
         }
+
         loginButton.setEnabled(false);
-         LoginInput loginInput = new LoginInput();
+        final LoginInput loginInput = new LoginInput();
         loginInput.setEmail(email);
         loginInput.setPassword(pass);
         login(loginInput);
+
+
 
     }
 
@@ -118,25 +122,21 @@ public class LoginScreen extends AppCompatActivity {
         password.setError(null);
 
         if (TextUtils.isEmpty(email)){
-            loginID.setError("Please enter the emailId");
+            loginID.setError("This field is Required");
             focusView = loginID;
             cancel = true;
+            return cancel;
         }
         if(pass!=null){
-
             if(TextUtils.isEmpty(pass)){
-                password.setError("Please enter some value");
+                password.setError("This field is Required");
                 focusView = password;
                 cancel = true;
                 return cancel;
-
             }
 
 
         }
-
-
-
 
         return cancel;
     }
@@ -147,7 +147,7 @@ public class LoginScreen extends AppCompatActivity {
         loginDTOCall.enqueue(new Callback<LoginDTO>() {
             @Override
             public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
-                if( response.isSuccessful() ) {
+                if( response.code()==200 ) {
                     LoginDTO loginDTO = response.body();
                     UserLoginDTO userLogin=new UserLoginDTO();
                     userLogin.setFirstName(loginDTO.getFirstName());
@@ -161,10 +161,18 @@ public class LoginScreen extends AppCompatActivity {
                     startActivity(intent);
 
                 }
-                else{
+                else if(response.code()==401 || response.code()==403) {
+
                     loginButton.setEnabled(true);
+                    password.setError("The Email or Password is wrong");
+                    focusView = password;
+                    return;
                     //Show Error Message
                 }
+                else{
+
+                }
+
             }
 
             @Override

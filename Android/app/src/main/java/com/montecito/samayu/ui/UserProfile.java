@@ -1,6 +1,7 @@
 package com.montecito.samayu.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -178,12 +179,19 @@ public class UserProfile extends MontecitoBaseActivity {
                     changePasswordDTOCall.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if(response.code()==200) {
+                                    Toast.makeText(context, "Your Password Changed Successfully", Toast.LENGTH_LONG).show();
+                                    File dir = getFilesDir();
+                                    File file = new File(dir, "MontecitoLoginDetails.txt");
 
-                            Toast.makeText(context, "Your Password Changed Successfully", Toast.LENGTH_LONG).show();
-                            File dir = getFilesDir();
-                            File file = new File(dir, "MontecitoLoginDetails.txt");
-
-                            boolean deleted = file.delete();
+                                    boolean deleted = file.delete();
+                                }
+                                else {
+                                    if (response.code() == 401 || response.code() == 403) {
+                                        Intent intent = new Intent(UserProfile.this, LoginScreen.class);
+                                        startActivity(intent);
+                                    }
+                                }
                         }
 
                         @Override

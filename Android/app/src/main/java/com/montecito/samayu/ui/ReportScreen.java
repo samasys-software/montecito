@@ -1,6 +1,7 @@
 package com.montecito.samayu.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -90,9 +91,11 @@ public class ReportScreen extends MontecitoBaseActivity {
                         } catch (Exception e) {
 
                         }
-                    } else if (response.code() == 401 || response.code() == 403) {
-
-                    } else {
+                    } else{
+                        if (response.code() == 401 || response.code() == 403) {
+                            Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
+                            startActivity(intent);
+                        }
 
                     }
                 }
@@ -124,10 +127,11 @@ public class ReportScreen extends MontecitoBaseActivity {
                         }
 
 
-                    } else if (response.code() == 401 || response.code() == 403) {
-
                     } else {
-
+                        if (response.code() == 401 || response.code() == 403) {
+                            Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
+                            startActivity(intent);
+                        }
                     }
                 }
 
@@ -160,12 +164,13 @@ public class ReportScreen extends MontecitoBaseActivity {
                         }
 
                     }
-                    else if (response.code() == 401 || response.code() == 403) {
-
-                    }
                     else {
-
+                        if (response.code() == 401 || response.code() == 403) {
+                            Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
+                            startActivity(intent);
+                        }
                     }
+
                 }
 
                 @Override
@@ -193,10 +198,11 @@ public class ReportScreen extends MontecitoBaseActivity {
 
                         }
                     }
-                    else if (response.code() == 401 || response.code() == 403) {
-
-                    }
-                    else {
+                    else{
+                        if (response.code() == 401 || response.code() == 403) {
+                            Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
+                            startActivity(intent);
+                         }
 
                     }
                 }
