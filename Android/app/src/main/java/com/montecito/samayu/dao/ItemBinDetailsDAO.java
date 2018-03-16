@@ -193,10 +193,13 @@ public abstract class ItemBinDetailsDAO {
 
         List<DeviceHistoryDTO> deviceHistoryDTOs=itemBin.getDeviceHistory();
         for(DeviceHistoryDTO deviceHistoryDTO:deviceHistoryDTOs){
-            deviceHistoryDTO.setItemBinId(itemBin.getId());
+
+
                 LastDeviceDTO lastDeviceDTO=deviceHistoryDTO.getLastDevice();
-                lastDeviceDTO.setDeviceHistroyId(deviceHistoryDTO.getId());
-                insertLastDevice(lastDeviceDTO);
+                if(lastDeviceDTO!=null) {
+                    lastDeviceDTO.setDeviceHistroyId(deviceHistoryDTO.getId());
+                    insertLastDevice(lastDeviceDTO);
+                }
         }
         insertDeviceHistroy(deviceHistoryDTOs);
 

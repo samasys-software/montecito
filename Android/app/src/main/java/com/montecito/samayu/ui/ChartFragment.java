@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.montecito.samayu.db.AppDatabase;
 import com.montecito.samayu.dto.ConsumptionCategoryDTO;
 
