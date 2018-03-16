@@ -45,7 +45,7 @@ import com.montecito.samayu.ui.UserProfile;
 /**
  * Created by God on 1/25/2018.
  */
-@Database(entities = {ItemAvailabilityDTO.class,ConsumptionItemDTO.class, ConsumptionCategoryDTO.class, ItemBinDTO.class, BinDTO.class, BinDimensionDTO.class, BinTypeDTO.class, ItemDTO.class,ItemDimensionDTO.class, ReadingDTO.class, ReadingValueDTO.class, ThresoldDTO.class, DeviceDTO.class, ItemBinDetailsDTO.class, LastDeviceDTO.class, DeviceHistoryDTO.class, ReplenishmentsDTO.class, ReplenishmentTaskDTO.class, AverageDTO.class, CountDTO.class, OnTimeDTO.class, TopItemsDTO.class, UserProfileDTO.class}, version = 27)
+@Database(entities = {ItemAvailabilityDTO.class,ConsumptionItemDTO.class, ConsumptionCategoryDTO.class, ItemBinDTO.class, BinDTO.class, BinDimensionDTO.class, BinTypeDTO.class, ItemDTO.class,ItemDimensionDTO.class, ReadingDTO.class, ReadingValueDTO.class, ThresoldDTO.class, DeviceDTO.class, ItemBinDetailsDTO.class, LastDeviceDTO.class, DeviceHistoryDTO.class, ReplenishmentsDTO.class, ReplenishmentTaskDTO.class, AverageDTO.class, CountDTO.class, OnTimeDTO.class, TopItemsDTO.class, UserProfileDTO.class}, version = 26)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
