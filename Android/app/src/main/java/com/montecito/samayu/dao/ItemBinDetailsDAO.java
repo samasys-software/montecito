@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Dao
 public abstract class ItemBinDetailsDAO {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void inserItemBinDetails(ItemBinDetailsDTO itemBins);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -74,8 +74,8 @@ public abstract class ItemBinDetailsDAO {
 
 
 
-    @Query("SELECT * FROM item_bin_details")
-    public abstract ItemBinDetailsDTO getAll();
+    @Query("SELECT * FROM item_bin_details WHERE id=:id ")
+    public abstract ItemBinDetailsDTO getAll(String id);
 
     @Query("SELECT * FROM bin WHERE itemBinId =:itemBinId")
     public abstract BinDTO getBinDetails(String itemBinId);
@@ -210,9 +210,9 @@ public abstract class ItemBinDetailsDAO {
         inserItemBinDetails(itemBin);
     }
 
-    public ItemBinDetailsDTO getAllItemBins() {
+    public ItemBinDetailsDTO getAllItemBins(String itemBinId) {
         System.out.println("ItemBins=");
-        ItemBinDetailsDTO itemBins = getAll();
+        ItemBinDetailsDTO itemBins = getAll(itemBinId);
         System.out.println("ItemBins="+itemBins);
 
         itemBins.setCrateBin(getAllBins(itemBins.getId()));
@@ -270,7 +270,7 @@ public abstract class ItemBinDetailsDAO {
     public void deleteAll(String itemBinId) {
 
 
-        deleteAllIB(itemBinId);
+        //deleteAllIB(itemBinId);
 
 
     }

@@ -76,14 +76,24 @@ public class DeviceHistoryDTO {
     }
 
     public Date getCreated() {
+        if(created==null){
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                Date formattedDate = df.parse(createdDate);
+                setCreated(formattedDate);
+            }
+            catch (ParseException e)
+            {
+                e.printStackTrace();
+
+            }
+        }
         return created;
     }
 
     public void setCreated(Date created) {
         this.created = created;
-        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        String formattedDate=df.format(created);
-        setCreatedDate(formattedDate);
+
     }
 
     public LastDeviceDTO getLastDevice() {
@@ -103,20 +113,16 @@ public class DeviceHistoryDTO {
     }
 
     public String getCreatedDate() {
+        if(createdDate==null){
+            SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            String formattedDate=df.format(created);
+            setCreatedDate(formattedDate);
+        }
         return createdDate;
     }
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
-        try {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            Date formattedDate = df.parse(createdDate);
-            setCreated(formattedDate);
-        }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
 
-        }
     }
 }
