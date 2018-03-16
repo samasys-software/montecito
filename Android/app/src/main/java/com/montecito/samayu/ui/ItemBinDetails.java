@@ -43,7 +43,7 @@ public class ItemBinDetails extends MontecitoBaseActivity
     Context context;
     private AppDatabase db;
     ListView cBinListView;
-
+    NumberFormat numberFormat = FormatNumber.getNumberFormat();
     ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -75,7 +75,7 @@ public class ItemBinDetails extends MontecitoBaseActivity
                   {
                       binItems = response.body();
                       addItemBinDetails(db,binItems);
-                      NumberFormat numberFormat = FormatNumber.getNumberFormat();
+
                       binItemPercentage.setText(numberFormat.format(binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
                       binDetails(false);
 
@@ -97,8 +97,8 @@ public class ItemBinDetails extends MontecitoBaseActivity
       }
       else
       {
-          binItems = getAllItemBinDetails(db);
-          NumberFormat numberFormat = FormatNumber.getNumberFormat();
+          binItems = getAllItemBinDetails(db,itemBinId);
+
           binItemPercentage.setText(numberFormat.format(binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
           binDetails(false);
       }
@@ -406,9 +406,9 @@ public class ItemBinDetails extends MontecitoBaseActivity
         db.itemBinDetailsDAO().deleteAll(itemBins.getId());
         db.itemBinDetailsDAO().insertAll(itemBins);
     }
-    private static ItemBinDetailsDTO getAllItemBinDetails(final AppDatabase db)
+    private static ItemBinDetailsDTO getAllItemBinDetails(final AppDatabase db,String itemBinDetailsId)
     {
-        return db.itemBinDetailsDAO().getAllItemBins();
+        return db.itemBinDetailsDAO().getAllItemBins(itemBinDetailsId);
     }
 
 }
