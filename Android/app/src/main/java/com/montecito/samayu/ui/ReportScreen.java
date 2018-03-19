@@ -266,6 +266,7 @@ public class ReportScreen extends MontecitoBaseActivity {
         barChart.setData( barData );
 		barChart.animateY(1000);
         barChart.invalidate();
+        barData.setDrawValues(false);
 
     }
 

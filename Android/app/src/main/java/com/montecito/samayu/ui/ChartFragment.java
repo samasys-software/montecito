@@ -258,6 +258,7 @@ public class ChartFragment extends Fragment  {
         barChart.setData( barData );
         barChart.animateY(1000);
         barChart.invalidate();
+        barData.setDrawValues(false);
 
         // barChart.setDescription("");
         //barChart.setFitBars(true);
