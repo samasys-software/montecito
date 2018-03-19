@@ -94,11 +94,12 @@ public class BinMonitor extends MontecitoBaseActivity {
                         addItemBins(db,binItem);
                         setBinData();
                     }
-                    else {
-                        if (response.code() == 401 || response.code() == 403) {
+                    else if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(BinMonitor.this, LoginScreen.class);
                             startActivity(intent);
-                        }
+                    }
+                    else {
+
                     }
                 }
 

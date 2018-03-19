@@ -91,11 +91,12 @@ public class ReportScreen extends MontecitoBaseActivity {
                         } catch (Exception e) {
 
                         }
-                    } else{
-                        if (response.code() == 401 || response.code() == 403) {
+                    }
+                    else if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
-                        }
+                    }
+                    else{
 
                     }
                 }
@@ -126,12 +127,12 @@ public class ReportScreen extends MontecitoBaseActivity {
 
                         }
 
-
-                    } else {
-                        if (response.code() == 401 || response.code() == 403) {
+                    }
+                    else if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
-                        }
+                    }
+                    else{
                     }
                 }
 
@@ -164,11 +165,11 @@ public class ReportScreen extends MontecitoBaseActivity {
                         }
 
                     }
-                    else {
-                        if (response.code() == 401 || response.code() == 403) {
+                    else if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
-                        }
+                    }
+                    else{
                     }
 
                 }
@@ -198,11 +199,11 @@ public class ReportScreen extends MontecitoBaseActivity {
 
                         }
                     }
-                    else{
-                        if (response.code() == 401 || response.code() == 403) {
+                    else if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
-                         }
+                    }
+                    else{
 
                     }
                 }

@@ -186,11 +186,11 @@ public class UserProfile extends MontecitoBaseActivity {
 
                                     boolean deleted = file.delete();
                                 }
-                                else {
-                                    if (response.code() == 401 || response.code() == 403) {
+                                else if (response.code() == 401 || response.code() == 403) {
                                         Intent intent = new Intent(UserProfile.this, LoginScreen.class);
                                         startActivity(intent);
-                                    }
+                                }
+                                else {
                                 }
                         }
 
