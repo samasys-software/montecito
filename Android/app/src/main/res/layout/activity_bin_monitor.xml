@@ -80,7 +80,6 @@
 
     </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,11 +113,11 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/listview"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
                 android:orientation="vertical"
                 android:layout_marginLeft="5dp"
                 >
@@ -142,6 +141,31 @@
                     android:visibility="visible"
                     android:background="@drawable/border_spinner"
                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="12dp">
+
+                <ImageButton
+                    style="@style/header"
+                    android:layout_weight="0"
+                    android:background="@null"
+                    android:src="@drawable/down"
+                    android:id="@+id/down"/>
+
+                <ImageButton
+                    style="@style/header"
+                    android:layout_weight="0"
+                    android:background="@null"
+                    android:visibility="gone"
+                    android:src="@drawable/up"
+                    android:id="@+id/up"/>
+
             </LinearLayout>
 
         </LinearLayout>
