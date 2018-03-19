@@ -41,6 +41,7 @@ public class ItemBinDetails extends MontecitoBaseActivity
     TextView binItemPercentage;
     String itemBinId=SessionInfo.getInstance().getCurrentItemBinId();
     Context context;
+    NumberFormat numberFormat = FormatNumber.getNumberFormat();
     private AppDatabase db;
     ListView cBinListView;
 
@@ -75,7 +76,7 @@ public class ItemBinDetails extends MontecitoBaseActivity
                   {
                       binItems = response.body();
                       addItemBinDetails(db,binItems);
-                      NumberFormat numberFormat = FormatNumber.getNumberFormat();
+
                       binItemPercentage.setText(numberFormat.format(binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
                       binDetails(false);
 
@@ -97,8 +98,7 @@ public class ItemBinDetails extends MontecitoBaseActivity
       }
       else
       {
-          binItems = getAllItemBinDetails(db);
-          NumberFormat numberFormat = FormatNumber.getNumberFormat();
+          binItems = getAllItemBinDetails(db,itemBinId);
           binItemPercentage.setText(numberFormat.format(binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
           binDetails(false);
       }
@@ -270,11 +270,14 @@ public class ItemBinDetails extends MontecitoBaseActivity
                          {
                              Toast.makeText(context, "Your Item Alert is Changed Successfully", Toast.LENGTH_LONG).show();
                          }
-                         else
-                         {
+                         else if (response.code() == 401 || response.code() == 403) {
                              Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
                              startActivity(intent);
                          }
+                         else {
+
+                         }
+
                      }
 
                      @Override
@@ -406,9 +409,9 @@ public class ItemBinDetails extends MontecitoBaseActivity
         db.itemBinDetailsDAO().deleteAll(itemBins.getId());
         db.itemBinDetailsDAO().insertAll(itemBins);
     }
-    private static ItemBinDetailsDTO getAllItemBinDetails(final AppDatabase db)
+    private static ItemBinDetailsDTO getAllItemBinDetails(final AppDatabase db,String itemBinDetailsId)
     {
-        return db.itemBinDetailsDAO().getAllItemBins();
+        return db.itemBinDetailsDAO().getAllItemBins(itemBinDetailsId);
     }
 
 }

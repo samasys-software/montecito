@@ -147,7 +147,7 @@ public class ChartFragment extends Fragment  {
                             startActivity(intent);
                         }
                         else {
-                            Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -190,7 +190,7 @@ public class ChartFragment extends Fragment  {
                             startActivity(intent);
                         }
                         else {
-                            Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
                         }
 
                     }

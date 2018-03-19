@@ -15,7 +15,11 @@ import com.google.gson.annotations.SerializedName;
 public class BinTypeDTO {
 
     @PrimaryKey(autoGenerate = false)
+    @NonNull
+    private String binId;
+
     @SerializedName("_id")
+    @ColumnInfo(name = "id")
     @Expose
     @NonNull
     private String id;
@@ -24,8 +28,7 @@ public class BinTypeDTO {
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "binId")
-    private String binId;
+
 
 
     public String getName() {
