@@ -85,6 +85,10 @@ public interface MontecitoService {
     @GET("api/users/me")
     public Call<UserProfileDTO> getUserProfile(@Header("Authorization") String token);
 
+    @GET("api/itembins/sort/{value}/order/{order}")
+    public Call<List<ItemBinDTO>> getSortByDetails(@Path("value") String value,@Path("order") String order,@Header("Authorization") String token);
+
+
 
 
 }

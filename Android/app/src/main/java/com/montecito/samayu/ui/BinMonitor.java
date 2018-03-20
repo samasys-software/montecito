@@ -100,8 +100,8 @@ public class BinMonitor extends MontecitoBaseActivity {
                         setBinData();
                     }
                     else if (response.code() == 401 || response.code() == 403) {
-                            Intent intent = new Intent(BinMonitor.this, LoginScreen.class);
-                            startActivity(intent);
+                        Intent intent = new Intent(BinMonitor.this, LoginScreen.class);
+                        startActivity(intent);
                     }
                     else {
 
@@ -137,8 +137,9 @@ public class BinMonitor extends MontecitoBaseActivity {
                 String selectedValue=adapterView.getSelectedItem().toString();
 
                 String value=getSortByValue(selectedValue);
-                System.out.println(value);
 
+                System.out.println(value);
+                sortingAPI(value,"asc");
 
             }
 
@@ -191,6 +192,7 @@ public class BinMonitor extends MontecitoBaseActivity {
                String selectedValue=(String)sortBy.getSelectedItem();
                String value=getSortByValue(selectedValue);
                System.out.println(value);
+               sortingAPI(value,"asc");
 
            }
        });
@@ -206,6 +208,7 @@ public class BinMonitor extends MontecitoBaseActivity {
                 String selectedValue=(String)sortBy.getSelectedItem();
                 String value=getSortByValue(selectedValue);
                 System.out.println(value);
+                sortingAPI(value,"desc");
             }
         });
 
@@ -271,6 +274,42 @@ public class BinMonitor extends MontecitoBaseActivity {
             values = "please selected";
         }
         return  values;
+
+    }
+    private void sortingAPI(String value,String order){
+        if(isNetworkAvailable()) {
+            final Call<List<ItemBinDTO>> itemBinAvailability = new MontecitoClient().getClient().getSortByDetails(value,order,SessionInfo.getInstance().getUserLogin().getToken());
+            itemBinAvailability.enqueue(new Callback<List<ItemBinDTO>>() {
+                @Override
+                public void onResponse(Call<List<ItemBinDTO>> call, Response<List<ItemBinDTO>> response) {
+                    if (response.code()==200) {
+                        List<ItemBinDTO> binItem = response.body();
+                        SessionInfo.getInstance().setItemBinDetails(binItem);
+                        setBinData();
+                    }
+                    else if (response.code() == 401 || response.code() == 403) {
+                        Intent intent = new Intent(BinMonitor.this, LoginScreen.class);
+                        startActivity(intent);
+                    }
+                    else {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<ItemBinDTO>> call, Throwable t) {
+                    //mProgressDialog.dismiss();
+
+                }
+            });
+        }
+        else{
+            List<ItemBinDTO> binItem = getAllItemBins(db);
+            SessionInfo.getInstance().setItemBinDetails(binItem);
+            setBinData();
+
+        }
+
 
     }
 
