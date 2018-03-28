@@ -14,7 +14,6 @@
             android:id="@+id/replenishmentHistroyTitle">
 
             <TextView
-                android:text="Triggered On"
                 android:id="@+id/RtriggeredOn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,7 +25,6 @@
             <TextView
                 android:id="@+id/Rquantity"
                 android:layout_width="match_parent"
-                android:text="Quantity"
                 android:layout_weight="1.3"
                 android:layout_height="wrap_content"
                 android:textColor="@color/name"
@@ -35,7 +33,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="%"
                 android:textColor="@color/name"
                 android:layout_weight="1.4"
                 android:id="@+id/Rpercent"

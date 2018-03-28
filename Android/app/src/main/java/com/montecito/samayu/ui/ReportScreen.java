@@ -86,17 +86,17 @@ public class ReportScreen extends MontecitoBaseActivity {
                     if (response.code() == 200) {
                         try {
                             CountDTO count = response.body();
-                            addLocalDevicesActiveCount(db,count);
+                            addLocalDevicesActiveCount(db, count);
                             activeCount.setText(String.valueOf(count.getCount()));
                         } catch (Exception e) {
 
                         }
-                    }
-                    else {
+                    } else {
                         if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
                         }
+
                     }
                 }
 
@@ -133,7 +133,9 @@ public class ReportScreen extends MontecitoBaseActivity {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
                         }
+
                     }
+
                 }
 
                 @Override
@@ -154,22 +156,21 @@ public class ReportScreen extends MontecitoBaseActivity {
                 public void onResponse(Call<AverageDTO> call, Response<AverageDTO> response) {
                     if (response.code() == 200) {
                         try {
-
-
                             AverageDTO averageDTO = response.body();
-                            addLocalAverage(db,averageDTO);
+                            addLocalAverage(db, averageDTO);
                             circleProgress.setProgress(Float.valueOf(averageDTO.getAverage()));
 
                         } catch (Exception e) {
 
                         }
 
-                    }
-                    else {
+                    } else {
                         if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
                         }
+
+
                     }
                 }
 
@@ -192,17 +193,17 @@ public class ReportScreen extends MontecitoBaseActivity {
                     if (response.code() == 200) {
                         try {
                             List<TopItemsDTO> topItems = response.body();
-                            addLocalTopItems(db,topItems);
+                            addLocalTopItems(db, topItems);
                             updateChart(barChart, topItems);
                         } catch (Exception e) {
 
                         }
-                    }
-                    else {
+                    } else {
                         if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
                         }
+
                     }
                 }
 
@@ -212,6 +213,7 @@ public class ReportScreen extends MontecitoBaseActivity {
                 }
             });
         }
+
         else{
             List<TopItemsDTO> topItems = getLocalTopItems(db);
             updateChart(barChart, topItems);
@@ -262,8 +264,9 @@ public class ReportScreen extends MontecitoBaseActivity {
         BarData barData = new BarData(labels,dataSet);
 
         barChart.setData( barData );
-
+		barChart.animateY(1000);
         barChart.invalidate();
+        barData.setDrawValues(false);
 
     }
 

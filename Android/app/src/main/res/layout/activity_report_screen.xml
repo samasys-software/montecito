@@ -28,7 +28,6 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:background="@drawable/box"
-                    android:text="23"
                     android:textColor="@color/ReportText"
                     android:textSize="50sp"
                     tools:layout_editor_absoluteX="33dp"
@@ -61,7 +60,7 @@
                     app:donut_finished_color="@color/ItemTitleColor"
                     app:donut_unfinished_color="@color/name"
                     app:donut_text_color="@color/name"
-                    app:donut_progress="40" />
+                    app:donut_progress="0" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -91,7 +90,7 @@
                     app:circle_text_color="@color/AlertTitleColor"
                     app:circle_text_size="18dp"
                     android:gravity="center"
-                    app:circle_progress="60" />
+                    app:circle_progress="0" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,7 +108,7 @@
         <LinearLayout
             android:id="@+id/chartDashboard"
             android:layout_width="match_parent"
-            android:layout_height="250sp"
+            android:layout_height="350sp"
             android:layout_weight="1"
             android:background="#10000000"
             android:orientation="vertical"
@@ -128,41 +127,44 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:textColor="@color/name"
                 android:gravity="center"
                 android:text="Replenishment Count"
-                android:textSize="16dp"
+                android:textSize="20sp"
                 android:textStyle="bold"/>
 
             <com.github.mikephil.charting.charts.HorizontalBarChart
                 android:id="@+id/reportChart"
                 android:layout_width="match_parent"
                 android:background="#30000000"
-                android:layout_weight="16"
+                android:layout_weight="1"
+                android:layout_marginTop="6sp"
+
                 android:layout_height="match_parent"
                 android:scaleType="fitXY" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/pieDashboard"
-            android:layout_width="match_parent"
-            android:layout_height="250sp"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:background="#10000000"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:layout_below="@+id/chartDashboard">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/pieDashboard"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="250sp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:visibility="gone"-->
+            <!--android:background="#10000000"-->
+            <!--android:orientation="vertical"-->
+            <!--android:padding="5dp"-->
+            <!--android:layout_below="@+id/chartDashboard">-->
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart"
-                android:layout_width="match_parent"
-				android:background="#30000000"
-                android:layout_weight="16"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY" />
+            <!--<com.github.mikephil.charting.charts.PieChart-->
+                <!--android:id="@+id/pieChart"-->
+                <!--android:layout_width="match_parent"-->
+				<!--android:background="#30000000"-->
+                <!--android:layout_weight="16"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="fitXY" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
 </RelativeLayout>

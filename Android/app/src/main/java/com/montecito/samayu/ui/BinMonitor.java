@@ -41,13 +41,15 @@ public class BinMonitor extends MontecitoBaseActivity {
     private GridLayoutManager gridLayoutManager;
     RecyclerView recyclerView;
     ListView listView;
-    ImageView cardViewImage,listViewImage;
+    ImageView cardViewImage,listViewImage,downArrow,upArrow;
     ViewStub stubCardview,stubListView;
     ProgressDialog mProgressDialog;
     Context context;
     LinearLayout  locationLayout, floorLayout;
     Spinner sortBy;
     private AppDatabase db;
+    //private int currentSortingMode =0;
+    //final int SORTING_MODE_ASC=0;
 
     private int currentViewMode=0;
     final int VIEW_MODE_LISTVIEW=1;
@@ -65,6 +67,8 @@ public class BinMonitor extends MontecitoBaseActivity {
         floorLayout.setVisibility(View.GONE);
         cardViewImage = (ImageView) findViewById(R.id.cardviewImage);
         listViewImage=(ImageView) findViewById(R.id.listViewImage);
+        downArrow=(ImageView) findViewById(R.id.down);
+        upArrow=(ImageView) findViewById(R.id.up);
         gridLayoutManager = new GridLayoutManager(BinMonitor.this, 2);
         stubListView=(ViewStub)findViewById(R.id.stub_list);
         stubCardview=(ViewStub)findViewById(R.id.stub_card);
@@ -78,8 +82,9 @@ public class BinMonitor extends MontecitoBaseActivity {
 
         List<String> sortByValues=new ArrayList<>();
         sortByValues.add("Please Select");
-        sortByValues.add("By Name");
+        sortByValues.add("By Item");
         sortByValues.add("By Location");
+        sortByValues.add("By Stock");
         ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,sortByValues);
         sortBy.setAdapter(dataAdapter);
 
@@ -94,12 +99,14 @@ public class BinMonitor extends MontecitoBaseActivity {
                         addItemBins(db,binItem);
                         setBinData();
                     }
+
                     else {
                         if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(BinMonitor.this, LoginScreen.class);
                             startActivity(intent);
                         }
                     }
+
 
                 }
 
@@ -130,12 +137,10 @@ public class BinMonitor extends MontecitoBaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedValue=adapterView.getSelectedItem().toString();
-                if(selectedValue.equalsIgnoreCase("By Name")){
-                    //Collections.sort(binItem);
-                }
-                else{
-                    System.out.println(selectedValue);
-                }
+
+                String value=getSortByValue(selectedValue);
+                System.out.println(value);
+
 
             }
 
@@ -144,6 +149,7 @@ public class BinMonitor extends MontecitoBaseActivity {
 
             }
         });
+
        cardViewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,6 +180,36 @@ public class BinMonitor extends MontecitoBaseActivity {
 
            }
        });
+
+       downArrow.setOnClickListener(new View.OnClickListener()
+       {
+           @Override
+           public void onClick(View view)
+           {
+               //setBinData();
+
+               downArrow.setVisibility(View.GONE);
+               upArrow.setVisibility(View.VISIBLE);
+               String selectedValue=(String)sortBy.getSelectedItem();
+               String value=getSortByValue(selectedValue);
+               System.out.println(value);
+
+           }
+       });
+
+        upArrow.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+               // setBinData();
+                upArrow.setVisibility(View.GONE);
+                downArrow.setVisibility(View.VISIBLE);
+                String selectedValue=(String)sortBy.getSelectedItem();
+                String value=getSortByValue(selectedValue);
+                System.out.println(value);
+            }
+        });
 
     }
     @Override
@@ -217,5 +253,27 @@ public class BinMonitor extends MontecitoBaseActivity {
 
     }
 
+    private String getSortByValue(String selectedValue)
+    {
+        String values;
+        if(selectedValue.equalsIgnoreCase("By Item")){
+            //Collections.sort(binItem);
+            values = "item";
+        }
+        else if (selectedValue.equalsIgnoreCase("By Location"))
+        {
+            values = "location";
+        }
+        else if (selectedValue.equalsIgnoreCase("By Stock"))
+        {
+            values = "stock";
+        }
+        else
+        {
+            values = "please selected";
+        }
+        return  values;
+
+    }
 
 }

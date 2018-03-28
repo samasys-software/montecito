@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.montecito.samayu.db.AppDatabase;
 import com.montecito.samayu.dto.ConsumptionCategoryDTO;
 
@@ -133,23 +135,21 @@ public class ChartFragment extends Fragment  {
                     @Override
                     public void onResponse(Call<List<ConsumptionItemDTO>> call, Response<List<ConsumptionItemDTO>> response) {
 
-                        if (response.code()==200) {
+                        if (response.code() == 200) {
                             BarChart barChart = view.findViewById(R.id.chart);
 
                             final List<ConsumptionItemDTO> consumptionInfo = response.body();
                             addConsumptionItem(db, consumptionInfo);
-                            updateChart(barChart, consumptionInfo,null);
-                        }
-                        else if (response.code()==401||response.code()==403){
+                            updateChart(barChart, consumptionInfo, null);
+                        } else if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(getActivity(), LoginScreen.class);
                             startActivity(intent);
-                        }
-                       else {
+                        } else {
                             Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
                         }
 
-                    }
 
+                    }
                     @Override
                     public void onFailure(Call<List<ConsumptionItemDTO>> call, Throwable t) {
 
@@ -176,19 +176,20 @@ public class ChartFragment extends Fragment  {
 
                         if (response.code()==200) {
                             BarChart barChart = view.findViewById(R.id.chart);
-
                             final List<ConsumptionCategoryDTO> consumptionCategoryInfo = response.body();
                             //addConsumption( db,consumptionInfo );
                             addConsumptionCategory(db,consumptionCategoryInfo);
-
                             updateChart(barChart, null,consumptionCategoryInfo);
                         }
+
                         else if (response.code()==401||response.code()==403){
+
                             Intent intent = new Intent(getActivity(), LoginScreen.class);
                             startActivity(intent);
                         }
                         else {
                             Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
@@ -201,18 +202,10 @@ public class ChartFragment extends Fragment  {
             }
             else{
                 BarChart barChart = view.findViewById(R.id.chart);
-
-                final List<ConsumptionCategoryDTO> consumptionCategoryInfo = getAllConsumptionCategory(db);
-                //addConsumption( db,consumptionInfo );
-
+                final List<ConsumptionCategoryDTO> consumptionCategoryInfo = getAllConsumptionCategory(db);            //addConsumption( db,consumptionInfo );
                 updateChart(barChart, null,consumptionCategoryInfo);
 
             }
-        }
-        else
-        {
-
-
         }
 
     }
@@ -237,37 +230,33 @@ public class ChartFragment extends Fragment  {
         }
         BarDataSet dataSet = new BarDataSet(data,"Usage");
 
-        // barChart.setDescription("");
+        dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
+        dataSet.setValueTextColor(Color.WHITE);barChart.getLegend().setTextColor(Color.WHITE);
+        dataSet.setValueTextSize(13);
+
         barChart.getAxisRight().setDrawLabels(false);
         barChart.getAxisLeft().setDrawLabels(true);
         barChart.getLegend().setEnabled(false);
-
         barChart.getXAxis().setDrawLabels(true);
-        //barChart.setFitBars(true);
-
-        //barChart.getAxisLeft().setAxisMinimum(0f);
-
-        //dataSet.setColor(Color.BLUE);
-
-        dataSet.setValueTextColor(Color.WHITE);barChart.getLegend().setTextColor(Color.WHITE);
 
         barChart.getAxisLeft().setTextColor(Color.WHITE);
         barChart.getXAxis().setTextColor(Color.WHITE);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         barChart.getXAxis().setXOffset(0);
 		barChart.getXAxis().setTextSize(16);
-        dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
-
-		dataSet.setValueTextSize(13);
-		
-        //Legend legend = barChart.getLegend();
-        //legend.setForm(Legend.LegendForm.CIRCLE);
 
         BarData barData = new BarData(labels,dataSet);
-
         barChart.setData( barData );
-
+        barChart.animateY(1000);
         barChart.invalidate();
+        barData.setDrawValues(false);
+
+        // barChart.setDescription("");
+        //barChart.setFitBars(true);
+        //barChart.getAxisLeft().setAxisMinimum(0f);
+        //dataSet.setColor(Color.BLUE);
+        //Legend legend = barChart.getLegend();
+        //legend.setForm(Legend.LegendForm.CIRCLE);
 
     }
 

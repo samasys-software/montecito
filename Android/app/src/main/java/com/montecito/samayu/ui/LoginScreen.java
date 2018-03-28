@@ -44,42 +44,42 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         UserLoginDTO userLogin = loginRetrive();
         if (userLogin != null) {
-           SessionInfo.getInstance().setUserLogin(userLogin);
-           Intent intent=new Intent(LoginScreen.this,Home.class);
-           startActivity(intent);
+            SessionInfo.getInstance().setUserLogin(userLogin);
+            Intent intent=new Intent(LoginScreen.this,Home.class);
+            startActivity(intent);
         }
         else {
             LoginInput loginInput = inputRetrive();
             if (loginInput != null) {
-               login(loginInput);
+                login(loginInput);
             }
-                setContentView(R.layout.activity_login_screen);
-                context = this;
+            setContentView(R.layout.activity_login_screen);
+            context = this;
 
-                loginID = (EditText) findViewById(R.id.loginID);
-                montecitoName = (TextView) findViewById(R.id.montecitoName);
-                password = (EditText) findViewById(R.id.password);
-                loginButton = (Button) findViewById(R.id.loginButton);
-                forgetPassword = (TextView) findViewById(R.id.forgotPassword);
-                //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
-                //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
+            loginID = (EditText) findViewById(R.id.loginID);
+            montecitoName = (TextView) findViewById(R.id.montecitoName);
+            password = (EditText) findViewById(R.id.password);
+            loginButton = (Button) findViewById(R.id.loginButton);
+            forgetPassword = (TextView) findViewById(R.id.forgotPassword);
+            //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
+            //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
 
-                //montecitoName.setText(cs);
-                loginButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        attemptLogin();
-                    }
-                });
+            //montecitoName.setText(cs);
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    attemptLogin();
+                }
+            });
 
 
-                forgetPassword.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            forgetPassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    }
-                });
+                }
+            });
 
 
 
@@ -102,11 +102,12 @@ public class LoginScreen extends AppCompatActivity {
 
         }
 
-            loginButton.setEnabled(false);
-            final LoginInput loginInput = new LoginInput();
-            loginInput.setEmail(email);
-            loginInput.setPassword(pass);
-            login(loginInput);
+        loginButton.setEnabled(false);
+        final LoginInput loginInput = new LoginInput();
+        loginInput.setEmail(email);
+        loginInput.setPassword(pass);
+        login(loginInput);
+
 
 
 
@@ -162,7 +163,6 @@ public class LoginScreen extends AppCompatActivity {
 
                 }
                 else if(response.code()==401 || response.code()==403) {
-
                         loginButton.setEnabled(true);
                         password.setError("The Email or Password is wrong");
                         focusView = password;
@@ -172,6 +172,7 @@ public class LoginScreen extends AppCompatActivity {
                     else{
 
                 }
+
 
             }
 
