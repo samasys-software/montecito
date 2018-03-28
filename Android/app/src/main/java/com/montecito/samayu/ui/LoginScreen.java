@@ -2,6 +2,8 @@ package com.montecito.samayu.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -10,10 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.montecito.samayu.dto.UserLoginDTO;
 import com.montecito.samayu.dto.LoginDTO;
 import com.montecito.samayu.domain.LoginInput;
+import com.montecito.samayu.dto.UserProfileDTO;
 import com.montecito.samayu.service.MontecitoClient;
 import com.montecito.samayu.service.SessionInfo;
 import com.prodcast.samayu.samayusoftcorp.R;
@@ -45,6 +49,7 @@ public class LoginScreen extends AppCompatActivity {
         UserLoginDTO userLogin = loginRetrive();
         if (userLogin != null) {
             SessionInfo.getInstance().setUserLogin(userLogin);
+            getUserProfile();
             Intent intent=new Intent(LoginScreen.this,Home.class);
             startActivity(intent);
         }
@@ -91,7 +96,36 @@ public class LoginScreen extends AppCompatActivity {
 
     }
 
+    public void getUserProfile(){
+        String token=SessionInfo.getInstance().getUserLogin().getToken();
+        if(isNetworkAvailable()) {
+            final Call<UserProfileDTO> userProfileDTOCall = new MontecitoClient().getClient().getUserProfile(token);
+            userProfileDTOCall.enqueue(new Callback<UserProfileDTO>() {
+                @Override
+                public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
+                    if (response.code()==200) {
+                      UserProfileDTO  userProfile = response.body();
+                        SessionInfo.getInstance().setUserProfile( userProfile);
 
+                       // addLocalUserProfile(db,userProfile);
+                       // userId = userProfile.getId();
+                        System.out.print(userProfile);
+                       // setUserProfile();
+                    }
+                    else {
+                        if (response.code() == 401 || response.code() == 403) {
+                            Toast.makeText(context,"Network Error",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserProfileDTO> call, Throwable t) {
+
+                }
+            });
+        }
+    }
     public void attemptLogin(){
         String email = loginID.getText().toString();
         String pass = password.getText().toString();
@@ -108,13 +142,7 @@ public class LoginScreen extends AppCompatActivity {
         loginInput.setPassword(pass);
         login(loginInput);
 
-
-
-
     }
-
-
-
 
 
     public boolean checkValid(String email,String pass){
@@ -158,6 +186,7 @@ public class LoginScreen extends AppCompatActivity {
                     SessionInfo.getInstance().setUserLogin( userLogin);
                     loginToFile(userLogin);
                     storeInput(loginInput);
+                    getUserProfile();
                     Intent intent = new Intent(LoginScreen.this, Home.class);
                     startActivity(intent);
 
@@ -239,6 +268,11 @@ public class LoginScreen extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+    }
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 
 

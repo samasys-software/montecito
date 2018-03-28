@@ -4,6 +4,7 @@ import com.montecito.samayu.dto.UserLoginDTO;
 import com.montecito.samayu.dto.ItemAvailabilityDTO;
 import com.montecito.samayu.dto.ItemBinDTO;
 import com.montecito.samayu.dto.ItemBinDetailsDTO;
+import com.montecito.samayu.dto.UserProfileDTO;
 
 import java.util.List;
 
@@ -28,6 +29,17 @@ public class SessionInfo {
     public static void destroy(){
         instance = new SessionInfo();
     }
+
+
+    public UserProfileDTO getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfileDTO userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    private UserProfileDTO userProfile;
 
     private UserLoginDTO userLogin;
 
