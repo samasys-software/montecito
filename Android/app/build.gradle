@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "com.samayu.montecito"
+        applicationId "com.matriot.cbin"
         minSdkVersion 21
         targetSdkVersion 26
         multiDexEnabled true
@@ -78,4 +79,10 @@ dependencies {
 
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
 
+    //Push Notification Dependencies
+
+    compile 'com.google.firebase:firebase-core:12.0.0' // this line must be included to integrate with Firebase
+    compile 'com.google.firebase:firebase-messaging:12.0.0'
+
 }
+apply plugin: 'com.google.gms.google-services'

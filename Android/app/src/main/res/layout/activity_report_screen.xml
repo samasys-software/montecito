@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.montecito.samayu.ui.ReportScreen">
+    tools:context="com.matriot.cbin.ui.ReportScreen">
 
         <LinearLayout
             android:id="@+id/summaryDashboard"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <com.montecito.samayu.service.CircleProgressDesign
+                <com.matriot.cbin.service.CircleProgressDesign
                     android:id="@+id/circle_progress"
                     android:layout_width="100dp"
                     android:layout_height="100dp"

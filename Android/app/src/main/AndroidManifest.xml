@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.prodcast.samayu.samayusoftcorp">
+    package="com.matriot.cbin">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.montecito.samayu.ui.MontecitoApplication"
+        android:name=".ui.MontecitoApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.montecito.samayu.ui.LoginScreen"
+            android:name=".ui.LoginScreen"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,15 +23,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.montecito.samayu.ui.Home"
+            android:name=".ui.Home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.montecito.samayu.ui.ItemBinDetails"
+            android:name=".ui.ItemBinDetails"
             android:label="@string/title_activity_item_bin_details"
             android:theme="@style/AppTheme" />
-        <activity android:name="com.montecito.samayu.ui.BinMonitor" />
-        <activity android:name="com.montecito.samayu.ui.UserProfile" />
-        <activity android:name="com.montecito.samayu.ui.ReportScreen"></activity>
+        <activity android:name=".ui.BinMonitor" />
+        <activity android:name=".ui.UserProfile" />
+        <activity android:name=".ui.ReportScreen" />
+
+
+        <service android:name=".FireBaseIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+
+        <service
+            android:name=".MessagingService">
+             <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+             </intent-filter>
+        </service>
     </application>
 
 </manifest>

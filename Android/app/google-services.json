@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "236417424167",
+    "firebase_url": "https://myfirstfirebase-5125f.firebaseio.com",
+    "project_id": "myfirstfirebase-5125f",
+    "storage_bucket": "myfirstfirebase-5125f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236417424167:android:aafc1c09e43604b7",
+        "android_client_info": {
+          "package_name": "com.matriot.cbin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236417424167-fq422fuabnot0vhd221onduacvlvtrq3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHkGQXm3rh0dlN2J7e3CISJwu8tlvdR4s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
