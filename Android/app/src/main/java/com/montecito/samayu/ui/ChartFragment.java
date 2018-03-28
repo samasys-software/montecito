@@ -135,23 +135,21 @@ public class ChartFragment extends Fragment  {
                     @Override
                     public void onResponse(Call<List<ConsumptionItemDTO>> call, Response<List<ConsumptionItemDTO>> response) {
 
-                        if (response.code()==200) {
+                        if (response.code() == 200) {
                             BarChart barChart = view.findViewById(R.id.chart);
 
                             final List<ConsumptionItemDTO> consumptionInfo = response.body();
                             addConsumptionItem(db, consumptionInfo);
-                            updateChart(barChart, consumptionInfo,null);
-                        }
-                        else if (response.code()==401 || response.code()==403){
+                            updateChart(barChart, consumptionInfo, null);
+                        } else if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(getActivity(), LoginScreen.class);
                             startActivity(intent);
+                        } else {
+                            Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
                         }
-                        else {
-                            //Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
-                        }
+
 
                     }
-
                     @Override
                     public void onFailure(Call<List<ConsumptionItemDTO>> call, Throwable t) {
 
@@ -178,19 +176,20 @@ public class ChartFragment extends Fragment  {
 
                         if (response.code()==200) {
                             BarChart barChart = view.findViewById(R.id.chart);
-
                             final List<ConsumptionCategoryDTO> consumptionCategoryInfo = response.body();
                             //addConsumption( db,consumptionInfo );
                             addConsumptionCategory(db,consumptionCategoryInfo);
-
                             updateChart(barChart, null,consumptionCategoryInfo);
                         }
-                        else if (response.code()==401 || response.code()==403){
+
+                        else if (response.code()==401||response.code()==403){
+
                             Intent intent = new Intent(getActivity(), LoginScreen.class);
                             startActivity(intent);
                         }
                         else {
-                           // Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
@@ -203,18 +202,10 @@ public class ChartFragment extends Fragment  {
             }
             else{
                 BarChart barChart = view.findViewById(R.id.chart);
-
-                final List<ConsumptionCategoryDTO> consumptionCategoryInfo = getAllConsumptionCategory(db);
-                //addConsumption( db,consumptionInfo );
-
+                final List<ConsumptionCategoryDTO> consumptionCategoryInfo = getAllConsumptionCategory(db);            //addConsumption( db,consumptionInfo );
                 updateChart(barChart, null,consumptionCategoryInfo);
 
             }
-        }
-        else
-        {
-
-
         }
 
     }

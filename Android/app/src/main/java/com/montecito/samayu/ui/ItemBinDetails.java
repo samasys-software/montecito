@@ -74,6 +74,7 @@ public class ItemBinDetails extends MontecitoBaseActivity
               {
                   if (response.code()==200)
                   {
+
                       binItems = response.body();
                       addItemBinDetails(db,binItems);
 
@@ -225,108 +226,93 @@ public class ItemBinDetails extends MontecitoBaseActivity
         }
     }
 
-    public void AlertDetails()
-    {
+    public void AlertDetails() {
         alertSettingsLayout = (ExpandableRelativeLayout) findViewById(R.id.AlertSettingsLayout);
-        SwitchCompat alertStatus=(SwitchCompat) findViewById(R.id.alertEnable);
-        SwitchCompat changeAlert=(SwitchCompat) findViewById(R.id.itemChangeAlertEnabled);
-        TextView notificationAlert=(TextView)findViewById(R.id.notificationAlert);
+        SwitchCompat alertStatus = (SwitchCompat) findViewById(R.id.alertEnable);
+        SwitchCompat changeAlert = (SwitchCompat) findViewById(R.id.itemChangeAlertEnabled);
+        TextView notificationAlert = (TextView) findViewById(R.id.notificationAlert);
         //TextView calibrationFactor=(TextView)findViewById(R.id.calibrationFactor);
         alertSettingsLayout.toggle(); // toggle expand and collapse
 
-        if(alertSettingsLayout.isExpanded())
-        {
+        if (alertSettingsLayout.isExpanded()) {
             alertButton.setImageResource(R.drawable.downarrow);
-        }
-        else
-        {
+        } else {
             alertButton.setImageResource(R.drawable.uparrow);
         }
 
-        if(binItems!=null)
-        {
+        if (binItems != null) {
             changeAlert.setChecked(binItems.isItemAlert());
             alertStatus.setChecked(binItems.isStockAlert());
-            notificationAlert.setText(((binItems.getThresold().getMin()/binItems.getThresold().getMax())*100)+"");
+            notificationAlert.setText(((binItems.getThresold().getMin() / binItems.getThresold().getMax()) * 100) + "");
             // calibrationFactor.setText("");x
         }
 
-     changeAlert.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-     {
-         @Override
-         public void onCheckedChanged(CompoundButton compoundButton, boolean b)
-         {
-             Status status=new Status();
-             status.setEnable(b);
-             if(isNetworkAvailable())
-             {
-                 Call<ItemBinDetailsDTO> itemBinDetailsChange = new MontecitoClient().getClient().itemAlert(itemBinId, status, SessionInfo.getInstance().getUserLogin().getToken());
-                 itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>()
-                 {
-                     @Override
-                     public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response)
-                     {
-                         if (response.code() == 200)
-                         {
-                             Toast.makeText(context, "Your Item Alert is Changed Successfully", Toast.LENGTH_LONG).show();
-                         }
-                         else if (response.code() == 401 || response.code() == 403) {
-                             Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
-                             startActivity(intent);
-                         }
-                         else {
+        changeAlert.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Status status = new Status();
+                status.setEnable(b);
+                if (isNetworkAvailable()) {
+                    Call<ItemBinDetailsDTO> itemBinDetailsChange = new MontecitoClient().getClient().itemAlert(itemBinId, status, SessionInfo.getInstance().getUserLogin().getToken());
+                    itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>() {
+                        @Override
+                        public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
+                            if (response.code() == 200) {
+                                Toast.makeText(context, "Your Item Alert is Changed Successfully", Toast.LENGTH_LONG).show();
 
-                         }
+                            } else {
+                                if (response.code() == 401 || response.code() == 403) {
+                                    Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
+                                    startActivity(intent);
+                                }
+                            }
 
-                     }
+                        }
 
-                     @Override
-                     public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t)
-                     {
+                        @Override
+                        public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
 
-                     }
-                 });
-             }
-         }
-     });
+                        }
+                    });
+                }
+            }
+        });
 
-     alertStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-     {
-         @Override
-         public void onCheckedChanged(CompoundButton compoundButton, boolean b)
-         {
-             Status status=new Status();
-             status.setEnable(b);
-             if(isNetworkAvailable())
-             {
-                 Call<ItemBinDetailsDTO> itemBinDetailsChange = new MontecitoClient().getClient().stockAlert(itemBinId, status, SessionInfo.getInstance().getUserLogin().getToken());
-                 itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>()
-                 {
-                     @Override
-                     public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response)
-                     {
-                         if (response.code() == 200)
-                         {
-                             ItemBinDetailsDTO binItems = response.body();
-                             Toast.makeText(context, "Your Stock Alert Is Changed Successfully", Toast.LENGTH_LONG).show();
-                         }
-                         else
-                         {
-                             Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
-                             startActivity(intent);
-                         }
-                     }
+        alertStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Status status = new Status();
+                status.setEnable(b);
+                if (isNetworkAvailable()) {
+                    Call<ItemBinDetailsDTO> itemBinDetailsChange = new MontecitoClient().getClient().stockAlert(itemBinId, status, SessionInfo.getInstance().getUserLogin().getToken());
+                    itemBinDetailsChange.enqueue(new Callback<ItemBinDetailsDTO>() {
+                        @Override
+                        public void onResponse(Call<ItemBinDetailsDTO> call, Response<ItemBinDetailsDTO> response) {
+                            if (response.code() == 200) {
+                                ItemBinDetailsDTO binItems = response.body();
+                                Toast.makeText(context, "Your Stock Alert Is Changed Successfully", Toast.LENGTH_LONG).show();
+                            } else {
+                                if (response.code() == 401 || response.code() == 403) {
+                                    Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
+                                    startActivity(intent);
+                                }
+                            }
 
-                     @Override
-                     public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t)
-                     {
 
-                     }
-                 });
-             }
-         }
-     });
+                        }
+
+                        @Override
+                        public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+
+        });
     }
+
+
 
     public void replenishmentDetails()
     {

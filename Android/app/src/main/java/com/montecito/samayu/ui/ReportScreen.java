@@ -86,17 +86,16 @@ public class ReportScreen extends MontecitoBaseActivity {
                     if (response.code() == 200) {
                         try {
                             CountDTO count = response.body();
-                            addLocalDevicesActiveCount(db,count);
+                            addLocalDevicesActiveCount(db, count);
                             activeCount.setText(String.valueOf(count.getCount()));
                         } catch (Exception e) {
 
                         }
-                    }
-                    else if (response.code() == 401 || response.code() == 403) {
+                    } else {
+                        if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
-                    }
-                    else{
+                        }
 
                     }
                 }
@@ -127,13 +126,16 @@ public class ReportScreen extends MontecitoBaseActivity {
 
                         }
 
+
                     }
-                    else if (response.code() == 401 || response.code() == 403) {
+                    else {
+                        if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
+                        }
+
                     }
-                    else{
-                    }
+
                 }
 
                 @Override
@@ -154,24 +156,22 @@ public class ReportScreen extends MontecitoBaseActivity {
                 public void onResponse(Call<AverageDTO> call, Response<AverageDTO> response) {
                     if (response.code() == 200) {
                         try {
-
-
                             AverageDTO averageDTO = response.body();
-                            addLocalAverage(db,averageDTO);
+                            addLocalAverage(db, averageDTO);
                             circleProgress.setProgress(Float.valueOf(averageDTO.getAverage()));
 
                         } catch (Exception e) {
 
                         }
 
-                    }
-                    else if (response.code() == 401 || response.code() == 403) {
+                    } else {
+                        if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
-                    }
-                    else{
-                    }
+                        }
 
+
+                    }
                 }
 
                 @Override
@@ -193,17 +193,16 @@ public class ReportScreen extends MontecitoBaseActivity {
                     if (response.code() == 200) {
                         try {
                             List<TopItemsDTO> topItems = response.body();
-                            addLocalTopItems(db,topItems);
+                            addLocalTopItems(db, topItems);
                             updateChart(barChart, topItems);
                         } catch (Exception e) {
 
                         }
-                    }
-                    else if (response.code() == 401 || response.code() == 403) {
+                    } else {
+                        if (response.code() == 401 || response.code() == 403) {
                             Intent intent = new Intent(ReportScreen.this, LoginScreen.class);
                             startActivity(intent);
-                    }
-                    else{
+                        }
 
                     }
                 }
@@ -214,6 +213,7 @@ public class ReportScreen extends MontecitoBaseActivity {
                 }
             });
         }
+
         else{
             List<TopItemsDTO> topItems = getLocalTopItems(db);
             updateChart(barChart, topItems);
