@@ -37,6 +37,10 @@ public interface MontecitoService {
     @POST("auth/local")
     public Call<LoginDTO> authenticate(@Body LoginInput loginInput);
 
+    @POST("api/users/{currentUserId}/accessdevice/register")
+    public Call<RegisterPushNotificationDTO> registerDevice(@Path("currentUserId") String currentUserId, @Body PushNotification pushNotification,@Header("Authorization") String token);
+
+
     @GET("api/items/consumption/today/category")
     public Call<List<ConsumptionCategoryDTO>> getConsumptionInfoCategory(@Header("Authorization") String token);
 
@@ -91,8 +95,6 @@ public interface MontecitoService {
     public Call<List<ItemBinDTO>> getSortByDetails(@Path("value") String value,@Path("order") String order,@Header("Authorization") String token);
 
 
-    @POST("api/users/{currentUserId}/accessdevice/register")
-    public Call<RegisterPushNotificationDTO> registerDevice(@Path("currentUserId") String currentUserId, @Body PushNotification pushNotification,@Header("Authorization") String token);
 
 
 }

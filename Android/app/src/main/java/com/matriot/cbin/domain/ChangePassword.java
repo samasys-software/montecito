@@ -1,11 +1,16 @@
 package com.matriot.cbin.domain;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by NandhiniGovindasamy on 2/24/18.
  */
 
 public class ChangePassword {
-    private String oldPassword,newPassword;
+    @Expose
+    private String oldPassword;
+    @Expose
+    private String newPassword;
 
     public String getOldPassword() {
         return oldPassword;

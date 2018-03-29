@@ -126,6 +126,7 @@ public class Home extends MontecitoBaseActivity{
             });
         }
         else{
+            Toast.makeText(context,"Your data is in Offline",Toast.LENGTH_LONG).show();
             Log.d("message","You are Offline");
             List<ItemAvailabilityDTO> itemAvailabilityDTOList = getAllItemAvailablities(db);
             SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);

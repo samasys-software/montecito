@@ -1,10 +1,12 @@
 package com.matriot.cbin.service;
 
+
 import com.matriot.cbin.dto.UserLoginDTO;
 import com.matriot.cbin.dto.ItemAvailabilityDTO;
 import com.matriot.cbin.dto.ItemBinDTO;
 import com.matriot.cbin.dto.ItemBinDetailsDTO;
 import com.matriot.cbin.dto.UserProfileDTO;
+
 
 import java.util.List;
 
@@ -29,6 +31,16 @@ public class SessionInfo {
     public static void destroy(){
         instance = new SessionInfo();
     }
+
+    public UserProfileDTO getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfileDTO userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    private UserProfileDTO userProfile;
 
     private UserLoginDTO userLogin;
 
@@ -91,13 +103,5 @@ public class SessionInfo {
         this.registerDeviceToken = registerDeviceToken;
     }
 
-    private UserProfileDTO currentUser;
 
-    public UserProfileDTO getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(UserProfileDTO currentUser) {
-        this.currentUser = currentUser;
-    }
 }

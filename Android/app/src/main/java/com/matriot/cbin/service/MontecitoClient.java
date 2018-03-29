@@ -38,7 +38,8 @@ public class MontecitoClient {
                     return response.newBuilder().body(ResponseBody.create(response.body().contentType(), body)).build();
                 }
                 catch(Exception er ){
-                    er.printStackTrace();
+                    //er.printStackTrace();
+                    System.out.println("Error:"+er);
                     return null;
                 }
 

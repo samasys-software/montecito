@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.matriot.cbin.FireBaseIdService;
+import android.widget.Toast;
 import com.matriot.cbin.R;
 import com.matriot.cbin.domain.PushNotification;
 import com.matriot.cbin.dto.RegisterPushNotificationDTO;
@@ -25,6 +23,7 @@ import com.matriot.cbin.domain.LoginInput;
 import com.matriot.cbin.dto.UserProfileDTO;
 import com.matriot.cbin.service.MontecitoClient;
 import com.matriot.cbin.service.SessionInfo;
+
 
 
 import java.io.File;
@@ -46,6 +45,7 @@ public class LoginScreen extends AppCompatActivity {
     View focusView = null;
     public static final String FILE_NAME = "MontecitoLogin.txt";
     public static final String INPUT_FILE_NAME = "MontecitoLoginDetails.txt";
+    private boolean loggedIn=false;
 
 
     @Override
@@ -54,6 +54,7 @@ public class LoginScreen extends AppCompatActivity {
         UserLoginDTO userLogin = loginRetrive();
         if (userLogin != null) {
             SessionInfo.getInstance().setUserLogin(userLogin);
+            getUserProfile();
             Intent intent=new Intent(LoginScreen.this,Home.class);
             startActivity(intent);
         }
@@ -165,8 +166,12 @@ public class LoginScreen extends AppCompatActivity {
                     SessionInfo.getInstance().setUserLogin( userLogin);
                     loginToFile(userLogin);
                     storeInput(loginInput);
-                    getCurrentUser(SessionInfo.getInstance().getUserLogin().getToken());
-                    sendRegistrationToServer(SessionInfo.getInstance().getRegisterDeviceToken());
+                    loggedIn=true;
+
+
+                    getUserProfile();
+
+
                     Intent intent = new Intent(LoginScreen.this, Home.class);
                     startActivity(intent);
 
@@ -249,14 +254,49 @@ public class LoginScreen extends AppCompatActivity {
             return null;
         }
     }
+    public void getUserProfile(){
+        String token=SessionInfo.getInstance().getUserLogin().getToken();
+        if(isNetworkAvailable()) {
+            final Call<UserProfileDTO> userProfileDTOCall = new MontecitoClient().getClient().getUserProfile(token);
+            userProfileDTOCall.enqueue(new Callback<UserProfileDTO>() {
+                @Override
+                public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
+                    if (response.code()==200) {
+                        UserProfileDTO  userProfile = response.body();
+                        SessionInfo.getInstance().setUserProfile(userProfile);
+                        if(loggedIn){
+                            sendRegistrationToServer(SessionInfo.getInstance().getRegisterDeviceToken());
+                        }
+                       // addLocalUserProfile(db,userProfile);
+                       // userId = userProfile.getId();
+                       // System.out.print(userId);
+
+                    }
+                    else {
+                        if (response.code() == 401 || response.code() == 403) {
+                            Toast.makeText(context," Error occured ",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<UserProfileDTO> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
 
     private void sendRegistrationToServer(String token) {
         PushNotification pushNotification=new PushNotification();
         pushNotification.setToken(token);
         System.out.println("Token"+token);
         System.out.println("Token"+SessionInfo.getInstance().getUserLogin().getToken());
+        System.out.println("userId"+SessionInfo.getInstance().getUserProfile().getId());
         if(isNetworkAvailable()) {
-            Call<RegisterPushNotificationDTO> registerDeviceCall = new MontecitoClient().getClient().registerDevice(SessionInfo.getInstance().getCurrentUser().getId(), pushNotification, SessionInfo.getInstance().getUserLogin().getToken());
+            Call<RegisterPushNotificationDTO> registerDeviceCall = new MontecitoClient().getClient().registerDevice(SessionInfo.getInstance().getUserProfile().getId(), pushNotification, SessionInfo.getInstance().getUserLogin().getToken());
             registerDeviceCall.enqueue(new Callback<RegisterPushNotificationDTO>() {
                 @Override
                 public void onResponse(Call<RegisterPushNotificationDTO> call, Response<RegisterPushNotificationDTO> response) {
@@ -286,29 +326,6 @@ public class LoginScreen extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
-    }
-
-    private void getCurrentUser(String token){
-
-        if(isNetworkAvailable()) {
-            final Call<UserProfileDTO> userProfileDTOCall = new MontecitoClient().getClient().getUserProfile(token);
-            userProfileDTOCall.enqueue(new Callback<UserProfileDTO>() {
-                @Override
-                public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
-                    if (response.isSuccessful()) {
-                        UserProfileDTO userProfile = response.body();
-                        SessionInfo.getInstance().setCurrentUser(userProfile);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<UserProfileDTO> call, Throwable t) {
-
-                }
-            });
-        }
-
-
     }
 
 
