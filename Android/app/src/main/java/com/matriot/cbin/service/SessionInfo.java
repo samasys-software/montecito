@@ -4,6 +4,7 @@ import com.matriot.cbin.dto.UserLoginDTO;
 import com.matriot.cbin.dto.ItemAvailabilityDTO;
 import com.matriot.cbin.dto.ItemBinDTO;
 import com.matriot.cbin.dto.ItemBinDetailsDTO;
+import com.matriot.cbin.dto.UserProfileDTO;
 
 import java.util.List;
 
@@ -78,5 +79,25 @@ public class SessionInfo {
 
     public void setMyReplenishmentTask(List<ItemAvailabilityDTO > myReplenishmentTask) {
         this.myReplenishmentTask = myReplenishmentTask;
+    }
+
+    private String registerDeviceToken;
+
+    public String getRegisterDeviceToken() {
+        return registerDeviceToken;
+    }
+
+    public void setRegisterDeviceToken(String registerDeviceToken) {
+        this.registerDeviceToken = registerDeviceToken;
+    }
+
+    private UserProfileDTO currentUser;
+
+    public UserProfileDTO getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(UserProfileDTO currentUser) {
+        this.currentUser = currentUser;
     }
 }

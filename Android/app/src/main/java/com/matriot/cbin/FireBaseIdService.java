@@ -34,46 +34,11 @@ public class FireBaseIdService extends FirebaseInstanceIdService {
 
             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Log.v("FirebaseIDService", "Refreshed token: " + refreshedToken);
+            SessionInfo.getInstance().setRegisterDeviceToken(refreshedToken);
 
-            sendRegistrationToServer(refreshedToken);
-
-    }
-
-    private void sendRegistrationToServer(String token) {
-        PushNotification pushNotification=new PushNotification();
-        pushNotification.setToken(token);
-        System.out.println("Token"+token);
-        System.out.println("Token"+SessionInfo.getInstance().getUserLogin().getToken());
-        if(isNetworkAvailable()) {
-            Call<RegisterPushNotificationDTO> registerDeviceCall = new MontecitoClient().getClient().registerDevice("5a92959989e0a52ee4541ebc", pushNotification, SessionInfo.getInstance().getUserLogin().getToken());
-            registerDeviceCall.enqueue(new Callback<RegisterPushNotificationDTO>() {
-                @Override
-                public void onResponse(Call<RegisterPushNotificationDTO> call, Response<RegisterPushNotificationDTO> response) {
-                    if (response.code() == 200) {
-                        RegisterPushNotificationDTO registerPushNotificationDTO = response.body();
-                        Log.d("Registration Status :",registerPushNotificationDTO.getStatus());
-
-                    } else if (response.code() == 401 || response.code() == 403) {
-
-
-
-                    } else {
-
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<RegisterPushNotificationDTO> call, Throwable t) {
-
-                }
-            });
-        }
+           // sendRegistrationToServer(refreshedToken);
 
     }
-    public boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null;
-    }
+
+
 }

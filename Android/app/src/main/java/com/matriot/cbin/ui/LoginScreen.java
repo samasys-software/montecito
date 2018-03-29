@@ -2,10 +2,13 @@ package com.matriot.cbin.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +17,12 @@ import android.widget.TextView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.matriot.cbin.FireBaseIdService;
 import com.matriot.cbin.R;
+import com.matriot.cbin.domain.PushNotification;
+import com.matriot.cbin.dto.RegisterPushNotificationDTO;
 import com.matriot.cbin.dto.UserLoginDTO;
 import com.matriot.cbin.dto.LoginDTO;
 import com.matriot.cbin.domain.LoginInput;
+import com.matriot.cbin.dto.UserProfileDTO;
 import com.matriot.cbin.service.MontecitoClient;
 import com.matriot.cbin.service.SessionInfo;
 
@@ -159,6 +165,8 @@ public class LoginScreen extends AppCompatActivity {
                     SessionInfo.getInstance().setUserLogin( userLogin);
                     loginToFile(userLogin);
                     storeInput(loginInput);
+                    getCurrentUser(SessionInfo.getInstance().getUserLogin().getToken());
+                    sendRegistrationToServer(SessionInfo.getInstance().getRegisterDeviceToken());
                     Intent intent = new Intent(LoginScreen.this, Home.class);
                     startActivity(intent);
 
@@ -240,6 +248,67 @@ public class LoginScreen extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private void sendRegistrationToServer(String token) {
+        PushNotification pushNotification=new PushNotification();
+        pushNotification.setToken(token);
+        System.out.println("Token"+token);
+        System.out.println("Token"+SessionInfo.getInstance().getUserLogin().getToken());
+        if(isNetworkAvailable()) {
+            Call<RegisterPushNotificationDTO> registerDeviceCall = new MontecitoClient().getClient().registerDevice(SessionInfo.getInstance().getCurrentUser().getId(), pushNotification, SessionInfo.getInstance().getUserLogin().getToken());
+            registerDeviceCall.enqueue(new Callback<RegisterPushNotificationDTO>() {
+                @Override
+                public void onResponse(Call<RegisterPushNotificationDTO> call, Response<RegisterPushNotificationDTO> response) {
+                    if (response.code() == 200) {
+                        RegisterPushNotificationDTO registerPushNotificationDTO = response.body();
+                        Log.d("Registration Status :",registerPushNotificationDTO.getStatus());
+
+                    } else if (response.code() == 401 || response.code() == 403) {
+
+
+
+                    } else {
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<RegisterPushNotificationDTO> call, Throwable t) {
+
+                }
+            });
+        }
+
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    private void getCurrentUser(String token){
+
+        if(isNetworkAvailable()) {
+            final Call<UserProfileDTO> userProfileDTOCall = new MontecitoClient().getClient().getUserProfile(token);
+            userProfileDTOCall.enqueue(new Callback<UserProfileDTO>() {
+                @Override
+                public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
+                    if (response.isSuccessful()) {
+                        UserProfileDTO userProfile = response.body();
+                        SessionInfo.getInstance().setCurrentUser(userProfile);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserProfileDTO> call, Throwable t) {
+
+                }
+            });
+        }
+
+
     }
 
 
