@@ -2,6 +2,7 @@ package com.matriot.cbin.dto;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -33,6 +34,9 @@ public class UserProfileDTO {
     @Expose
     @ColumnInfo(name="email")
     private String email;
+
+    @Ignore
+    private boolean hide;
 
 
     public String getEmail() {
@@ -69,6 +73,11 @@ public class UserProfileDTO {
         this.name = name;
     }
 
+    public boolean isHide() {
+        return hide;
+    }
 
-
+    public void setHide(boolean hide) {
+        this.hide = hide;
+    }
 }

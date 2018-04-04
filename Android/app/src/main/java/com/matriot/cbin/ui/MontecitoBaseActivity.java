@@ -14,22 +14,33 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.matriot.cbin.R;
+import com.matriot.cbin.domain.PushNotification;
+import com.matriot.cbin.dto.RegisterPushNotificationDTO;
+import com.matriot.cbin.service.MontecitoClient;
 import com.matriot.cbin.service.SessionInfo;
 
 
 
 
 import java.io.File;
+import java.io.ObjectInputStream;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public abstract class MontecitoBaseActivity extends AppCompatActivity implements ActionMenuView.OnMenuItemClickListener {
 
     private ProgressDialog progressDialog;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
 
@@ -40,6 +51,7 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
     public void setContentView(int layoutId){
 
         LinearLayout fullView = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_montecito_base, null);
+        context=this;
         FrameLayout activityContainer = (FrameLayout) fullView.findViewById(R.id.activity_content);
         getLayoutInflater().inflate(layoutId, activityContainer, true);
 
@@ -96,6 +108,34 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
 
 
         } else if (id == R.id.nav_logout) {
+
+            if(isNetworkAvailable()) {
+                PushNotification pushNotification=(PushNotification)loginRetrive("DeviceRegisterTokenFile.txt");
+
+                Call<RegisterPushNotificationDTO> registerDeviceCall = new MontecitoClient().getClient().unRegisterDevice(SessionInfo.getInstance().getUserProfile().getId(), pushNotification, SessionInfo.getInstance().getUserLogin().getToken());
+                registerDeviceCall.enqueue(new Callback<RegisterPushNotificationDTO>() {
+                    @Override
+                    public void onResponse(Call<RegisterPushNotificationDTO> call, Response<RegisterPushNotificationDTO> response) {
+                        if (response.code() == 200) {
+                            RegisterPushNotificationDTO registerPushNotificationDTO = response.body();
+                            Toast.makeText(MontecitoBaseActivity.this,"Registration Status : "+registerPushNotificationDTO.getStatus(),Toast.LENGTH_LONG).show();
+
+                        } else if (response.code() == 401 || response.code() == 403) {
+
+
+
+                        } else {
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<RegisterPushNotificationDTO> call, Throwable t) {
+
+                    }
+                });
+            }
             File dir =getFilesDir();
             File file = new File(dir, "MontecitoLogin.txt");
 
@@ -106,6 +146,7 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
             File file1 = new File(dir, "MontecitoLoginDetails.txt");
 
             boolean deleted1 = file1.delete();
+
 
             intent = new Intent(this, LoginScreen.class);
             startActivity(intent);
@@ -130,4 +171,16 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+    private Object loginRetrive(String fileName) {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(openFileInput(fileName));
+            Object r = (Object) ois.readObject();
+            return r;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "236417424167",
-    "firebase_url": "https://myfirstfirebase-5125f.firebaseio.com",
-    "project_id": "myfirstfirebase-5125f",
-    "storage_bucket": "myfirstfirebase-5125f.appspot.com"
+    "project_number": "462431866212",
+    "firebase_url": "https://cbin-dev.firebaseio.com",
+    "project_id": "cbin-dev",
+    "storage_bucket": "cbin-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:236417424167:android:aafc1c09e43604b7",
+        "mobilesdk_app_id": "1:462431866212:android:aafc1c09e43604b7",
         "android_client_info": {
           "package_name": "com.matriot.cbin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "236417424167-fq422fuabnot0vhd221onduacvlvtrq3.apps.googleusercontent.com",
+          "client_id": "462431866212-ivlagke2l6u5i0hg7gqijrlso3djhiio.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDHkGQXm3rh0dlN2J7e3CISJwu8tlvdR4s"
+          "current_key": "AIzaSyAGO13A5O4adRnZ2t8yPaMsseZnXI2zlmo"
         }
       ],
       "services": {

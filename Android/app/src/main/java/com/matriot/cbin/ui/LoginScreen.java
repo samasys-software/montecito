@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.matriot.cbin.R;
+import com.matriot.cbin.db.AppDatabase;
 import com.matriot.cbin.domain.PushNotification;
 import com.matriot.cbin.dto.RegisterPushNotificationDTO;
 import com.matriot.cbin.dto.UserLoginDTO;
@@ -46,12 +47,15 @@ public class LoginScreen extends AppCompatActivity {
     public static final String FILE_NAME = "MontecitoLogin.txt";
     public static final String INPUT_FILE_NAME = "MontecitoLoginDetails.txt";
     private boolean loggedIn=false;
+    private  AppDatabase db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserLoginDTO userLogin = loginRetrive();
+        context=this;
+        db=AppDatabase.getAppDatabase(context);
+        UserLoginDTO userLogin = (UserLoginDTO) loginRetrive("MontecitoLogin.txt");
         if (userLogin != null) {
             SessionInfo.getInstance().setUserLogin(userLogin);
             getUserProfile();
@@ -59,7 +63,7 @@ public class LoginScreen extends AppCompatActivity {
             startActivity(intent);
         }
         else {
-            LoginInput loginInput = inputRetrive();
+            LoginInput loginInput =(LoginInput) loginRetrive("MontecitoLoginDetails.txt");
             if (loginInput != null) {
                 login(loginInput);
             }
@@ -74,6 +78,8 @@ public class LoginScreen extends AppCompatActivity {
             //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
             //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
+            loggedIn=true;
+
 
             //montecitoName.setText(cs);
             loginButton.setOnClickListener(new View.OnClickListener() {
@@ -164,9 +170,8 @@ public class LoginScreen extends AppCompatActivity {
                     userLogin.setLastName(loginDTO.getLastName());
                     userLogin.setToken("Bearer "+loginDTO.getToken());
                     SessionInfo.getInstance().setUserLogin( userLogin);
-                    loginToFile(userLogin);
-                    storeInput(loginInput);
-                    loggedIn=true;
+                    loginToFile(userLogin,"MontecitoLogin.txt");
+                    loginToFile(loginInput,"MontecitoLoginDetails.txt");
 
 
                     getUserProfile();
@@ -197,16 +202,16 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-    public void loginToFile(UserLoginDTO customersLogin) {
-        File file = new File(getFilesDir(), FILE_NAME);
+    public void loginToFile(Object details,String fileName) {
+        File file = new File(getFilesDir(), fileName);
         file.delete();
 
         FileOutputStream outputStream;
 
         try {
-            outputStream = openFileOutput(FILE_NAME, LoginScreen.this.MODE_PRIVATE);
+            outputStream = openFileOutput(fileName, LoginScreen.this.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-            oos.writeObject(customersLogin);
+            oos.writeObject(details);
             outputStream.close();
         }
         catch (Exception e) {
@@ -214,10 +219,10 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    public UserLoginDTO loginRetrive() {
+    public Object loginRetrive(String fileName) {
         try {
-            ObjectInputStream ois = new ObjectInputStream(openFileInput(FILE_NAME));
-            UserLoginDTO r = (UserLoginDTO) ois.readObject();
+            ObjectInputStream ois = new ObjectInputStream(openFileInput(fileName));
+            Object r = (Object) ois.readObject();
             return r;
         }
         catch (Exception e) {
@@ -226,7 +231,7 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    public void storeInput(LoginInput userInput) {
+  /*  public void storeInput(LoginInput userInput) {
         File file = new File(getFilesDir(), INPUT_FILE_NAME);
         file.delete();
 
@@ -253,7 +258,7 @@ public class LoginScreen extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
     public void getUserProfile(){
         String token=SessionInfo.getInstance().getUserLogin().getToken();
         if(isNetworkAvailable()) {
@@ -263,20 +268,25 @@ public class LoginScreen extends AppCompatActivity {
                 public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
                     if (response.code()==200) {
                         UserProfileDTO  userProfile = response.body();
+                        userProfile.setHide(false);
                         SessionInfo.getInstance().setUserProfile(userProfile);
+                        addLocalUserProfile(db,userProfile);
                         if(loggedIn){
-                            sendRegistrationToServer(SessionInfo.getInstance().getRegisterDeviceToken());
+                            PushNotification pushNotificationToken=(PushNotification)loginRetrive("DeviceRegisterTokenFile.txt");
+                            if(pushNotificationToken!=null)
+                                sendRegistrationToServer(pushNotificationToken);
                         }
                        // addLocalUserProfile(db,userProfile);
                        // userId = userProfile.getId();
                        // System.out.print(userId);
 
                     }
-                    else {
-                        if (response.code() == 401 || response.code() == 403) {
-                            Toast.makeText(context," Error occured ",Toast.LENGTH_LONG).show();
-                        }
+                    else if (response.code() == 401 || response.code() == 403) {
+                        Intent intent = new Intent(LoginScreen.this, LoginScreen.class);
+                        startActivity(intent);
+
                     }
+
 
                 }
 
@@ -286,13 +296,17 @@ public class LoginScreen extends AppCompatActivity {
                 }
             });
         }
+        else{
+
+            UserProfileDTO  userProfile = getLocalUserProfile(db);
+            userProfile.setHide(true);
+            SessionInfo.getInstance().setUserProfile(userProfile);
+        }
     }
 
 
-    private void sendRegistrationToServer(String token) {
-        PushNotification pushNotification=new PushNotification();
-        pushNotification.setToken(token);
-        System.out.println("Token"+token);
+    private void sendRegistrationToServer(PushNotification pushNotification) {
+
         System.out.println("Token"+SessionInfo.getInstance().getUserLogin().getToken());
         System.out.println("userId"+SessionInfo.getInstance().getUserProfile().getId());
         if(isNetworkAvailable()) {
@@ -302,7 +316,7 @@ public class LoginScreen extends AppCompatActivity {
                 public void onResponse(Call<RegisterPushNotificationDTO> call, Response<RegisterPushNotificationDTO> response) {
                     if (response.code() == 200) {
                         RegisterPushNotificationDTO registerPushNotificationDTO = response.body();
-                        Log.d("Registration Status :",registerPushNotificationDTO.getStatus());
+                        Toast.makeText(context,"Registration Status : "+registerPushNotificationDTO.getStatus(),Toast.LENGTH_LONG).show();
 
                     } else if (response.code() == 401 || response.code() == 403) {
 
@@ -326,6 +340,17 @@ public class LoginScreen extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
+    }
+
+    private static void addLocalUserProfile(final AppDatabase db, UserProfileDTO userProfileDTO) {
+        db.userProfileDAO().deleteAll();
+        db.userProfileDAO().insertAll(userProfileDTO);
+
+    }
+    private static UserProfileDTO  getLocalUserProfile(final AppDatabase db)
+    {
+        return db.userProfileDAO().getAll();
+
     }
 
 
