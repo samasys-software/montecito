@@ -19,6 +19,10 @@ import com.matriot.cbin.ui.Home;
 import com.matriot.cbin.ui.LoginScreen;
 import com.matriot.cbin.ui.MontecitoBaseActivity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,10 +38,31 @@ public class FireBaseIdService extends FirebaseInstanceIdService {
 
             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Log.v("FirebaseIDService", "Refreshed token: " + refreshedToken);
-            SessionInfo.getInstance().setRegisterDeviceToken(refreshedToken);
+            PushNotification pushNotificationDTO=new PushNotification();
+            pushNotificationDTO.setToken(refreshedToken);
+        loginToFile(pushNotificationDTO,"DeviceRegisterTokenFile.txt");
+
 
            // sendRegistrationToServer(refreshedToken);
 
+    }
+
+    public void loginToFile(Object details,String fileName) {
+
+        File file = new File(getFilesDir(), fileName);
+        file.delete();
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(fileName, FireBaseIdService.this.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+            oos.writeObject(details);
+            outputStream.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

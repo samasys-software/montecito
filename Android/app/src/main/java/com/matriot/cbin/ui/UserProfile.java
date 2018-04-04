@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class UserProfile extends MontecitoBaseActivity {
     Context context;
     String userId;
     private  AppDatabase db;
-    UserProfileDTO userProfile;
+    UserProfileDTO userProfile=SessionInfo.getInstance().getUserProfile();
 
 
     @Override
@@ -48,7 +49,7 @@ public class UserProfile extends MontecitoBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         context=this;
-        db=AppDatabase.getAppDatabase(context);
+
         oldPassword=(EditText)findViewById(R.id.oldPassword);
         newPassword=(EditText)findViewById(R.id.newPassword);
         confirmPassword=(EditText)findViewById(R.id.confirmPassword);
@@ -73,39 +74,18 @@ public class UserProfile extends MontecitoBaseActivity {
                 clear();
             }
         });
-        String token=SessionInfo.getInstance().getUserLogin().getToken();
-        if(isNetworkAvailable()) {
-            final Call<UserProfileDTO> userProfileDTOCall = new MontecitoClient().getClient().getUserProfile(token);
-            userProfileDTOCall.enqueue(new Callback<UserProfileDTO>() {
-                @Override
-                public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
-                    if (response.code()==200) {
-                        userProfile = response.body();
-                        addLocalUserProfile(db,userProfile);
-                        userId = userProfile.getId();
-                        System.out.print(userId);
-                        setUserProfile();
-                    }
-                    else {
-                        if (response.code() == 401 || response.code() == 403) {
-                            Intent intent = new Intent(UserProfile.this, LoginScreen.class);
-                            startActivity(intent);
-                        }
-                    }
-                }
+        userId = userProfile.getId();
+        LinearLayout linearLayout=(LinearLayout)findViewById(R.id.ChangePasswordLayout);
 
-                @Override
-                public void onFailure(Call<UserProfileDTO> call, Throwable t) {
-
-                }
-            });
+        setUserProfile();
+        if(userProfile.isHide()){
+            linearLayout.setVisibility(View.GONE);
         }
         else{
-            userProfile = getLocalUserProfile(db);
-            userId = userProfile.getId();
-            System.out.print(userId);
-            setUserProfile();
+            linearLayout.setVisibility(View.VISIBLE);
         }
+
+
 
 
     }
@@ -231,15 +211,6 @@ public class UserProfile extends MontecitoBaseActivity {
          }
      }
 
-    private static void addLocalUserProfile(final AppDatabase db, UserProfileDTO userProfileDTO) {
-        db.userProfileDAO().deleteAll();
-        db.userProfileDAO().insertAll(userProfileDTO);
 
-    }
-    private static UserProfileDTO  getLocalUserProfile(final AppDatabase db)
-    {
-        return db.userProfileDAO().getAll();
-
-    }
 
 }
