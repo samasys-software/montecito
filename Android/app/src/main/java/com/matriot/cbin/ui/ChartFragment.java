@@ -140,7 +140,7 @@ public class ChartFragment extends Fragment  {
                             startActivity(intent);
                         }
                         else {
-                            //Toast.makeText(getActivity(), "Error occured!!!!", Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
@@ -221,7 +221,12 @@ public class ChartFragment extends Fragment  {
             for (int i = 0; i < consumptionItemInfo.size(); i++) {
                 data.add(new BarEntry((float) Double.parseDouble(consumptionItemInfo.get(i).getUsage()), i));
                 labels.add(i, consumptionItemInfo.get(i).getItem());
+
+
+
+
             }
+
         }
         else
         {

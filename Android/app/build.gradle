@@ -81,7 +81,8 @@ dependencies {
 
     //Push Notification Dependencies
 
-    compile 'com.google.firebase:firebase-core:12.0.0' // this line must be included to integrate with Firebase
+    compile 'com.google.firebase:firebase-core:12.0.0'
+    // this line must be included to integrate with Firebase
     compile 'com.google.firebase:firebase-messaging:12.0.0'
 
 }
