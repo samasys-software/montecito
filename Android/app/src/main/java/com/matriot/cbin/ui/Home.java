@@ -1,6 +1,7 @@
 package com.matriot.cbin.ui;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matriot.cbin.R;
@@ -60,7 +62,6 @@ public class Home extends MontecitoBaseActivity{
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +81,7 @@ public class Home extends MontecitoBaseActivity{
         mProgressDialog=getProgressDialog(context);
         mProgressDialog.show();
         String token = SessionInfo.getInstance().getUserLogin().getToken();
+
         if(isNetworkAvailable())
         {
             Log.d("message","You are Online");
