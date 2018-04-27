@@ -128,12 +128,18 @@ public class Home extends MontecitoBaseActivity{
             });
         }
         else{
-            Toast.makeText(context,"Your data is in Offline",Toast.LENGTH_LONG).show();
-            Log.d("message","You are Offline");
-            List<ItemAvailabilityDTO> itemAvailabilityDTOList = getAllItemAvailablities(db);
-            SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
-            listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
-            mProgressDialog.dismiss();
+           try {
+               Toast.makeText(context, "Your data is in Offline", Toast.LENGTH_LONG).show();
+               Log.d("message", "You are Offline");
+               List<ItemAvailabilityDTO> itemAvailabilityDTOList = getAllItemAvailablities(db);
+               SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
+               listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+               mProgressDialog.dismiss();
+           }
+           catch(NullPointerException e){
+               Intent intent=new Intent(Home.this,NetworkProblem.class);
+               startActivity(intent);
+           }
 
         }
 

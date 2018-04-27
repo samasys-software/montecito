@@ -268,7 +268,7 @@ public class LoginScreen extends AppCompatActivity {
                 public void onResponse(Call<UserProfileDTO> call, Response<UserProfileDTO> response) {
                     if (response.code()==200) {
                         UserProfileDTO  userProfile = response.body();
-                        userProfile.setHide(false);
+                        //userProfile.setHide(false);
                         SessionInfo.getInstance().setUserProfile(userProfile);
                         addLocalUserProfile(db,userProfile);
                         if(loggedIn){
@@ -298,9 +298,16 @@ public class LoginScreen extends AppCompatActivity {
         }
         else{
 
-            UserProfileDTO  userProfile = getLocalUserProfile(db);
-            userProfile.setHide(true);
-            SessionInfo.getInstance().setUserProfile(userProfile);
+           try {
+               UserProfileDTO userProfile = getLocalUserProfile(db);
+
+              // userProfile.setHide(true);
+               SessionInfo.getInstance().setUserProfile(userProfile);
+           }
+           catch(NullPointerException e){
+               Intent intent=new Intent(LoginScreen.this,NetworkProblem.class);
+               startActivity(intent);
+           }
         }
     }
 
