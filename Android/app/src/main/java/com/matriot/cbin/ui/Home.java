@@ -130,12 +130,18 @@ public class Home extends MontecitoBaseActivity{
             });
         }
         else{
-            Toast.makeText(context,"Your data is in Offline",Toast.LENGTH_LONG).show();
-            Log.d("message","You are Offline");
-            List<ItemAvailabilityDTO> itemAvailabilityDTOList = getAllItemAvailablities(db);
-            SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
-            listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
-            mProgressDialog.dismiss();
+           try {
+               Toast.makeText(context, "Your data is in Offline", Toast.LENGTH_LONG).show();
+               Log.d("message", "You are Offline");
+               List<ItemAvailabilityDTO> itemAvailabilityDTOList = getAllItemAvailablities(db);
+               SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
+               listView.setAdapter(new TaskListAdapter(Home.this, itemAvailabilityDTOList));
+               mProgressDialog.dismiss();
+           }
+           catch(NullPointerException e){
+               Intent intent=new Intent(Home.this,NetworkProblem.class);
+               startActivity(intent);
+           }
 
         }
 
@@ -210,20 +216,7 @@ public class Home extends MontecitoBaseActivity{
         getMenuInflater().inflate(R.menu.menu,((ActionMenuView)findViewById(R.id.actionMenuView)).getMenu());
         return true;
     }
-
-
-
-
-    public void logout(MenuItem item){
-        //TODO: Add code to remove the login authentication code file and call SessionInfo.destroy
-
-        Intent intent = new Intent(Home.this, LoginScreen.class);
-        startActivity(intent);
-    }
-
-
-
-
+    
 
 
     private static void addItemAvailablity(final AppDatabase db, List<ItemAvailabilityDTO> itemAvailabilityDTOList) {

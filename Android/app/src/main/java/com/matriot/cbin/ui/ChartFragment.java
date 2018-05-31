@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.components.XAxis;
 import com.matriot.cbin.R;
@@ -153,11 +154,17 @@ public class ChartFragment extends Fragment  {
 
             }
             else{
-                BarChart barChart = view.findViewById(R.id.chart);
+                try {
+                    BarChart barChart = view.findViewById(R.id.chart);
 
-                final List<ConsumptionItemDTO> consumptionInfo = getAllConsumptionItem(db);
-                //addConsumption(db, consumptionInfo);
-                updateChart(barChart, consumptionInfo,null);
+                    final List<ConsumptionItemDTO> consumptionInfo = getAllConsumptionItem(db);
+                    //addConsumption(db, consumptionInfo);
+                    updateChart(barChart, consumptionInfo, null);
+                }
+                catch(NullPointerException e){
+                    Intent intent=new Intent(getActivity(),NetworkProblem.class);
+                    startActivity(intent);
+                }
 
             }
         }
@@ -195,14 +202,21 @@ public class ChartFragment extends Fragment  {
                 });
             }
             else{
-                BarChart barChart = view.findViewById(R.id.chart);
+                try {
+                    BarChart barChart = view.findViewById(R.id.chart);
 
-                final List<ConsumptionCategoryDTO> consumptionCategoryInfo = getAllConsumptionCategory(db);
-                //addConsumption( db,consumptionInfo );
+                    final List<ConsumptionCategoryDTO> consumptionCategoryInfo = getAllConsumptionCategory(db);
+                    //addConsumption( db,consumptionInfo );
 
-                updateChart(barChart, null,consumptionCategoryInfo);
+                    updateChart(barChart, null, consumptionCategoryInfo);
+                }
+                catch(NullPointerException e){
+                    Intent intent=new Intent(getActivity(),NetworkProblem.class);
+                    startActivity(intent);
+                }
 
             }
+
         }
         else
         {

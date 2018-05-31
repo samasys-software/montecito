@@ -143,16 +143,19 @@ public abstract class ItemBinDetailsDAO {
             System.out.println("bin"+bin.getId());
 
             BinDimensionDTO binDimension=bin.getDimension();
-            binDimension.setBinId(bin.getId());
-            insertBinDimension(binDimension);
-            System.out.println("Dimension Inserted Successfully");
+            if(binDimension!=null) {
+                binDimension.setBinId(bin.getId());
+                insertBinDimension(binDimension);
+                System.out.println("Dimension Inserted Successfully");
+            }
 
-            System.out.println("bin"+bin.getBinType().getId());
+
 
            BinTypeDTO binType=bin.getBinType();
-            binType.setBinId(bin.getId());
-            insertBinType(binType);
-
+           if(binType!=null) {
+               binType.setBinId(bin.getId());
+               insertBinType(binType);
+           }
             ItemDTO item=itemBin.getItem();
             item.setItemBinId(itemBin.getId());
             insertItem(item);

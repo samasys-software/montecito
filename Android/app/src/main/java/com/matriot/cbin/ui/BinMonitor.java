@@ -175,10 +175,15 @@ public class BinMonitor extends MontecitoBaseActivity {
             });
         }
         else{
-            List<ItemBinDTO> binItem = getAllItemBins(db);
-            SessionInfo.getInstance().setItemBinDetails(binItem);
-            setBinData();
+           try {
+               List<ItemBinDTO> binItem = getAllItemBins(db);
+               SessionInfo.getInstance().setItemBinDetails(binItem);
+               setBinData();
+           }
 
+           catch(NullPointerException e){
+               Toast.makeText(context,"Your Data Is Not Sync...Please Check Your Internet Connection!",Toast.LENGTH_LONG).show();
+           }
         }
 
 
@@ -437,9 +442,15 @@ public class BinMonitor extends MontecitoBaseActivity {
             });
         }
         else{
-            List<ItemBinDTO> binItem = getAllItemBins(db);
-            SessionInfo.getInstance().setItemBinDetails(binItem);
-            setBinData();
+            try {
+                List<ItemBinDTO> binItem = getAllItemBins(db);
+                SessionInfo.getInstance().setItemBinDetails(binItem);
+                setBinData();
+            }
+            catch(NullPointerException e){
+                Intent intent=new Intent(BinMonitor.this,NetworkProblem.class);
+                startActivity(intent);
+            }
 
         }
 

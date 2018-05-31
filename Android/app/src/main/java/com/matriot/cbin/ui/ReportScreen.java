@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.charts.BarChart;
@@ -85,8 +86,16 @@ public class ReportScreen extends MontecitoBaseActivity {
             });
         }
         else{
-            CountDTO count = getLocalDevicesActiveCount(db);
-            activeCount.setText(String.valueOf(count.getCount()));
+            try {
+                CountDTO count = getLocalDevicesActiveCount(db);
+                activeCount.setText(String.valueOf(count.getCount()));
+            }
+            catch(NullPointerException e){
+                Intent intent=new Intent(ReportScreen.this,NetworkProblem.class);
+                startActivity(intent);
+                return;
+            }
+
         }
         if(isNetworkAvailable()) {
             final Call<OnTimeDTO> onTimeDTO = new MontecitoClient().getClient().getOnTime(SessionInfo.getInstance().getUserLogin().getToken());
@@ -120,9 +129,16 @@ public class ReportScreen extends MontecitoBaseActivity {
             });
         }
         else{
-            OnTimeDTO onTime =getLocalOnTime(db);
-            //getLocalOnTime(db, onTime);
-            donutProgress.setProgress(Float.valueOf(onTime.getPercent()));
+            try {
+                OnTimeDTO onTime = getLocalOnTime(db);
+                //getLocalOnTime(db, onTime);
+                donutProgress.setProgress(Float.valueOf(onTime.getPercent()));
+            }
+            catch(NullPointerException e){
+                Intent intent=new Intent(ReportScreen.this,NetworkProblem.class);
+                startActivity(intent);
+                return;
+            }
         }
         if(isNetworkAvailable()) {
             final Call<AverageDTO> averageDTO = new MontecitoClient().getClient().getAverage(SessionInfo.getInstance().getUserLogin().getToken());
@@ -158,8 +174,16 @@ public class ReportScreen extends MontecitoBaseActivity {
             });
         }
         else{
-            AverageDTO averageDTO = getLocalAverage(db);
-            circleProgress.setProgress(Float.valueOf(averageDTO.getAverage()));
+            try {
+                AverageDTO averageDTO = getLocalAverage(db);
+                circleProgress.setProgress(Float.valueOf(averageDTO.getAverage()));
+            }
+            catch(NullPointerException e){
+                Intent intent=new Intent(ReportScreen.this,NetworkProblem.class);
+                startActivity(intent);
+                return;
+
+            }
         }
 
         if(isNetworkAvailable()) {
@@ -192,8 +216,15 @@ public class ReportScreen extends MontecitoBaseActivity {
             });
         }
         else{
-            List<TopItemsDTO> topItems = getLocalTopItems(db);
-            updateChart(barChart, topItems);
+            try {
+                List<TopItemsDTO> topItems = getLocalTopItems(db);
+                updateChart(barChart, topItems);
+            }
+            catch(NullPointerException e){
+                Intent intent=new Intent(ReportScreen.this,NetworkProblem.class);
+                startActivity(intent);
+                return;
+            }
 
         }
 
@@ -203,47 +234,55 @@ public class ReportScreen extends MontecitoBaseActivity {
     }
 
     public void updateChart(BarChart barChart, List<TopItemsDTO> topItems){
-        List<BarEntry> data = new ArrayList<>();
-        final List<String> labels = new ArrayList<>();
-        if(topItems!=null) {
+        try {
+            List<BarEntry> data = new ArrayList<>();
+            final List<String> labels = new ArrayList<>();
+            if (topItems != null) {
 
-            for (int i = 0; i < topItems.size(); i++) {
-                data.add(new BarEntry(topItems.get(i).getQuantity(), i));
-                labels.add(i, topItems.get(i).getItem());
+                for (int i = 0; i < topItems.size(); i++) {
+                    data.add(new BarEntry(topItems.get(i).getQuantity(), i));
+                    labels.add(i, topItems.get(i).getItem());
+                }
             }
+            BarDataSet dataSet = new BarDataSet(data, "Top Items");
+
+            // barChart.setDescription("");
+            barChart.getAxisRight().setDrawLabels(false);
+            barChart.getAxisLeft().setDrawLabels(true);
+            barChart.getLegend().setEnabled(false);
+
+            barChart.getXAxis().setDrawLabels(true);
+            //barChart.setFitBars(true);
+
+            //barChart.getAxisLeft().setAxisMinimum(0f);
+
+            //dataSet.setColor(Color.BLUE);
+
+            dataSet.setValueTextColor(Color.WHITE);
+            barChart.getLegend().setTextColor(Color.WHITE);
+
+            barChart.getAxisLeft().setTextColor(Color.WHITE);
+            barChart.getXAxis().setTextColor(Color.WHITE);
+            barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+            barChart.getXAxis().setXOffset(0);
+            barChart.getXAxis().setTextSize(16);
+            dataSet.setColors(getColorsForChart(data.size(), Color.RED, Color.GREEN));
+
+            //Legend legend = barChart.getLegend();
+            //legend.setForm(Legend.LegendForm.CIRCLE);
+
+            BarData barData = new BarData(labels, dataSet);
+
+            barChart.setData(barData);
+            barChart.animateY(1000);
+            barChart.invalidate();
+            barData.setDrawValues(false);
         }
-        BarDataSet dataSet = new BarDataSet(data,"Top Items");
-
-        // barChart.setDescription("");
-        barChart.getAxisRight().setDrawLabels(false);
-        barChart.getAxisLeft().setDrawLabels(true);
-        barChart.getLegend().setEnabled(false);
-
-        barChart.getXAxis().setDrawLabels(true);
-        //barChart.setFitBars(true);
-
-        //barChart.getAxisLeft().setAxisMinimum(0f);
-
-        //dataSet.setColor(Color.BLUE);
-
-        dataSet.setValueTextColor(Color.WHITE);barChart.getLegend().setTextColor(Color.WHITE);
-
-        barChart.getAxisLeft().setTextColor(Color.WHITE);
-        barChart.getXAxis().setTextColor(Color.WHITE);
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        barChart.getXAxis().setXOffset(0);
-        barChart.getXAxis().setTextSize(16);
-        dataSet.setColors(getColorsForChart(data.size() , Color.RED , Color.GREEN));
-
-        //Legend legend = barChart.getLegend();
-        //legend.setForm(Legend.LegendForm.CIRCLE);
-
-        BarData barData = new BarData(labels,dataSet);
-
-        barChart.setData( barData );
-		barChart.animateY(1000);
-        barChart.invalidate();
-        barData.setDrawValues(false);
+        catch(IndexOutOfBoundsException e){
+            Intent intent=new Intent(ReportScreen.this,NetworkProblem.class);
+            startActivity(intent);
+            return;
+        }
 
     }
 
