@@ -43,10 +43,6 @@
         <activity android:name=".ui.UserProfile" />
         <activity android:name=".ui.ReportScreen" />
 
-        <activity android:name=".ui.NetworkProblem" />
-
-
-
 
         <service android:name=".FireBaseIdService">
             <intent-filter>

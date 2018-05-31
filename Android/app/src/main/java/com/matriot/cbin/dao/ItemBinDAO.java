@@ -58,8 +58,6 @@ public abstract class ItemBinDAO {
     @Query("SELECT * FROM item_bins")
     public abstract List<ItemBinDTO> getAll();
 
-
-
     @Query("SELECT * FROM bin WHERE itemBinId =:itemBinId")
     public abstract BinDTO getBinDetails(String itemBinId);
 
@@ -192,12 +190,6 @@ public abstract class ItemBinDAO {
 
         return itemBins;
     }
-
-
-
-
-
-
 
     public BinDTO getAllBins(String ItemBinId) {
         System.out.println("Bin Fetched entered");

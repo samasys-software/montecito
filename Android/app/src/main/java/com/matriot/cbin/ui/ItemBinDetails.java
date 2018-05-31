@@ -99,15 +99,9 @@ public class ItemBinDetails extends MontecitoBaseActivity
       }
       else
       {
-         try {
-             binItems = getAllItemBinDetails(db, itemBinId);
-             binItemPercentage.setText(numberFormat.format(binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
-             binDetails(false);
-         }
-         catch(NullPointerException e){
-             Intent intent=new Intent(ItemBinDetails.this,NetworkProblem.class);
-             startActivity(intent);
-         }
+          binItems = getAllItemBinDetails(db,itemBinId);
+          binItemPercentage.setText(numberFormat.format(binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
+          binDetails(false);
       }
 
         binButton.setOnClickListener(new View.OnClickListener()
@@ -191,17 +185,13 @@ public class ItemBinDetails extends MontecitoBaseActivity
         TextView binDimension=(TextView) findViewById(R.id.binDimension);
         TextView cBinIdentity=(TextView) findViewById(R.id.cBinIdentity);
         TextView rfid=(TextView) findViewById(R.id.rfid);
-           try{
+
             binName.setText(binItems.getCrateBin().getBrand() + ":" +binItems.getCrateBin().getName());
             binLocation.setText( binItems.getCurrDevice().getLocation());
             binType.setText(binItems.getCrateBin().getBinType().getName());
             binDimension.setText( binItems.getCrateBin().getDimension().getLength() + "X" + binItems.getCrateBin().getDimension().getWidth()+"X"+binItems.getCrateBin().getDimension().getHeight());
             rfid.setText(binItems.getRfId());
             cBinIdentity.setText(binItems.getCurrDevice().getName()+ "#" + binItems.getCurrDevice().getSlno());
-           }
-            catch(NullPointerException e){
-
-            }
     }
 
     public void ItemDetails()

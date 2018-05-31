@@ -78,11 +78,11 @@ public class UserProfile extends MontecitoBaseActivity {
         LinearLayout linearLayout=(LinearLayout)findViewById(R.id.ChangePasswordLayout);
 
         setUserProfile();
-        if(isNetworkAvailable()){
-            linearLayout.setVisibility(View.VISIBLE);
+        if(userProfile.isHide()){
+            linearLayout.setVisibility(View.GONE);
         }
         else{
-            linearLayout.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
         }
 
 
@@ -184,6 +184,8 @@ public class UserProfile extends MontecitoBaseActivity {
 
                         }
                     });
+                }
+                else {
                 }
             }
      }

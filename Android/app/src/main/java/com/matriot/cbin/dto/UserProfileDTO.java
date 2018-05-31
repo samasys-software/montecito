@@ -35,7 +35,8 @@ public class UserProfileDTO {
     @ColumnInfo(name="email")
     private String email;
 
-
+    @Ignore
+    private boolean hide;
 
 
     public String getEmail() {
@@ -72,5 +73,11 @@ public class UserProfileDTO {
         this.name = name;
     }
 
+    public boolean isHide() {
+        return hide;
+    }
 
+    public void setHide(boolean hide) {
+        this.hide = hide;
+    }
 }
