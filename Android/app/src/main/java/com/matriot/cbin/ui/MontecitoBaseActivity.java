@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -90,6 +91,7 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
 
             intent = new Intent(this, Home.class);
             startActivity(intent);
+            item.setVisible(false);
 
         }
         else if (id == R.id.nav_find) {
@@ -150,9 +152,10 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
 
             intent = new Intent(this, LoginScreen.class);
             startActivity(intent);
-        }else if (id == R.id.nav_remainder) {
+        }/*else if (id == R.id.nav_remainder) {
 
-        }
+        }*/
+
         return true;
     }
 

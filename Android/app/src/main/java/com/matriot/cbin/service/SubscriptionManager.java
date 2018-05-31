@@ -6,6 +6,8 @@ import android.util.Log;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -18,13 +20,27 @@ import java.util.Map;
 public class SubscriptionManager implements Runnable {
     private WebSocketClient mWebSocketClient;
     private Map<String ,SubscriptionListner> map = new HashMap<>();
+    private boolean doNotConnect=false;
 
+    public boolean isDoNotConnect() {
+        return doNotConnect;
+    }
+
+    public void setDoNotConnect(boolean doNotConnect) {
+        this.doNotConnect = doNotConnect;
+        try {
+            mWebSocketClient.close();
+        }
+        catch(Exception e){
+
+        }
+    }
 
     private  static SubscriptionManager subscriptionManager= new SubscriptionManager();
 
     private SubscriptionManager(){
-      Thread t = new Thread(this);
-      t.start();
+        startConnection();
+
     }
     public static SubscriptionManager getInstance(){
 
@@ -32,18 +48,22 @@ public class SubscriptionManager implements Runnable {
     }
 
     private void connectWebSocket() throws Exception{
+        if(doNotConnect){
+            return;
+        }
         URI uri;
 
 
-            uri = new URI("ws://ec2-52-91-5-22.compute-1.amazonaws.com:8080/montecito/event");
-
+            uri = new URI("ws://cbindev.matriotsolutions.com/primus?_primuscb=MDJGszT");
 
 
 
         mWebSocketClient = new WebSocketClient(uri) {
+
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
                 Log.i("Websocket", "Opened");
+
 
             }
 
@@ -54,18 +74,18 @@ public class SubscriptionManager implements Runnable {
                 try {
 
                     //This line are commented for the purpose of server data testing
+                     JSONObject jsonObject= new JSONObject(message);
+                     JSONArray emit = jsonObject.getJSONArray("emit");
+                     String type=emit.getString(0).split(":")[0];
+                     Log.i("Websocket Type",type);
+                     JSONObject array= emit.getJSONObject(1);
+                     if(map.containsKey(type))
+                         map.get(type).onMessage(array);
 
-//                             JSONObject jsonObject= new JSONObject(message);
-//                            String type = jsonObject.getString("type");
-//                            JSONArray array= jsonObject.getJSONArray("payload");
-//                            if(map.containsKey(type))
-//                            map.get(type).onMessage(array);
-
-                        }
-                        catch(Exception er){
-                            er.printStackTrace();
-
-                        }
+                }
+                catch(Exception er){
+                    er.printStackTrace();
+                }
 
             }
 
@@ -73,6 +93,8 @@ public class SubscriptionManager implements Runnable {
             @Override
             public void onClose(int i, String s, boolean b) {
                 Log.i("Websocket", "Closed " + s);
+               startConnection();
+
             }
 
             @Override
@@ -96,6 +118,7 @@ public class SubscriptionManager implements Runnable {
 
                 connectWebSocket();
 
+
                 break;
                 //Connection Sucessful ;
             } catch (Exception e) {
@@ -112,6 +135,12 @@ public class SubscriptionManager implements Runnable {
 
 
     }
+
+    private void startConnection(){
+        Thread t = new Thread(this);
+        t.start();
+    }
+
     /*public HashMap unSubscribe(String type , SubscriptionListner listner){
         if(type.equals()){
 

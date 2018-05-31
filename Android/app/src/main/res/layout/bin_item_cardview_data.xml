@@ -14,13 +14,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="110sp"
+            android:id="@+id/cardviewLayout"
+
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/name"
+                android:textColor="@color/black"
                 android:id="@+id/itemCount"
                 android:layout_gravity="center"/>
 
@@ -37,14 +39,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/capacity"
                 android:layout_gravity="center"
-                android:textColor="@color/name"/>
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/itemName"
                 android:layout_gravity="center"
-                android:textColor="@color/name"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 

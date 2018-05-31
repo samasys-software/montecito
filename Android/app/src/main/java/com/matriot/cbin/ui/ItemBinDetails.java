@@ -1,12 +1,15 @@
 package com.matriot.cbin.ui;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -361,6 +364,7 @@ public class ItemBinDetails extends MontecitoBaseActivity
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void replenishmentHistoryDetails()
     {
         ReplenishmentHistoryLayout = (ExpandableRelativeLayout) findViewById(R.id.ReplenishmentHistoryLayout);
@@ -369,6 +373,28 @@ public class ItemBinDetails extends MontecitoBaseActivity
         ListView listView;
         listView=(ListView) findViewById(R.id.replenishmentHistroy);
 
+        listView.setOnTouchListener(new ListView.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+
+        });
         if(ReplenishmentHistoryLayout.isExpanded())
         {
             replenishmentHistoryButton.setImageResource(R.drawable.downarrow);

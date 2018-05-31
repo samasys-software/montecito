@@ -23,6 +23,8 @@ import com.matriot.cbin.db.AppDatabase;
 import com.matriot.cbin.dto.ItemAvailabilityDTO;
 import com.matriot.cbin.service.MontecitoClient;
 import com.matriot.cbin.service.SessionInfo;
+import com.matriot.cbin.service.SubscriptionManager;
+import com.matriot.cbin.service.UISubscriptionListener;
 
 
 import org.java_websocket.client.WebSocketClient;
@@ -145,16 +147,33 @@ public class Home extends MontecitoBaseActivity{
             tab.requestLayout();
         }
 
-      /*  SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
+        SubscriptionManager.getInstance().subscribe("replenishmentTask", new UISubscriptionListener(this) {
 
 
             @Override
-            public void doOnUI(final JSONArray jsonArray) {
-                //updateTasks(jsonArray);      This line is commented for the purpose of server data testing
+            public void doOnUI(final JSONObject jsonArray) {
+                //ItemAvailabilityDTO itemAvailabilityDTOList = jsonArray;
+                List<ItemAvailabilityDTO> tasks=SessionInfo.getInstance().getMyReplenishmentTask();
+                for(int i=0;i<tasks.size();i++)
+                {
+                   try{
+                       if(tasks.get(i).getId().equals(jsonArray.getString("_id"))){
+                            SessionInfo.getInstance().getMyReplenishmentTask().get(i).setAvailable(jsonArray.getString("available"));
+                            SessionInfo.getInstance().getMyReplenishmentTask().get(i).setAvailablePercent(jsonArray.getString("availablePercent"));
+                            SessionInfo.getInstance().getMyReplenishmentTask().get(i).setStatus(jsonArray.getString("status"));
+                       }
+                   }
+                   catch (Exception e){
+
+                   }
+                }
+                addItemAvailablity(db,SessionInfo.getInstance().getMyReplenishmentTask());
+
+                listView.setAdapter(new TaskListAdapter(Home.this, SessionInfo.getInstance().getMyReplenishmentTask()));
 
             }
         });
-*/
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
