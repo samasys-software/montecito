@@ -288,7 +288,7 @@ public class BinMonitor extends MontecitoBaseActivity {
                                                             int selectedId=rg.getCheckedRadioButtonId();
                                                             selectedSortButton=(RadioButton) diaView.findViewById(selectedId);
                                                             String sortingValue=selectedSortButton.getText().toString();
-                                                            Toast.makeText(context,sortingValue+"HAi",Toast.LENGTH_LONG).show();
+                                                           // Toast.makeText(context,sortingValue+"HAi",Toast.LENGTH_LONG).show();
                                                             sortingAPI(value,sortingValue);
                                                         }
 

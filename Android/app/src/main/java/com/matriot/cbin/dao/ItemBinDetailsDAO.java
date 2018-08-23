@@ -130,79 +130,110 @@ public abstract class ItemBinDetailsDAO {
 
 
     public void insertAll(ItemBinDetailsDTO itemBin) {
+        if(itemBin!=null) {
 
-            String itemBinId=itemBin.getId();
+            String itemBinId = itemBin.getId();
 
-            BinDTO bin= itemBin.getCrateBin();
+            BinDTO bin = itemBin.getCrateBin();
+            if (bin != null) {
 
-            bin.setItemBinId(itemBin.getId());
+                bin.setItemBinId(itemBin.getId());
 
-            insertBin(bin);
-            System.out.println("Bin Inserted Successfully");
+                insertBin(bin);
+                System.out.println("Bin Inserted Successfully");
 
-            System.out.println("bin"+bin.getId());
+                System.out.println("bin" + bin.getId());
 
-            BinDimensionDTO binDimension=bin.getDimension();
-            binDimension.setBinId(bin.getId());
-            insertBinDimension(binDimension);
-            System.out.println("Dimension Inserted Successfully");
 
-            System.out.println("bin"+bin.getBinType().getId());
-
-           BinTypeDTO binType=bin.getBinType();
-            binType.setBinId(bin.getId());
-            insertBinType(binType);
-
-            ItemDTO item=itemBin.getItem();
-            item.setItemBinId(itemBin.getId());
-            insertItem(item);
-
-            ItemDimensionDTO itemDimension=item.getDimension();
-            itemDimension.setItemId(item.getId());
-            insertItemDimension(itemDimension);
-
-            ThresoldDTO thresold=itemBin.getThresold();
-            thresold.setItemBinId(itemBin.getId());
-            insertThresold(thresold);
-
-            DeviceDTO device=itemBin.getCurrDevice();
-            device.setItemBinId(itemBin.getId());
-            insertDevice(device);
-
-            ReadingDTO reading=itemBin.getLastReading();
-            reading.setItemBinId(itemBin.getId());
-            insertReading(reading);
-
-            ReadingValueDTO readingValue=reading.getReading();
-            readingValue.setReadingId(reading.getId());
-            insertReadingValue(readingValue);
-
-            List<ReplenishmentsDTO> replenishmentsDTO=itemBin.getReplenishments();
-            for(ReplenishmentsDTO replenishmentsDTO1:replenishmentsDTO){
-                replenishmentsDTO1.setItemBinId(itemBin.getId());
-                    ReplenishmentTaskDTO replenishmentTaskDTO=replenishmentsDTO1.getReplenishTask();
-                    replenishmentTaskDTO.setReplenishmentId(replenishmentsDTO1.getId());
-                    insertReplenishmentTask(replenishmentTaskDTO);
-            }
-            insertReplenishment(replenishmentsDTO);
-
-        ReplenishmentTaskDTO replenishmentTaskDTO=itemBin.getReplenishTask();
-        replenishmentTaskDTO.setItemBinId(itemBin.getId());
-        insertReplenishmentTask(replenishmentTaskDTO);
-
-        List<DeviceHistoryDTO> deviceHistoryDTOs=itemBin.getDeviceHistory();
-        for(DeviceHistoryDTO deviceHistoryDTO:deviceHistoryDTOs){
-
-                deviceHistoryDTO.setItemBinId(itemBin.getId());
-                LastDeviceDTO lastDeviceDTO=deviceHistoryDTO.getLastDevice();
-                if(lastDeviceDTO!=null) {
-                    lastDeviceDTO.setDeviceHistroyId(deviceHistoryDTO.getId());
-                    insertLastDevice(lastDeviceDTO);
+                BinDimensionDTO binDimension = bin.getDimension();
+                if (binDimension != null) {
+                    binDimension.setBinId(bin.getId());
+                    insertBinDimension(binDimension);
+                    System.out.println("Dimension Inserted Successfully");
                 }
-        }
-        insertDeviceHistroy(deviceHistoryDTOs);
 
-        inserItemBinDetails(itemBin);
+                BinTypeDTO binType = bin.getBinType();
+                if (binType != null) {
+
+                    System.out.println("bin" + bin.getBinType().getId());
+
+
+                    binType.setBinId(bin.getId());
+                    insertBinType(binType);
+                }
+            }
+
+            ItemDTO item = itemBin.getItem();
+            if (item != null) {
+                item.setItemBinId(itemBin.getId());
+                insertItem(item);
+
+                ItemDimensionDTO itemDimension = item.getDimension();
+                if (itemDimension != null) {
+                    itemDimension.setItemId(item.getId());
+                    insertItemDimension(itemDimension);
+                }
+            }
+
+            ThresoldDTO thresold = itemBin.getThresold();
+            if (thresold != null) {
+                thresold.setItemBinId(itemBin.getId());
+                insertThresold(thresold);
+            }
+
+            DeviceDTO device = itemBin.getCurrDevice();
+            if (device != null) {
+                device.setItemBinId(itemBin.getId());
+                insertDevice(device);
+            }
+
+            ReadingDTO reading = itemBin.getLastReading();
+            if (reading != null) {
+                reading.setItemBinId(itemBin.getId());
+                insertReading(reading);
+
+                ReadingValueDTO readingValue = reading.getReading();
+                if (readingValue != null) {
+                    readingValue.setReadingId(reading.getId());
+                    insertReadingValue(readingValue);
+                }
+            }
+
+            List<ReplenishmentsDTO> replenishmentsDTO = itemBin.getReplenishments();
+            if (replenishmentsDTO != null) {
+                for (ReplenishmentsDTO replenishmentsDTO1 : replenishmentsDTO) {
+                    replenishmentsDTO1.setItemBinId(itemBin.getId());
+                    ReplenishmentTaskDTO replenishmentTaskDTO = replenishmentsDTO1.getReplenishTask();
+                    if (replenishmentTaskDTO != null) {
+                        replenishmentTaskDTO.setReplenishmentId(replenishmentsDTO1.getId());
+                        insertReplenishmentTask(replenishmentTaskDTO);
+                    }
+                }
+                insertReplenishment(replenishmentsDTO);
+            }
+
+            ReplenishmentTaskDTO replenishmentTaskDTO = itemBin.getReplenishTask();
+            if (replenishmentTaskDTO != null) {
+                replenishmentTaskDTO.setItemBinId(itemBin.getId());
+                insertReplenishmentTask(replenishmentTaskDTO);
+            }
+
+            List<DeviceHistoryDTO> deviceHistoryDTOs = itemBin.getDeviceHistory();
+            if (deviceHistoryDTOs != null) {
+                for (DeviceHistoryDTO deviceHistoryDTO : deviceHistoryDTOs) {
+
+                    deviceHistoryDTO.setItemBinId(itemBin.getId());
+                    LastDeviceDTO lastDeviceDTO = deviceHistoryDTO.getLastDevice();
+                    if (lastDeviceDTO != null) {
+                        lastDeviceDTO.setDeviceHistroyId(deviceHistoryDTO.getId());
+                        insertLastDevice(lastDeviceDTO);
+                    }
+                }
+                insertDeviceHistroy(deviceHistoryDTOs);
+            }
+
+            inserItemBinDetails(itemBin);
+        }
     }
 
     public ItemBinDetailsDTO getAllItemBins(String itemBinId) {
