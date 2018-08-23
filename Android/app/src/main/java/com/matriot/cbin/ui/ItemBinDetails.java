@@ -62,10 +62,15 @@ public class ItemBinDetails extends MontecitoBaseActivity
         replenishmentHistoryButton=(ImageButton)findViewById(R.id.ReplenishmentHistoryButton);
         cbinMovementButton=(ImageButton)findViewById(R.id.cbinMovementButton);
         cBinListView=(ListView)findViewById(R.id.cbinMovement);
+        mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("One Moment Please..");
+
 
 
       if(isNetworkAvailable())
       {
+          mProgressDialog.show();
           final Call<ItemBinDetailsDTO> itemBinDetails = new MontecitoClient().getClient().getItemBinDetails(itemBinId, SessionInfo.getInstance().getUserLogin().getToken());
           System.out.println("New Item Bin Api Call");
           itemBinDetails.enqueue(new Callback<ItemBinDetailsDTO>()
@@ -80,12 +85,15 @@ public class ItemBinDetails extends MontecitoBaseActivity
 
                       binItemPercentage.setText(numberFormat.format(binItems.getLastReading().getReading().getWeight() / binItems.getThresold().getMax() * 100) + "%");
                       binDetails(false);
+                      mProgressDialog.cancel();
 
                   }
                   else {
                       if (response.code() == 401 || response.code() == 403) {
+                          mProgressDialog.cancel();
                           Intent intent = new Intent(ItemBinDetails.this, LoginScreen.class);
                           startActivity(intent);
+
                       }
                   }
               }
@@ -93,7 +101,7 @@ public class ItemBinDetails extends MontecitoBaseActivity
               @Override
               public void onFailure(Call<ItemBinDetailsDTO> call, Throwable t)
               {
-
+                  mProgressDialog.cancel();
               }
           });
       }
