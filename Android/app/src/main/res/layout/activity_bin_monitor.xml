@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#10000000"
+        android:background="@color/transparent_1"
         android:layout_marginTop="8dp"
         android:id="@+id/mainLayout"
         android:orientation="vertical">
@@ -17,9 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-
-        >
+        android:orientation="horizontal">
+      
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,9 +34,7 @@
                 android:text="Location"
                 android:id="@+id/locationTextHint"
                 android:gravity="top"
-                android:textColor="@color/name"
-
-                />
+                android:textColor="@color/name"/>
 
             <Spinner
                 android:id="@+id/location"
@@ -122,7 +119,7 @@
                     android:layout_marginLeft="@dimen/margin_10"
                     android:gravity="top"
                     android:id="@+id/down"/>
-
+              
             </LinearLayout>
 
           <!--  <LinearLayout

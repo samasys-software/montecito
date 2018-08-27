@@ -26,7 +26,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Aristo:FPO-35"
                 android:textSize="@dimen/size_15"
                 android:layout_marginLeft="@dimen/margin_5"
                 android:id="@+id/itemCount"
@@ -43,7 +42,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/capacity"
-                android:text="0.00%"
                 android:textSize="@dimen/size_15"
                 android:layout_gravity="center"
                 android:textColor="@color/black"/>
@@ -53,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/size_15"
                 android:id="@+id/itemName"
-                android:text="Slotted Head Machine Screws - DIN 84A"
                 android:layout_marginLeft="@dimen/margin_5"
                 android:layout_gravity="left"
                 android:textColor="@color/black"/>

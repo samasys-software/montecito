@@ -29,6 +29,7 @@
     <color name="critical">#FF0000</color>
     <color name="normal">#008000</color>
     <color name="reserve">#FFFF00</color>
+
     <color name="white">#fff</color>
     <color name="CircleText">#ffc86f</color>
     <color name="DonutBackground">#e6a998</color>

@@ -119,10 +119,9 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
 
             intent = new Intent(this, LoginScreen.class);
             startActivity(intent);
-        }else if (id == R.id.nav_remainder) {
-
+        }/*else if (id == R.id.nav_remainder) {
+        }*/
         }
-
         return true;
     }
 
