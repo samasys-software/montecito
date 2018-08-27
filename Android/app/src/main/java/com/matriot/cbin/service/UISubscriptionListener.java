@@ -3,6 +3,7 @@ package com.matriot.cbin.service;
 import android.app.Activity;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Created by kdsdh on 1/24/2018.
@@ -16,7 +17,7 @@ public abstract class UISubscriptionListener implements SubscriptionListner {
     }
 
     @Override
-    public void onMessage(final JSONArray jsonArray) {
+    public void onMessage(final JSONObject jsonArray) {
        activity.runOnUiThread(new Runnable(){
            @Override
            public void run() {
@@ -36,5 +37,5 @@ public abstract class UISubscriptionListener implements SubscriptionListner {
 
 
 
-    public abstract void  doOnUI(JSONArray jsonArray);
+    public abstract void  doOnUI(JSONObject jsonArray);
 }

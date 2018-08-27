@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,27 +9,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginTop="@dimen/margin_5"
         android:gravity="center"
-        android:text="My Replenishment Tasks"
-        android:textColor="@color/Heading"
-        android:textSize="25dp"
+        android:text="@string/title_head_home"
+        android:textColor="@color/name"
+        android:textSize="@dimen/size_25"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_10"
         android:layout_weight="1">
+
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/selector"
             android:listSelector="@android:color/transparent"
-            android:divider="#00000000"
+            android:divider="@color/transparent"
             android:dividerHeight="8dp"
             android:padding="0dp">
+
         </ListView>
 
     </LinearLayout>
@@ -39,29 +41,29 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#10000000"
+        android:background="@color/transparent_1"
         android:orientation="vertical"
         android:padding="5dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/title"
+            android:layout_marginBottom="@dimen/margin_5"
+            android:layout_marginTop="@dimen/margin_5"
+            android:textColor="@color/name"
             android:gravity="center"
             android:text="@string/title_activity_home"
-            android:textSize="20dp"
+            android:textSize="@dimen/size_20"
             android:textStyle="bold"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/TabSelected"
+            app:tabIndicatorColor="@color/name"
             android:background="@drawable/tab_border_bottom"
             app:tabTextColor="@color/TabUnSelect"
-            app:tabSelectedTextColor="@color/TabSelected"
+            app:tabSelectedTextColor="@color/name"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"/>
 
         <android.support.v4.view.ViewPager

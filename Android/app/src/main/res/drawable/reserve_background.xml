@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+            <!-- we define background color -->
+            <solid android:color="@color/bincolor"
+                />
+
+            <!-- we define border color and thick -->
+            <!--<stroke-->
+            <!--android:width="3dp"-->
+
+            <!--android:color="#5b8bc7" />-->
+
+            <!-- add some padding for text inside -->
+            <padding
+
+                android:top="0sp" />
+
+            <!-- we define corner radius, note that radius can be different for each corner -->
+            <corners android:topRightRadius="30sp" />
+
+        </shape>
+    </item>
+    <item android:top="50sp">
+        <shape
+            android:shape="rectangle">
+            <padding
+
+                android:top="7sp" />
+            <solid android:color="@color/reserve"/>
+
+        </shape>
+
+    </item>
+</layer-list>

@@ -95,11 +95,11 @@ public class UserProfile extends MontecitoBaseActivity {
 
         if(changePasswordLayout.isExpanded())
         {
-            changeButton.setImageResource(R.drawable.downarrow);
+            changeButton.setImageResource(R.drawable.ic_down);
         }
         else
         {
-            changeButton.setImageResource(R.drawable.uparrow);
+            changeButton.setImageResource(R.drawable.ic_up);
         }
     }
 

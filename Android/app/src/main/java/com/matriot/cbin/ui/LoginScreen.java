@@ -40,7 +40,7 @@ public class LoginScreen extends AppCompatActivity {
 
 
     EditText loginID,password;
-    TextView forgetPassword,montecitoName,newUser;
+    TextView forgetPassword,montecitoName,newUser,subHead;
     Button loginButton;
     Context context;
     View focusView = null;
@@ -48,7 +48,6 @@ public class LoginScreen extends AppCompatActivity {
     public static final String INPUT_FILE_NAME = "MontecitoLoginDetails.txt";
     private boolean loggedIn=false;
     private  AppDatabase db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +74,11 @@ public class LoginScreen extends AppCompatActivity {
             password = (EditText) findViewById(R.id.password);
             loginButton = (Button) findViewById(R.id.loginButton);
             forgetPassword = (TextView) findViewById(R.id.forgotPassword);
+            subHead = (TextView) findViewById(R.id.montecitoTopName);
             //SpannableStringBuilder cs = new SpannableStringBuilder("cBinTM");
             //cs.setSpan(new SuperscriptSpan(), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small>TM</small></sup>\t"));
+//            montecitoName.setText(Html.fromHtml("<sub><big>cBin</big></sub><sup><small></small></sup>\t"));
+//            subHead.setText(Html.fromHtml("<sub><big></big></sub><sup><small>TM</small></sup>\t"));
             loggedIn=true;
 
 

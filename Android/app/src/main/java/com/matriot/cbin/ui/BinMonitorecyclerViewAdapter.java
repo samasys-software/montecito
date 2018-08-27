@@ -3,10 +3,15 @@ package com.matriot.cbin.ui;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,19 +52,44 @@ public class BinMonitorecyclerViewAdapter extends RecyclerView.Adapter<BinMonito
     public void onBindViewHolder(final BinMonitorecyclerViewAdapter.ViewHolder holder, int position) {
 
         if(binItem.get(position).getCrateBin()!=null) {
+
+            if (binItem.get(position).getLastReading()!=null) {
+                if (binItem.get(position).getLastReading().getReading().getWeight() == 0) {
+                    holder.layout.setBackgroundResource(R.drawable.empty_background);
+                    //holder.gd.setColor(Color.RED);
+                    //value.lastReading.reading.status = "EMPTY";
+                }	else if (binItem.get(position).getLastReading().getReading().getWeight() <= binItem.get(position).getThresold().getMin()) {
+                    //value.lastReading.reading.status = "CRITICAL";
+                    //holder.gd.setColor(Color.parseColor("#FFA500"));
+                    holder.layout.setBackgroundResource(R.drawable.critical_background);
+                }	else if (binItem.get(position).getLastReading().getReading().getWeight() >= binItem.get(position).getThresold().getNormal()) {
+                    //holder.gd.setColor(Color.GREEN);
+                    //value.lastReading.reading.status = "ENOUGH";
+                    holder.layout.setBackgroundResource(R.drawable.enough_background);
+                }	else {
+                    //value.lastReading.reading.status = "RESERVE";
+                    //holder.gd.setColor(Color.YELLOW);
+                    holder.layout.setBackgroundResource(R.drawable.reserve_background);
+                }
+            }
+
             holder.itemCount.setText(binItem.get(position).getCrateBin().getBrand()+":"+binItem.get(position).getCrateBin().getName());
 
-            int capacity=(int)(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100);
-            holder.itemImage.setProgress(capacity);
-            holder.tv1.setText(String.valueOf(capacity)+"% ");
+            float capacity=(binItem.get(position).getLastReading().getReading().getWeight() / binItem.get(position).getThresold().getMax() * 100);
+            holder.itemImage.setProgress(Math.round(capacity));
+            holder.tv1.setText(String.valueOf(numberFormat.format(capacity))+"% ");
             holder.tv2.setText(binItem.get(position).getItem().getName());
+
+
+
+            //holder.gd.setColor(Color.RED);
             holder.position = position;
         }
 
       /*  ItemBinDTO availableBinItem=binItem.get(position);
         String status= availableBinItem.getStatus();
         if(status.equals("critical"))
-x        {
+        {
             holder.tv1.setTextColor(Color.RED);
         }
         else if(status.equals("low"))
@@ -84,6 +114,7 @@ x        {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView itemCount,tv1,tv2;
         public ProgressBar itemImage;
+        public LinearLayout layout;
         int position;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,6 +123,13 @@ x        {
             itemImage=(ProgressBar)itemView.findViewById(R.id.capacityImage);
             tv1=(TextView)itemView.findViewById(R.id.capacity);
             tv2=(TextView)itemView.findViewById(R.id.itemName);
+            layout=(LinearLayout)itemView.findViewById(R.id.cardviewLayout);
+            //layout.setBackgroundResource(R.drawable.rectangle_shape);
+          //  gd = (GradientDrawable) layout.getBackground().getCurrent();*/
+
+
+            //gd.setCornerRadii(new float[]{30, 30, 30, 30, 0, 0, 30, 30});
+           // gd.setStroke(2, Color.parseColor("#00FFFF"), 5, 6);
 
         }
 
@@ -105,6 +143,9 @@ x        {
 
         }
     }
+
+
+
     }
 
 

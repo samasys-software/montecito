@@ -60,6 +60,9 @@ public interface MontecitoService {
     @GET("api/itembins")
     public Call<List<ItemBinDTO>> getItemBinDTO(@Header("Authorization") String token );
 
+    @GET("api/itembins/{itemBinId}")
+    public Call<ItemBinDTO> getItemBinChangesDTO(@Path("itemBinId") String itemBinId ,@Header("Authorization") String token );
+
     @GET("api/itembins/{itemBinId}/summary")
     public Call<ItemBinDetailsDTO> getItemBinDetails( @Path("itemBinId") String itemBinId, @Header("Authorization") String token);
 

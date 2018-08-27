@@ -23,6 +23,8 @@ import com.matriot.cbin.db.AppDatabase;
 import com.matriot.cbin.dto.ItemAvailabilityDTO;
 import com.matriot.cbin.service.MontecitoClient;
 import com.matriot.cbin.service.SessionInfo;
+import com.matriot.cbin.service.SubscriptionManager;
+import com.matriot.cbin.service.UISubscriptionListener;
 
 
 import org.java_websocket.client.WebSocketClient;
@@ -59,9 +61,6 @@ public class Home extends MontecitoBaseActivity{
     Context context;
     private AppDatabase db;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,13 +84,11 @@ public class Home extends MontecitoBaseActivity{
         if(isNetworkAvailable())
         {
             Log.d("message","You are Online");
-
             final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
             itemAvailablityDTOCall.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
 
                 @Override
                 public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
-
                     if(response.code()==200) {
                         List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
                         SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
@@ -105,19 +102,14 @@ public class Home extends MontecitoBaseActivity{
                     {
                         File dir =getFilesDir();
                         File file = new File(dir, "MontecitoLogin.txt");
-
                         boolean deleted = file.delete();
                         SessionInfo.getInstance().destroy();
-
                         Intent intent = new Intent(Home.this, LoginScreen.class);
                         startActivity(intent);
                     }
                     else {
 
                     }
-
-
-
                 }
 
                 @Override
@@ -137,7 +129,6 @@ public class Home extends MontecitoBaseActivity{
 
         }
 
-
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
@@ -145,16 +136,33 @@ public class Home extends MontecitoBaseActivity{
             tab.requestLayout();
         }
 
-      /*  SubscriptionManager.getInstance().subscribe("availability", new UISubscriptionListener(this) {
+        SubscriptionManager.getInstance().subscribe("replenishmentTask", new UISubscriptionListener(this) {
 
 
             @Override
-            public void doOnUI(final JSONArray jsonArray) {
-                //updateTasks(jsonArray);      This line is commented for the purpose of server data testing
+            public void doOnUI(final JSONObject jsonArray) {
+                //ItemAvailabilityDTO itemAvailabilityDTOList = jsonArray;
+                List<ItemAvailabilityDTO> tasks=SessionInfo.getInstance().getMyReplenishmentTask();
+                for(int i=0;i<tasks.size();i++)
+                {
+                   try{
+                       if(tasks.get(i).getId().equals(jsonArray.getString("_id"))){
+                            SessionInfo.getInstance().getMyReplenishmentTask().get(i).setAvailable(jsonArray.getString("available"));
+                            SessionInfo.getInstance().getMyReplenishmentTask().get(i).setAvailablePercent(jsonArray.getString("availablePercent"));
+                            SessionInfo.getInstance().getMyReplenishmentTask().get(i).setStatus(jsonArray.getString("status"));
+                       }
+                   }
+                   catch (Exception e){
+
+                   }
+                }
+                addItemAvailablity(db,SessionInfo.getInstance().getMyReplenishmentTask());
+
+                listView.setAdapter(new TaskListAdapter(Home.this, SessionInfo.getInstance().getMyReplenishmentTask()));
 
             }
         });
-*/
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -192,20 +200,12 @@ public class Home extends MontecitoBaseActivity{
         return true;
     }
 
-
-
-
     public void logout(MenuItem item){
         //TODO: Add code to remove the login authentication code file and call SessionInfo.destroy
 
         Intent intent = new Intent(Home.this, LoginScreen.class);
         startActivity(intent);
     }
-
-
-
-
-
 
     private static void addItemAvailablity(final AppDatabase db, List<ItemAvailabilityDTO> itemAvailabilityDTOList) {
         db.itemAvailablityDAO().deleteAll();
