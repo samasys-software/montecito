@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="80sp"
+    android:background="#10000000">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="40sp"
+       android:layout_marginTop="8dp"
+       android:orientation="horizontal"
+       android:id="@+id/triggeredOnLayout">
+
+       <TextView
+           android:layout_height="wrap_content"
+           android:layout_width="wrap_content"
+           android:text="Triggered On:"
+           android:textStyle="bold"
+           android:textColor="@color/name"
+           android:layout_marginLeft="5dp"
+           android:layout_marginRight="5dp"
+           android:gravity="left"/>
+
+       <TextView
+           android:id="@+id/triggeredOn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="5dp"
+           android:layout_weight="1"
+           android:layout_marginRight="5dp"
+           android:textColor="@color/name"
+           android:gravity="left"/>
+
+   </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/qtyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/triggeredOnLayout">
+
+        <TextView
+            android:text="Quantity:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:layout_gravity="left"
+            android:textColor="@color/name"/>
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="left"
+            android:textColor="@color/name"/>
+
+        <TextView
+            android:text="percentage:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="right"
+            android:textColor="@color/name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/percentage"
+            android:layout_weight="1.5"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="right"
+            android:textColor="@color/name"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

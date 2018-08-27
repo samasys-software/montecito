@@ -1,11 +1,13 @@
 <resources>
 
-    <string name="app_name">Montecito</string>
+    <string name="app_name">cBin</string>
 
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_activity_item_bin_details">ItemBinDetails</string>
+
+    <string name="title_activity_home">Today Consumption Patterns</string>
 
 </resources>

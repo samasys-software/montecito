@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.matriot.cbin.ui.ReportScreen">
+
+        <LinearLayout
+            android:id="@+id/summaryDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3sp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.4">
+
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="93dp"
+                    android:layout_height="93dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:background="@drawable/box"
+                    android:textColor="@color/ReportText"
+                    android:textSize="50sp"
+                    tools:layout_editor_absoluteX="33dp"
+                    tools:layout_editor_absoluteY="159dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/count"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/name"
+                    android:text="Number of Active cBins" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4">
+
+                <com.github.lzyzsd.circleprogress.DonutProgress
+                    android:id="@+id/donut_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    app:donut_background_color="@color/DonutBackground"
+                    app:donut_finished_color="@color/ItemTitleColor"
+                    app:donut_unfinished_color="@color/name"
+                    app:donut_text_color="@color/name"
+                    app:donut_progress="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/donut_progress"
+                    android:layout_weight="1"
+                    android:textColor="@color/name"
+                    android:gravity="center"
+                    android:text="On-time Replenishment %" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.matriot.cbin.service.CircleProgressDesign
+                    android:id="@+id/circle_progress"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    app:circle_finished_color="@color/CircleText"
+                    app:circle_unfinished_color="@color/name"
+                    app:circle_text_color="@color/AlertTitleColor"
+                    app:circle_text_size="18dp"
+                    android:gravity="center"
+                    app:circle_progress="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/circle_progress"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Average Replenishment Batch %"
+                    android:textColor="@color/name" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/chartDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="350sp"
+            android:layout_weight="1"
+            android:background="#10000000"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_below="@+id/summaryDashboard">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/name"
+                android:gravity="center"
+                android:text="Top 5 Items"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/name"
+                android:gravity="center"
+                android:text="Replenishment Count"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/reportChart"
+                android:layout_width="match_parent"
+                android:background="#30000000"
+                android:layout_weight="1"
+                android:layout_marginTop="6sp"
+
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/pieDashboard"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="250sp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:visibility="gone"-->
+            <!--android:background="#10000000"-->
+            <!--android:orientation="vertical"-->
+            <!--android:padding="5dp"-->
+            <!--android:layout_below="@+id/chartDashboard">-->
+
+            <!--<com.github.mikephil.charting.charts.PieChart-->
+                <!--android:id="@+id/pieChart"-->
+                <!--android:layout_width="match_parent"-->
+				<!--android:background="#30000000"-->
+                <!--android:layout_weight="16"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="fitXY" />-->
+
+        <!--</LinearLayout>-->
+
+</RelativeLayout>
