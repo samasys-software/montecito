@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent">
-
-    <!--<item
-        android:id="@+id/nav_bar"
-        android:icon="@drawable/nav_theme"
-        android:title="home"
-        app:showAsAction="always"/>-->
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/home_theme"
+        android:icon="@drawable/ic_home"
         app:showAsAction="always"
         android:title="Home"/>
 
     <item
         android:id="@+id/nav_find"
-        android:icon="@drawable/find_theme"
+        android:icon="@drawable/ic_preview"
         app:showAsAction="always"
         android:title="Find"/>
 
     <item
         android:id="@+id/nav_chart"
-        android:icon="@drawable/report_theme"
+        android:icon="@drawable/ic_stats"
         app:showAsAction="always"
-        android:title="home"/>
+        android:title="Chart"/>
 
     <item
         android:id="@+id/nav_user"
-        android:icon="@drawable/account_theme"
+        android:icon="@drawable/ic_user"
         app:showAsAction="always"
         android:title="User Profile"/>
 
     <item
         android:id="@+id/nav_logout"
-        android:icon="@drawable/logout_theme"
+        android:icon="@drawable/ic_logout"
         app:showAsAction="always"
         android:title="Logout"/>
 
     <item
         android:id="@+id/nav_remainder"
-        android:icon="@drawable/remainder_theme"
+        android:icon="@drawable/ic_alarm"
         app:showAsAction="always"
         android:title="Remainder"/>
 

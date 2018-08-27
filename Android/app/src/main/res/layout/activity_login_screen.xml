@@ -1,123 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center_vertical"
-    android:gravity="center_horizontal"
-    android:background="@drawable/ic_login_background">
+    android:layout_height="match_parent">
 
+    <!--Logo icon-->
     <RelativeLayout
         android:id="@+id/rlimagemontecito"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/name">
+        android:layout_marginTop="@dimen/margin_15"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:layout_marginRight="@dimen/margin_5"
             app:srcCompat="@drawable/logo"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
             android:id="@+id/montecitoLogo"
             android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <!--Title text-->
+    <LinearLayout
         android:id="@+id/rlnamemontecito"
-        android:layout_width="wrap_content"
-        android:layout_height="90dp"
-        android:paddingTop="20dp">
+        android:layout_below="@+id/rlimagemontecito"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_20"
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/montecitoName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAlignment="center"
+            android:text="@string/title"
+            android:layout_marginRight="@dimen/margin_10"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/CompanyName"
-            android:textSize="40dp" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_40"/>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/montecitoTopName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:text="@string/sub"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_20"/>
 
+    </LinearLayout>
+
+    <!--Login text-->
     <RelativeLayout
-        android:id="@+id/rlmobile"
+        android:id="@+id/rl_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp">
+        android:layout_marginRight="@dimen/size_50"
+        android:layout_marginLeft="@dimen/size_50">
 
-        <EditText
-            style="@style/editText"
-            android:drawableLeft="@drawable/ic_person_white_24dp"
-            android:drawablePadding="7dip"
-            android:paddingLeft="5dp"
-            android:id="@+id/loginID"
-            android:singleLine="true"
-            android:hint="Enter Email ID"
-            android:layout_weight="4"
-            android:nextFocusDown="@+id/rlpin"
-            android:textAllCaps="false"/>
-
-        <View
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/num_layout"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="41dp"
-            android:background="#ffffff"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/email">
+
+            <EditText
+                style="@style/editText"
+                android:drawablePadding="7dip"
+                android:paddingLeft="5dp"
+                android:id="@+id/loginID"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:singleLine="true"
+                android:nextFocusDown="@+id/editText"
+                android:textAllCaps="false"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="41dp"-->
+            <!--android:background="@color/name"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rlpin"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:layout_marginRight="50dp"-->
+        <!--android:layout_marginLeft="50dp">-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pwd_layout"
+            android:layout_below="@+id/num_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/name"
+            android:hint="@string/password">
+
+            <EditText
+                style="@style/editText"
+                android:drawablePadding="7dip"
+                android:layout_marginTop="@dimen/margin_10"
+                android:paddingLeft="5dp"
+                android:id="@+id/password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textAllCaps="false"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="41dp"-->
+            <!--android:background="@color/name"/>-->
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlpin"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp">
-
-        <EditText
-            style="@style/editText"
-            android:drawableLeft="@drawable/ic_lock_white_24dp"
-            android:drawablePadding="7dip"
-            android:paddingLeft="5dp"
-            android:id="@+id/password"
-            android:hint="Enter Password"
-            android:layout_weight="4"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:textAllCaps="false"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="41dp"
-            android:background="#ffffff"/>
-
-    </RelativeLayout>
-
+    <!--Buttons-->
     <Button
         android:id="@+id/loginButton"
+        android:layout_below="@+id/rl_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:textColor="#f4ffe7"
+        android:textColor="@color/white"
         android:layout_marginTop="40dp"
         android:background="@drawable/button_style"
-        android:text="Login"/>
+        android:text="@string/login"/>
 
     <TextView
         android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Forgot Password ?"
-        android:textSize="18dp"
-        android:textColor="#e8e1d9"
+        android:text="@string/forgot"
+        android:textSize="@dimen/size_15"
+        android:textColor="@color/name"
         android:textStyle="italic"/>
 
-</LinearLayout>
+</RelativeLayout>

@@ -178,11 +178,11 @@ public class ItemBinDetails extends MontecitoBaseActivity
 
         if (expandableLayout1.isExpanded())
         {
-            binButton.setImageResource(R.drawable.downarrow);
+            binButton.setImageResource(R.drawable.ic_down);
         }
         else
         {
-            binButton.setImageResource(R.drawable.uparrow);
+            binButton.setImageResource(R.drawable.ic_up);
         }
 
         //RelativeLayout relativeLayout=(RelativeLayout) expandableLayout1.findViewById(R.id.bin);
@@ -226,11 +226,11 @@ public class ItemBinDetails extends MontecitoBaseActivity
 
         if(itemDetailsLayout.isExpanded())
         {
-            itemButton.setImageResource(R.drawable.downarrow);
+            itemButton.setImageResource(R.drawable.ic_down);
         }
         else
         {
-            itemButton.setImageResource(R.drawable.uparrow);
+            itemButton.setImageResource(R.drawable.ic_up);
         }
     }
 
@@ -245,11 +245,11 @@ public class ItemBinDetails extends MontecitoBaseActivity
 
         if(alertSettingsLayout.isExpanded())
         {
-            alertButton.setImageResource(R.drawable.downarrow);
+            alertButton.setImageResource(R.drawable.ic_down);
         }
         else
         {
-            alertButton.setImageResource(R.drawable.uparrow);
+            alertButton.setImageResource(R.drawable.ic_up);
         }
 
         if(binItems!=null)
@@ -363,11 +363,11 @@ public class ItemBinDetails extends MontecitoBaseActivity
 
         if(ReplenishmentDetailsLayout.isExpanded())
         {
-            replenishmentDetailsButton.setImageResource(R.drawable.downarrow);
+            replenishmentDetailsButton.setImageResource(R.drawable.ic_down);
         }
         else
         {
-            replenishmentDetailsButton.setImageResource(R.drawable.uparrow);
+            replenishmentDetailsButton.setImageResource(R.drawable.ic_up);
         }
 
     }
@@ -405,11 +405,11 @@ public class ItemBinDetails extends MontecitoBaseActivity
         });
         if(ReplenishmentHistoryLayout.isExpanded())
         {
-            replenishmentHistoryButton.setImageResource(R.drawable.downarrow);
+            replenishmentHistoryButton.setImageResource(R.drawable.ic_down);
         }
         else
         {
-            replenishmentHistoryButton.setImageResource(R.drawable.uparrow);
+            replenishmentHistoryButton.setImageResource(R.drawable.ic_up);
         }
 
         listView.setAdapter(new ReplenishmentHistroyAdapter(ItemBinDetails.this, binItems));
@@ -423,11 +423,11 @@ public class ItemBinDetails extends MontecitoBaseActivity
 
         if(cbinMovementLayout.isExpanded())
         {
-            cbinMovementButton.setImageResource(R.drawable.downarrow);
+            cbinMovementButton.setImageResource(R.drawable.ic_down);
         }
         else
         {
-            cbinMovementButton.setImageResource(R.drawable.uparrow);
+            cbinMovementButton.setImageResource(R.drawable.ic_up);
         }
 
         if(binItems!=null)

@@ -61,9 +61,6 @@ public class Home extends MontecitoBaseActivity{
     Context context;
     private AppDatabase db;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,13 +84,11 @@ public class Home extends MontecitoBaseActivity{
         if(isNetworkAvailable())
         {
             Log.d("message","You are Online");
-
             final Call<List<ItemAvailabilityDTO>> itemAvailablityDTOCall = new MontecitoClient().getClient().getItemAvailablityDTO(token);
             itemAvailablityDTOCall.enqueue(new Callback<List<ItemAvailabilityDTO>>() {
 
                 @Override
                 public void onResponse(Call<List<ItemAvailabilityDTO>> call, Response<List<ItemAvailabilityDTO>> response) {
-
                     if(response.code()==200) {
                         List<ItemAvailabilityDTO> itemAvailabilityDTOList = response.body();
                         SessionInfo.getInstance().setMyReplenishmentTask(itemAvailabilityDTOList);
@@ -107,19 +102,14 @@ public class Home extends MontecitoBaseActivity{
                     {
                         File dir =getFilesDir();
                         File file = new File(dir, "MontecitoLogin.txt");
-
                         boolean deleted = file.delete();
                         SessionInfo.getInstance().destroy();
-
                         Intent intent = new Intent(Home.this, LoginScreen.class);
                         startActivity(intent);
                     }
                     else {
 
                     }
-
-
-
                 }
 
                 @Override
@@ -138,7 +128,6 @@ public class Home extends MontecitoBaseActivity{
             mProgressDialog.dismiss();
 
         }
-
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
@@ -211,20 +200,12 @@ public class Home extends MontecitoBaseActivity{
         return true;
     }
 
-
-
-
     public void logout(MenuItem item){
         //TODO: Add code to remove the login authentication code file and call SessionInfo.destroy
 
         Intent intent = new Intent(Home.this, LoginScreen.class);
         startActivity(intent);
     }
-
-
-
-
-
 
     private static void addItemAvailablity(final AppDatabase db, List<ItemAvailabilityDTO> itemAvailabilityDTOList) {
         db.itemAvailablityDAO().deleteAll();

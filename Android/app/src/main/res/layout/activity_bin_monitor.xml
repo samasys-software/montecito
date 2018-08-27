@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#10000000"
+        android:background="@color/transparent_1"
         android:layout_marginTop="8dp"
         android:id="@+id/mainLayout"
         android:orientation="vertical">
@@ -17,9 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-
-        >
+        android:orientation="horizontal">
+      
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,9 +34,7 @@
                 android:text="Location"
                 android:id="@+id/locationTextHint"
                 android:gravity="top"
-                android:textColor="@color/name"
-
-                />
+                android:textColor="@color/name"/>
 
             <Spinner
                 android:id="@+id/location"
@@ -99,10 +96,9 @@
                    android:id="@+id/cardviewImage"
                    android:gravity="top"
                    android:visibility="gone"
-
-                  android:layout_marginTop="10dp"
+                   android:layout_marginTop="@dimen/margin_10"
+                   android:layout_marginBottom="@dimen/margin_10"
                    android:background="@drawable/cardview"/>
-
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -110,18 +106,20 @@
                     android:layout_marginLeft="10dp"
                     android:id="@+id/listViewImage"
                     android:gravity="top"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_10"
                     android:background="@drawable/listview"/>
 
                 <ImageButton
                     style="@style/header"
                     android:layout_weight="0"
                     android:background="@mipmap/sort"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
                     android:gravity="top"
-
                     android:id="@+id/down"/>
+              
             </LinearLayout>
 
           <!--  <LinearLayout
@@ -180,7 +178,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/margin_15"
         android:layout_below="@id/mainLayout"
         android:orientation="vertical">
 

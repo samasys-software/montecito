@@ -1,40 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="binTitleColor">#34495D</color>
-    <color name="binOddColor">#86C9D9</color>
-    <color name="binEvenColor">#cafffd</color>
-    <color name="ItemTitleColor">#68751D</color>
-    <color name="ItemOddColor">#A3C567</color>
-    <color name="ItemEvenColor">#D4DEB8</color>
-    <color name="AlertTitleColor">#AE5C25</color>
-    <color name="AlertOddColor"> #F5A456</color>
-    <color name="AlertEvenColor">#FDD1AE</color>
-    <color name="text_color">#484b4d</color>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#a48d70</color>
-    <color name="buttonColor">#21547c</color>
-    <color name="buttonStyle">#FFF</color>
-    <color name="linkUrlColor">#0061FF</color>
-    <color name="name">#ffffff </color>
-    <color name="highlight">#ffffff</color>
-    <color name="CompanyName">#8fd580</color>
-    <color name="Heading">#fff</color>
-    <color name="black">#000000</color>
-    <color name="title">#ffffff</color>
-    <color name="TabSelected">#ffffff</color>
+
+    <!--<color name="binTitleColor">#34495D</color>-->
+    <!--<color name="binOddColor">#86C9D9</color>-->
+    <!--<color name="binEvenColor">#cafffd</color>-->
+    <!--<color name="ItemOddColor">#A3C567</color>-->
+    <!--<color name="ItemEvenColor">#D4DEB8</color>-->
+    <!--<color name="AlertOddColor"> #F5A456</color>-->
+    <!--<color name="AlertEvenColor">#FDD1AE</color>-->
+    <!--<color name="text_color">#484b4d</color>-->
+    <!--<color name="buttonColor">#21547c</color>-->
+    <!--<color name="linkUrlColor">#0061FF</color>-->
+    <!--<color name="CompanyName">#8fd580</color>-->
+    <!--<color name="DonutBackgroundColor">#ffb349</color>-->
+
+    <!--<color name="highlight">#676a6c</color>-->
+    <!--<color name="Heading">#676a6c</color>-->
+    <!--<color name="title">#676a6c</color>-->
+    <!--<color name="TabSelected">#676a6c</color>-->
+    <!--<color name="buttonStyle">#676a6c</color>-->
+
+    <color name="colorPrimary">#676a6c</color>
+    <color name="colorPrimaryDark">#676a6c</color>
+    <color name="colorAccent">#676a6c</color>
+    <color name="TabUnSelect">#808080</color>
+    <color name="bincolor">#C0C0C0</color>
     <color name="low">#FFA500</color>
     <color name="critical">#FF0000</color>
     <color name="normal">#008000</color>
     <color name="reserve">#FFFF00</color>
-    <color name="TabUnSelect">#808080</color>
-    <color name="DonutBackgroundColor">#ffb349</color>
 
+    <color name="white">#fff</color>
     <color name="CircleText">#ffc86f</color>
     <color name="DonutBackground">#e6a998</color>
     <color name="ReportText">#4b1d6e</color>
-    <color name="bincolor">#C0C0C0</color>
+    <color name="AlertTitleColor">#AE5C25</color>
+    <color name="ItemTitleColor">#68751D</color>
+    <color name="name">#676a6c</color>
+    <color name="black">#000000</color>
 
+    <color name="transparent">#00000000</color>
+    <color name="transparent_1">#10000000</color>
+    <color name="transparent_3">#30000000</color>
+    <color name="transparent_4">#40000000</color>
 </resources>
 
 <!--

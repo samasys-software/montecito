@@ -7,9 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-
-
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -28,55 +25,46 @@
 
     <style name="editText" parent="@android:style/Widget.EditText">
         <!-- Customize your theme here. -->
-
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:textColorHint">#ffffff</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:paddingLeft">10dp</item>
+        <item name="android:textColorHint">@color/name</item>
+        <item name="android:textColor">@color/name</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:ems">10</item>
-
     </style>
 
     <style name="textView" >
         <!-- Customize your theme here. -->
-
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:gravity">top</item>
-
     </style>
 
     <style name="spinnerView" >
         <!-- Customize your theme here. -->
-
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@color/name</item>
         <item name="android:paddingBottom">2dp</item>
         <item name="android:visibility">visible</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginTop">4dp</item>
-
     </style>
 
     <style name="header" >
         <!-- Customize your theme here. -->
-
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:gravity">center</item>
-
         <item name="android:textSize">18dp</item>
+    </style>
 
+    <style name="AlertTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:editTextStyle">@style/editText</item>
     </style>
 
     <style name="AlertTheme" parent="Theme.AppCompat.Dialog.Alert">
@@ -91,7 +79,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="swichCompatDesign" >
-        <item name="colorControlActivated">#FFFFFF</item>
+        <item name="colorControlActivated">@color/name</item>
         <item name="colorSwitchThumbNormal">#874008</item>
     </style>
 
@@ -101,8 +89,5 @@
         <item name="android:minWidth">200dp</item>
         <item name="android:text">nothing</item>
     </style>
-
-
-
 
 </resources>

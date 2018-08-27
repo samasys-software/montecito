@@ -41,41 +41,25 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
-
     }
 
     @Override
     public void setContentView(int layoutId){
-
         LinearLayout fullView = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_montecito_base, null);
         context=this;
         FrameLayout activityContainer = (FrameLayout) fullView.findViewById(R.id.activity_content);
         getLayoutInflater().inflate(layoutId, activityContainer, true);
-
         initializeDrawer(fullView);
-
-
-             super.setContentView(fullView);
+        super.setContentView(fullView);
     }
 
     protected void initializeDrawer(LinearLayout linearLayout){
-
         Toolbar toolbar = (Toolbar) linearLayout.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
         ActionMenuView actionMenuView = (ActionMenuView)linearLayout.findViewById(R.id.actionMenuView);
         getMenuInflater().inflate(R.menu.menu,actionMenuView.getMenu());
         actionMenuView.setOnMenuItemClickListener(this);
-
-
-
-
     }
 
 
@@ -88,32 +72,21 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
 
         }
         else*/ if (id == R.id.nav_home) {
-
             intent = new Intent(this, Home.class);
             startActivity(intent);
-            item.setVisible(false);
-
         }
         else if (id == R.id.nav_find) {
-
             intent =new Intent(this, BinMonitor.class);
             startActivity(intent);
         }else if (id == R.id.nav_chart) {
             intent=new Intent(this,ReportScreen.class);
             startActivity(intent);
-
-
-
         } else if (id == R.id.nav_user) {
             intent=new Intent(this,UserProfile.class);
             startActivity(intent);
-
-
         } else if (id == R.id.nav_logout) {
-
             if(isNetworkAvailable()) {
                 PushNotification pushNotification=(PushNotification)loginRetrive("DeviceRegisterTokenFile.txt");
-
                 Call<RegisterPushNotificationDTO> registerDeviceCall = new MontecitoClient().getClient().unRegisterDevice(SessionInfo.getInstance().getUserProfile().getId(), pushNotification, SessionInfo.getInstance().getUserLogin().getToken());
                 registerDeviceCall.enqueue(new Callback<RegisterPushNotificationDTO>() {
                     @Override
@@ -121,15 +94,9 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
                         if (response.code() == 200) {
                             RegisterPushNotificationDTO registerPushNotificationDTO = response.body();
                             Toast.makeText(MontecitoBaseActivity.this,"Registration Status : "+registerPushNotificationDTO.getStatus(),Toast.LENGTH_LONG).show();
-
                         } else if (response.code() == 401 || response.code() == 403) {
-
-
-
                         } else {
-
                         }
-
                     }
 
                     @Override
@@ -153,13 +120,10 @@ public abstract class MontecitoBaseActivity extends AppCompatActivity implements
             intent = new Intent(this, LoginScreen.class);
             startActivity(intent);
         }/*else if (id == R.id.nav_remainder) {
-
         }*/
-
+        }
         return true;
     }
-
-
 
     public ProgressDialog getProgressDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
