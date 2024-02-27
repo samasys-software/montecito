@@ -390,15 +390,15 @@ public class BinMonitor extends MontecitoBaseActivity {
     private String getSortByValue(String selectedValue)
     {
         String values;
-        if(selectedValue.equalsIgnoreCase("By Item")){
+        if("By Item".equalsIgnoreCase(selectedValue)){
             //Collections.sort(binItem);
             values = "item";
         }
-        else if (selectedValue.equalsIgnoreCase("By Location"))
+        else if ("By Location".equalsIgnoreCase(selectedValue))
         {
             values = "location";
         }
-        else if (selectedValue.equalsIgnoreCase("By Stock"))
+        else if ("By Stock".equalsIgnoreCase(selectedValue))
         {
             values = "stock";
         }
