@@ -24,6 +24,7 @@ import com.matriot.cbin.domain.LoginInput;
 import com.matriot.cbin.dto.UserProfileDTO;
 import com.matriot.cbin.service.MontecitoClient;
 import com.matriot.cbin.service.SessionInfo;
+import io.github.pixee.security.ObjectInputFilters;
 
 
 
@@ -223,6 +224,7 @@ public class LoginScreen extends AppCompatActivity {
     public Object loginRetrive(String fileName) {
         try {
             ObjectInputStream ois = new ObjectInputStream(openFileInput(fileName));
+            ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
             Object r = (Object) ois.readObject();
             return r;
         }
