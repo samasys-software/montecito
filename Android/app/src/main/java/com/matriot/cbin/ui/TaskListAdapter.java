@@ -103,11 +103,11 @@ public class TaskListAdapter extends BaseAdapter {
 
 
 
-        if(status.equalsIgnoreCase("low"))
+        if("low".equalsIgnoreCase(status))
         {
             holder.tv4.setImageResource(R.drawable.ic_low_icon);
         }
-        else if(status.equalsIgnoreCase("normal")){
+        else if("normal".equalsIgnoreCase(status)){
             holder.tv4.setImageResource(R.drawable.ic_normal_icon);
         }
        else
